@@ -14,7 +14,7 @@ namespace Incog.wpf.Messages
     /// Coleccion (array) de Clases Message para permitir la configuracipón de los mensajes 
     /// usado en el control
     /// </summary>
-    [XmlRoot(ElementName = "ConfiguracionMensaje", Namespace = "")]
+    [XmlRoot(ElementName = "ConfigurationMessages", Namespace = "")]
     public class ConfigurationMessages : List<Message>
     {
         public ConfigurationMessages()

@@ -12,15 +12,8 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using IncogStuffControl.Services.ViewModel;
 using IncogStuffControl.Services;
-using IncogStuffControl.UtilControls.ModalMessageBox;
-using Incog.Utils;
-using Axede.WPF.CustomWindow;
 using IncogStuffControl.UserControls.Charges;
 
 namespace IncogStuffControl
@@ -112,7 +105,7 @@ namespace IncogStuffControl
         private void oMenuItemAddEmployee_Click(object sender, RoutedEventArgs e)
         {
             ChargeUC oUC_Charge = new ChargeUC();
-             MessageBoxResult Response = ViewWindow_Modal.Show(oUC_Charge, "Load Employees", oUC_Charge.BtnCancel);
+             MessageBoxResult Response = ViewWindow_Modal.Show(oUC_Charge, "Load Roster", oUC_Charge.BtnCancel);
         }
 
         private void oMenuItemNewEmployee_Click(object sender, RoutedEventArgs e)
@@ -141,7 +134,7 @@ namespace IncogStuffControl
                 }
                 else
                 {
-                   // MessageBoxModal.Show(Classutil.ResolveOwnerWindow(), "You already did Sign In: " + employeepriv.SignIn, "Information", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Cancel, true);
+                    //MessageBoxModal.Show(Classutil.ResolveOwnerWindow(), "You already did Sign In: " + employeepriv.SignIn, "Information", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Cancel, true);
                 }
                 IncImage.Visibility = Visibility.Hidden;
             }
@@ -165,23 +158,7 @@ namespace IncogStuffControl
             this.Dispose();
         }
 
-        //private async void MenuItem_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (sender is MenuItem)
-        //    {
-        //        MenuItem item = sender as MenuItem;
-        //        if (item.Name == "LoadEmply")
-        //        {
-        //            ChargeUC oUC_Charge = new ChargeUC();
-        //            MessageBoxResult Response = ViewWindow_Modal.Show(oUC_Charge, "Load Employees", oUC_Charge.BtnCancel);
-        //        }
-        //        if (item.Name == "Timesheets")
-        //        {
-                  
-
-        //        }
-        //    }
-        //}
+        
 
        
     }

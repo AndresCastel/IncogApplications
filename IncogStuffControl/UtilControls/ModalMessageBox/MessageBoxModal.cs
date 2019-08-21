@@ -35,7 +35,7 @@ using System.Windows.Shapes;
 
 namespace IncogStuffControl.UtilControls.ModalMessageBox
 {
-    public class MessageBoxModal : WindowControl
+    public class MessageBoxModal : Control
     {
         #region Private Members
 
@@ -60,7 +60,7 @@ namespace IncogStuffControl.UtilControls.ModalMessageBox
 
         static MessageBoxModal()
         {
-            DefaultStyleKeyProperty.OverrideMetadata( typeof( MessageBoxModal), new FrameworkPropertyMetadata( typeof( MessageBoxModal )));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(MessageBoxModal), new FrameworkPropertyMetadata(typeof(MessageBoxModal)));
         }
 
         internal MessageBoxModal()
@@ -141,7 +141,7 @@ namespace IncogStuffControl.UtilControls.ModalMessageBox
             }
         }
 
-        public static readonly DependencyProperty CloseButtonStyleProperty = DependencyProperty.Register( "CloseButtonStyle", typeof(Style), typeof(MessageBoxModal), new PropertyMetadata(null));
+        public static readonly DependencyProperty CloseButtonStyleProperty = DependencyProperty.Register("CloseButtonStyle", typeof(Style), typeof(MessageBoxModal), new PropertyMetadata(null));
         public Style CloseButtonStyle
         {
             get
