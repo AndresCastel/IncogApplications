@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="IncogStuffControl.UserControls.BreakUC"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sele="clr-namespace:IncogStuffControl.UserControls.Selectors"
+             mc:Ignorable="d" 
+              Height="auto" Width="auto">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+            <!--<CheckBox Name="chkNobreak" IsChecked="True" HorizontalAlignment="Left" VerticalAlignment="Bottom" TabIndex="12" Margin="5">No Break</CheckBox>
+            <CheckBox Name="chk15Min" HorizontalAlignment="Left" VerticalAlignment="Bottom" TabIndex="12" Margin="5">15 Minutes</CheckBox>
+            <CheckBox Name="chk30Min" HorizontalAlignment="Left" VerticalAlignment="Bottom" TabIndex="12" Margin="5">30 Minutes</CheckBox>
+            <CheckBox Name="chk45Min" HorizontalAlignment="Left" VerticalAlignment="Bottom" TabIndex="12" Margin="5">45 Minutes</CheckBox>
+            <CheckBox Name="chk60Min" HorizontalAlignment="Left" VerticalAlignment="Bottom" TabIndex="12" Margin="5">60 Minutes</CheckBox>-->
+            <RadioButton Margin="5" IsChecked="True"  Name="chkNobreak" Click="Chkrbt_Click" GroupName="colorgrp">No Break</RadioButton>
+            <RadioButton Margin="5" Name="chk15Min" Click="Chkrbt_Click" GroupName="colorgrp">15 Minutes</RadioButton>
+            <RadioButton Margin="5" Name="chk30Min" Click="Chkrbt_Click" GroupName="colorgrp">30 Minutes</RadioButton>
+            <RadioButton Margin="5" Name="chk45Min" Click="Chkrbt_Click" GroupName="colorgrp">45 Minutes</RadioButton>
+            <RadioButton Margin="5" Name="chk60Min" Click="Chkrbt_Click" GroupName="colorgrp">60 Minutes</RadioButton>
+        </StackPanel>
+        <StackPanel  Name="canvas1"  Orientation="Horizontal" HorizontalAlignment="Center" >
+            <Button Name="btnSave" Margin="0,0,15,0" Height="35" Width="75" Click="btnSave_Click" Content="Save" IsManipulationEnabled="True" TabIndex="6"></Button>
+            <Button Name="btnCancel" Height="35" Width="75" Content="Cancel" Click="btnCancel_Click" ></Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

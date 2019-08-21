@@ -1,0 +1,36 @@
+﻿<CustomWindow:StandardWindow x:Class="IncogStuffControl.UtilControls.ViewModal.ViewWindow_Modal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:CustomWindow="clr-namespace:Axede.WPF.CustomWindow;assembly=Axede.WPF.CustomWindow"
+        Title="" Height="auto" Width="auto" x:Name="win" WindowStyle="None" ResizeMode="NoResize"  
+        SizeToContent="WidthAndHeight"  SnapsToDevicePixels="False"   Caption="prueba"
+        AllowsTransparency="True" ShowInTaskbar="False"   Deactivated="win_Deactivated"  
+        WindowStartupLocation="CenterScreen" BorderThickness="15,15,15,15" Background="Transparent" SizeChanged="win_SizeChanged"
+        MaximizeButtonState="None" MinimizeButtonState="None" CloseButtonState="None" >
+    <Border Background="#21000000" Visibility="{Binding Visibility}">
+        <Border Name="border" BorderBrush="Gray" Background="White" BorderThickness="1" Padding="0" Margin="0" CornerRadius="0,0,5,5" >
+            <Border.BitmapEffect>
+                <DropShadowBitmapEffect Color="Black" Opacity="0.5" Direction="270" ShadowDepth="0.7" />
+            </Border.BitmapEffect>
+            <!--<a:AnimatedStackPanel Margin="0" Name="stackpanel" Height="auto" Width="auto">-->
+            <Grid Margin="0" Name="stackpanel" Height="auto" Width="auto">
+                <!--<a:AnimatedGrid>-->
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="12" />
+                        <ColumnDefinition Width="10*" />
+                        <ColumnDefinition Width="12" />
+                    </Grid.ColumnDefinitions>
+                    <ScrollViewer Grid.Column="1" Name="sb" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <ContentControl Name="UC" Margin="15,2" />
+                    </ScrollViewer>
+
+                    <!--</a:AnimatedGrid>-->
+                </Grid>
+
+                <!--</a:AnimatedStackPanel>-->
+            </Grid>
+        </Border>
+    </Border>
+</CustomWindow:StandardWindow>

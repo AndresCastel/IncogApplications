@@ -1,0 +1,222 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:IncogStuffControl.Themes">
+    <LinearGradientBrush x:Key="NormalBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#FFF" Offset="0.0"/>
+                <GradientStop Color="#CCC" Offset="1.0"/>
+            </GradientStopCollection>
+        </GradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="LightBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#FFF" Offset="0.0"/>
+                <GradientStop Color="#EEE" Offset="1.0"/>
+            </GradientStopCollection>
+        </GradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="DarkBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#FFF" Offset="0.0"/>
+                <GradientStop Color="#AAA" Offset="1.0"/>
+            </GradientStopCollection>
+        </GradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="PressedBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#BBB" Offset="0.0"/>
+                <GradientStop Color="#EEE" Offset="0.1"/>
+                <GradientStop Color="#EEE" Offset="0.9"/>
+                <GradientStop Color="#FFF" Offset="1.0"/>
+            </GradientStopCollection>
+        </GradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
+    <SolidColorBrush x:Key="DisabledBackgroundBrush" Color="#EEE" />
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="White" />
+    <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#DDD" />
+
+    <!-- Border Brushes -->
+
+    <LinearGradientBrush x:Key="NormalBorderBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#CCC" Offset="0.0"/>
+                <GradientStop Color="#444" Offset="1.0"/>
+            </GradientStopCollection>
+        </GradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="HorizontalNormalBorderBrush" StartPoint="0,0" EndPoint="1,0">
+        <GradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#CCC" Offset="0.0"/>
+                <GradientStop Color="#444" Offset="1.0"/>
+            </GradientStopCollection>
+        </GradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="DefaultedBorderBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#777" Offset="0.0"/>
+                <GradientStop Color="#000" Offset="1.0"/>
+            </GradientStopCollection>
+        </GradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="SplashFill" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#9DB9EF" Offset="0" />
+        <GradientStop Color="White" Offset="1" />
+        <GradientStop Color="White" Offset="0.72" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="SplashOpasityMask" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#00000000" Offset="0.283"/>
+        <GradientStop Color="#00000000" Offset="0.778"/>
+        <GradientStop Color="White" Offset="0.491"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="PressedBorderBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#444" Offset="0.0"/>
+                <GradientStop Color="#888" Offset="1.0"/>
+            </GradientStopCollection>
+        </GradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="DisabledBorderBrush" Color="Black" />
+
+    <SolidColorBrush x:Key="SolidBorderBrush" Color="Black" />
+
+    <SolidColorBrush x:Key="LightBorderBrush" Color="Black" />
+
+    <!-- Miscellaneous Brushes -->
+    <SolidColorBrush x:Key="GlyphBrush" Color="White" />
+    <SolidColorBrush x:Key="LightColorBrush" Color="Black" />
+
+
+
+    <!--BOTON MENU-->
+    <Style x:Key="BtnMenuStyle" TargetType="Button" >
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Height" Value="60"/>
+        <Setter Property="Width" Value="60"/>
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Image Source="{Binding Tag, RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Button}}}"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderThickness" Value="1,0,1,1">
+
+        </Setter>
+    </Style>
+    <!--BOTON MENU FIN-->
+    <!--LABEL BOTON MENU-->
+    <Style x:Key="LblMenuStyle" TargetType="{x:Type Label}">
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+        <Setter Property="FontFamily" Value="MV Boli" />
+    </Style>
+    <!--LABEL BOTON MENU FIN-->
+    <!--TEXTBLOCK TITULO MENU-->
+    <Style x:Key="txbTituloStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+        <Setter Property="FontFamily" Value="Gabriola" />
+        <Setter Property="FontSize" Value="20" />
+    </Style>
+    <!--TEXTBLOCK TITULO MENU FIN-->
+    <!--MENU GESTION COBRO FIN-->
+    <!--CONTROLES APLICACION FIN-->
+
+    <!--SPLASH-->
+    <Style x:Key="GridSplash" TargetType="{x:Type Grid}">
+        <Setter Property="Background" Value="{StaticResource SplashFill}" />
+        <!--<Setter Property="OpacityMask" Value="{StaticResource SplashOpasityMask}"/>-->
+    </Style>
+    <!--SPLASH FIN-->
+
+    <!--USER CONTROLS-->
+    <!--BOTONES USER CONTROLS-->
+    <Style x:Key="EstiloControlGlass" TargetType="Button">
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.75,1" StartPoint="0.25,0">
+                    <GradientStop Color="#33FFFFFF" Offset="0"/>
+                    <GradientStop Color="#C0FFFFFF" Offset="0.287"/>
+                    <GradientStop Color="#4011322D" Offset="0.683"/>
+                    <GradientStop Color="#33FFFFFF" Offset="1"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#5811322D" Offset="0"/>
+                    <GradientStop Color="#3EFFFFFF" Offset="0.25"/>
+                    <GradientStop Color="#FFFFFFFF" Offset="0.5"/>
+                    <GradientStop Color="#3EFFFFFF" Offset="0.75"/>
+                    <GradientStop Color="#BFFFFFFF" Offset="1"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="3" ShadowDepth="3" Opacity="0.5"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--BOTONES USER CONTROLS FIN-->
+    <!--LABELS USER CONTROLS-->
+    <Style x:Key="LblUCStyle" TargetType="{x:Type Label}">
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Width" Value="160" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+        <Setter Property="FontFamily" Value="MV Boli" />
+    </Style>
+    <!--Combobox USER CONTROLS-->
+    <Style x:Key="cmbUCStyle" TargetType="{x:Type ComboBox}">
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Width" Value="160" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+        <Setter Property="FontFamily" Value="MV Boli" />
+        <Setter Property="Width" Value="150" />
+    </Style>
+    <!--LABELS USER CONTROLS FIN-->
+    <!--TEXTBOX USER CONTROLS-->
+    <Style x:Key="txtUCStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Width" Value="150" />
+        <Setter Property="FontSize" Value="15" />
+    </Style>
+    <!--TEXTBOX USER CONTROLS FIN-->
+    <!--CHECKBOX USER CONTROLS-->
+    <Style x:Key="chkUCStyle" TargetType="{x:Type CheckBox}">
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="Width" Value="auto" />
+    </Style>
+
+
+</ResourceDictionary>
