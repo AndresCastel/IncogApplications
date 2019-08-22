@@ -64,5 +64,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Incog.Utils\Incog.Utils.csproj">
+      <Project>{01141362-bac9-46b6-9985-3d61ff9fe5b3}</Project>
+      <Name>Incog.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

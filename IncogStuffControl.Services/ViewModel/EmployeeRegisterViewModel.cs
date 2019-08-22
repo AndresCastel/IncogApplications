@@ -12,8 +12,9 @@ namespace IncogStuffControl.Services.ViewModel
         public EmployeeViewModel Employee { get; set; }
         public int Type_RegisterId { get; set; }
         public bool Active { get; set; }
-        public DateTime SignIn { get; set; }
-        public DateTime Signoff { get; set; }
+        public DateTime Day { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
         public int Break { get; set; }
         public List<StuffAssignViewModel> lstStuffAssig { get; set; }
 

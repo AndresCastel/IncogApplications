@@ -1,5 +1,6 @@
 ﻿using IncogStuffControl.Services;
 using IncogStuffControl.Services.ViewModel;
+using IncogStuffControl.UtilControls.ModalMessageBox;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,7 +30,7 @@ namespace IncogStuffControl.UserControls.Scan
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
-           
+
         /// Método que permite hacer el raise del evento de cambio de propiedad.
         /// </summary>
         /// <param name="info">Propiedad que está cambiando</param>
@@ -58,24 +59,35 @@ namespace IncogStuffControl.UserControls.Scan
 
 
         }
+       
 
         private async void txtScan_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            //var dtaet = timeConversion(DateTime.Now.ToString());
             //uncomment when scan is working
             if (txtScan.Text.Length >= 12)
             {
-                EmployeeRegisterViewModel responseObj = await ServiceEmployee.GetEmployee(txtScan.Text);
+                MessageResponseViewModel<EmployeeRegisterViewModel> responseObj = await ServiceEmployee.GetEmployee(txtScan.Text);
                 if (responseObj != null)
                 {
-                    employee = responseObj;
-                }
-                else
-                {
-                    MessageBox.Show("This employee does not exist on our system");
-                }
+                    if (responseObj.Succesfull != false)
+                    {
+                        if (responseObj.Data != null)
+                        {
 
-                txtScan.Text = string.Empty;
+                            employee = (EmployeeRegisterViewModel)responseObj.Data;
+                        }
+                        else
+                        {
+                            MessageBoxModal.Show(responseObj.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBoxModal.Show(responseObj.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    txtScan.Text = string.Empty;
+                }
             }
         }
 

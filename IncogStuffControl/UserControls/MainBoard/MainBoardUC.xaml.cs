@@ -188,19 +188,19 @@ namespace IncogStuffControl.UserControls.MainBoard
             {
                 //Sign In
                 case 1:
-                    if (employeepriv.Type_RegisterId == 1 && employeepriv.SignIn != DateTime.MinValue)
-                    {
-                        MessageBoxModal.Show(ClassMethodUtil.ResolveOwnerWindow(), "You already did Sign In: " + employeepriv.SignIn, "Information", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.No, true);
-                        return;
-                    }
+                    //if (employeepriv.Type_RegisterId == 1 && employeepriv.SignIn != DateTime.MinValue)
+                    //{
+                    //    MessageBoxModal.Show(ClassMethodUtil.ResolveOwnerWindow(), "You already did Sign In: " + employeepriv.SignIn, "Information", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.No, true);
+                    //    return;
+                    //}
                     break;
                 //Sign off
                 case 2:
-                    if (employeepriv.Type_RegisterId != 1 || employeepriv.SignIn == DateTime.MinValue)
-                    {
-                        MessageBoxModal.Show(ClassMethodUtil.ResolveOwnerWindow(), "You have not signed In", "Information", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Cancel, true);
-                        return;
-                    }
+                    //if (employeepriv.Type_RegisterId != 1 || employeepriv.SignIn == DateTime.MinValue)
+                    //{
+                    //    MessageBoxModal.Show(ClassMethodUtil.ResolveOwnerWindow(), "You have not signed In", "Information", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Cancel, true);
+                    //    return;
+                    //}
                     BreakUC oUC_Break = new BreakUC();
                     MessageBoxResult Response = ViewWindow_Modal.Show(oUC_Break, "Break", oUC_Break.btnCancel);
                     if (Response == MessageBoxResult.Cancel)
@@ -214,11 +214,11 @@ namespace IncogStuffControl.UserControls.MainBoard
                     }
                     break;
                 case 3://Equipment
-                    if (employeepriv.Type_RegisterId != 1 || employeepriv.SignIn == DateTime.MinValue)
-                    {
-                        MessageBoxModal.Show(ClassMethodUtil.ResolveOwnerWindow(), "You have not signed In", "Information", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Cancel, true);
-                        return;
-                    }
+                    //if (employeepriv.Type_RegisterId != 1 || employeepriv.SignIn == DateTime.MinValue)
+                    //{
+                    //    MessageBoxModal.Show(ClassMethodUtil.ResolveOwnerWindow(), "You have not signed In", "Information", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Cancel, true);
+                    //    return;
+                    //}
                     break;
                 default:
                     break;
@@ -232,11 +232,11 @@ namespace IncogStuffControl.UserControls.MainBoard
             switch (Type_Checked)
                 {
                     case 1:
-                        EmployeeRegister.SignIn = DateTime.Now;
+                        EmployeeRegister.Day = DateTime.Now.Date;
                         break;
                     case 2:
-                        EmployeeRegister.SignIn = employeepriv.SignIn;
-                        EmployeeRegister.Signoff = DateTime.Now;
+                        //EmployeeRegister.SignIn = employeepriv.SignIn;
+                        //EmployeeRegister.Signoff = DateTime.Now;
                     EmployeeRegister.Active = false;
                     break;
                     default:
@@ -493,7 +493,7 @@ namespace IncogStuffControl.UserControls.MainBoard
 
                 EmployeeRegister.lstStuffAssig = lstAssignstuff;
 
-                MessageResponseViewModel responseObj = await ServiceEmployee.RegisterEmployeeStuff(EmployeeRegister);
+                MessageResponseViewModel<EmployeeRegisterViewModel> responseObj = await ServiceEmployee.RegisterEmployeeStuff(EmployeeRegister);
                 if (!responseObj.Succesfull)
                 {
                     MessageBoxModal.Show(ClassMethodUtil.ResolveOwnerWindow(), responseObj.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Cancel, true);

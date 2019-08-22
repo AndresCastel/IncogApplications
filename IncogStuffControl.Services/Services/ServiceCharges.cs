@@ -1,4 +1,5 @@
-﻿using IncogStuffControl.Services.ViewModel;
+﻿using Incog.Utils;
+using IncogStuffControl.Services.ViewModel;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,11 @@ namespace IncogStuffControl.Services.Services
 {
     public class ServiceCharges
     {
-        public static async Task<MessageResponseViewModel> ChageRoster(List<RosterCViewModel> lstRoster)
+        public static async Task<MessageResponseViewModel<RosterWM>> ChageRoster(List<RosterCViewModel> lstRoster)
         {
             RosterWM rosterWM = new RosterWM();
             rosterWM.lstRoster = lstRoster;
-            MessageResponseViewModel resulMessage = new MessageResponseViewModel();
+            MessageResponseViewModel<RosterWM> resulMessage = new MessageResponseViewModel<RosterWM>();
             try
             {
 
@@ -25,7 +26,7 @@ namespace IncogStuffControl.Services.Services
                 using (var client = new HttpClient())
                 {
                     // Setting Base address.
-                    client.BaseAddress = new Uri("https://localhost:44390");
+                    client.BaseAddress = new Uri(Globals.BaseUrl);
 
 
                     // Setting content type.
@@ -49,7 +50,7 @@ namespace IncogStuffControl.Services.Services
                     {
                         // Reading Response.
                         string result = response.Content.ReadAsStringAsync().Result;
-                        resulMessage = JsonConvert.DeserializeObject<MessageResponseViewModel>(result);
+                        resulMessage = JsonConvert.DeserializeObject<MessageResponseViewModel<RosterWM>>(result);
 
                         // Releasing.
                         response.Dispose();

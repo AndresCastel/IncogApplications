@@ -18,6 +18,7 @@ using IncogStuffControl.Services.ViewModel;
 using System.Data.OleDb;
 using System.Data;
 using IncogStuffControl.Services.Services;
+using Incog.Utils;
 
 namespace IncogStuffControl.UserControls.Charges
 {
@@ -74,7 +75,16 @@ namespace IncogStuffControl.UserControls.Charges
             }
 
 
-            MessageResponseViewModel responseObj = await ServiceCharges.ChageRoster(lstRoster);
+            MessageResponseViewModel<RosterWM> responseObj = await ServiceCharges.ChageRoster(lstRoster);
+
+            if(responseObj.Succesfull==true)
+            {
+                MessageBoxModal.Show(General.ResolveOwnerWindow(), "The process got Successful", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBoxModal.Show(responseObj.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
         }
 
@@ -120,6 +130,7 @@ namespace IncogStuffControl.UserControls.Charges
                 int Employee = 0;
                 int Payroll = 0;
                 int LockedIn = 0;
+                int EventName = 0;
 
                 for (int i = 0; i < ds.Tables[0].Columns.Count; i++)
                 {
@@ -175,6 +186,10 @@ namespace IncogStuffControl.UserControls.Charges
                     {
                         LockedIn = i;
                     }
+                    else if (ds.Tables[0].Rows[0][i].ToString() == "EventName")
+                    {
+                        EventName = i;
+                    }
                 }
 
                 for (int i = 1; i < ds.Tables[0].Rows.Count; i++)
@@ -193,6 +208,7 @@ namespace IncogStuffControl.UserControls.Charges
                     Roster.ShiftNum = Convert.ToInt32(ds.Tables[0].Rows[i][Shift].ToString());
                     Roster.StartTime = ds.Tables[0].Rows[i][StartTime].ToString();
                     Roster.Zone = ds.Tables[0].Rows[i][Zone].ToString();
+                    Roster.EventName = ds.Tables[0].Rows[i][EventName].ToString();
                     lstRoster.Add(Roster);
                 }
                

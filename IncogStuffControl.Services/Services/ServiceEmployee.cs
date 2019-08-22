@@ -12,10 +12,10 @@ namespace IncogStuffControl.Services
 {
     public class ServiceEmployee
     {
-        public static async Task<EmployeeRegisterViewModel> GetEmployee(string barcode)
+        public static async Task<MessageResponseViewModel<EmployeeRegisterViewModel>> GetEmployee(string barcode)
         {
 
-            EmployeeRegisterViewModel emplo = new EmployeeRegisterViewModel();
+            MessageResponseViewModel<EmployeeRegisterViewModel> emplo = new MessageResponseViewModel<EmployeeRegisterViewModel>();
             try
             {
 
@@ -45,7 +45,7 @@ namespace IncogStuffControl.Services
                     {
                         // Reading Response.
                         string result = response.Content.ReadAsStringAsync().Result;
-                        emplo = JsonConvert.DeserializeObject<EmployeeRegisterViewModel>(result);
+                        emplo = JsonConvert.DeserializeObject<MessageResponseViewModel<EmployeeRegisterViewModel>>(result);
 
                         // Releasing.
                         response.Dispose();
@@ -120,10 +120,10 @@ namespace IncogStuffControl.Services
             return lst;
         }
 
-        public static async Task<MessageResponseViewModel> RegisterEmployeeStuff(EmployeeRegisterViewModel EmployeeStuff)
+        public static async Task<MessageResponseViewModel<EmployeeRegisterViewModel>> RegisterEmployeeStuff(EmployeeRegisterViewModel EmployeeStuff)
         {
 
-            MessageResponseViewModel resulMessage = new MessageResponseViewModel();
+            MessageResponseViewModel<EmployeeRegisterViewModel> resulMessage = new MessageResponseViewModel<EmployeeRegisterViewModel>();
             try
             {
 
@@ -156,7 +156,7 @@ namespace IncogStuffControl.Services
                     {
                         // Reading Response.
                         string result = response.Content.ReadAsStringAsync().Result;
-                        resulMessage = JsonConvert.DeserializeObject<MessageResponseViewModel>(result);
+                        resulMessage = JsonConvert.DeserializeObject<MessageResponseViewModel<EmployeeRegisterViewModel>>(result);
 
                         // Releasing.
                         response.Dispose();
