@@ -65,7 +65,7 @@ namespace IncogStuffControl.UserControls.Charges
         {
             if (string.IsNullOrEmpty(lblPath.Text))
             {
-                MessageBoxModal.Show("Please Select the Load File: ", "Information", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Cancel, true);
+                MessageBoxModal.Show(General.ResolveOwnerWindow(), "Please Select the Load File: ", "Information", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Cancel, true);
 
             }
             else
@@ -83,7 +83,7 @@ namespace IncogStuffControl.UserControls.Charges
             }
             else
             {
-                MessageBoxModal.Show(responseObj.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxModal.Show(General.ResolveOwnerWindow(), responseObj.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }

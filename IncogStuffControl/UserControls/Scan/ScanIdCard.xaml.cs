@@ -41,8 +41,8 @@ namespace IncogStuffControl.UserControls.Scan
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
-        private EmployeeRegisterViewModel _employee;
-        public EmployeeRegisterViewModel employee
+        private EmployeeVsRosterVM _employee;
+        public EmployeeVsRosterVM employee
         {
             get { return _employee; }
             set
@@ -67,7 +67,7 @@ namespace IncogStuffControl.UserControls.Scan
             //uncomment when scan is working
             if (txtScan.Text.Length >= 12)
             {
-                MessageResponseViewModel<EmployeeRegisterViewModel> responseObj = await ServiceEmployee.GetEmployee(txtScan.Text);
+                MessageResponseViewModel<EmployeeVsRosterVM> responseObj = await ServiceEmployee.GetEmployee(txtScan.Text);
                 if (responseObj != null)
                 {
                     if (responseObj.Succesfull != false)
@@ -75,7 +75,7 @@ namespace IncogStuffControl.UserControls.Scan
                         if (responseObj.Data != null)
                         {
 
-                            employee = (EmployeeRegisterViewModel)responseObj.Data;
+                            employee = (EmployeeVsRosterVM)responseObj.Data;
                         }
                         else
                         {
@@ -91,22 +91,6 @@ namespace IncogStuffControl.UserControls.Scan
             }
         }
 
-        //private async void btnTest_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (txtScan.Text.Length >= 12)
-        //    {
-        //        //EmployeeViewModel responseObj = await  ServiceEmployee.GetEmployee(txtScan.Text);
-        //        //if (responseObj != null)
-        //        //{
-        //        //    employee = responseObj;
-        //        //}
-        //        //else
-        //        //{
-        //        //    MessageBox.Show("This employee does not exist on our system");
-        //        //}
-
-        //        //txtScan.Text = string.Empty;
-        //    }
-        //}
+       
     }
 }

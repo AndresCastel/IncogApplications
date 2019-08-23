@@ -53,6 +53,7 @@
     <Compile Include="Services\ServiceStuff.cs.cs" />
     <Compile Include="ViewModel\EmployeeRegisterViewModel.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeVsRosterVM.cs" />
     <Compile Include="ViewModel\MessageResponseViewModel.cs" />
     <Compile Include="ViewModel\RosterCViewModel.cs" />
     <Compile Include="ViewModel\RosterWM.cs" />

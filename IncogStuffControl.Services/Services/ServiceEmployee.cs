@@ -12,10 +12,10 @@ namespace IncogStuffControl.Services
 {
     public class ServiceEmployee
     {
-        public static async Task<MessageResponseViewModel<EmployeeRegisterViewModel>> GetEmployee(string barcode)
+        public static async Task<MessageResponseViewModel<EmployeeVsRosterVM>> GetEmployee(string barcode)
         {
 
-            MessageResponseViewModel<EmployeeRegisterViewModel> emplo = new MessageResponseViewModel<EmployeeRegisterViewModel>();
+            MessageResponseViewModel<EmployeeVsRosterVM> emplo = new MessageResponseViewModel<EmployeeVsRosterVM>();
             try
             {
 
@@ -45,7 +45,7 @@ namespace IncogStuffControl.Services
                     {
                         // Reading Response.
                         string result = response.Content.ReadAsStringAsync().Result;
-                        emplo = JsonConvert.DeserializeObject<MessageResponseViewModel<EmployeeRegisterViewModel>>(result);
+                        emplo = JsonConvert.DeserializeObject<MessageResponseViewModel<EmployeeVsRosterVM>>(result);
 
                         // Releasing.
                         response.Dispose();

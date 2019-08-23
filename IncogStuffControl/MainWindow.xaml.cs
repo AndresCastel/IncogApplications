@@ -123,7 +123,7 @@ namespace IncogStuffControl
                 contentUserControl.Content = MainUC;
                 if (((ScanIdCard)sender).employee != null)
                 {
-                    if (((ScanIdCard)sender).employee.Employee.RolId == 1)
+                    if (((ScanIdCard)sender).employee.employregister.Employee.RolId == 1)
                     {
                         MenuBase.Visibility = Visibility.Visible;
                     }
