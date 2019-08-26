@@ -63,12 +63,13 @@ namespace IncogStuffControl.UserControls.Scan
 
         private async void txtScan_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //var dtaet = timeConversion(DateTime.Now.ToString());
-            //uncomment when scan is working
+
+
+            
             if (txtScan.Text.Length >= 12)
             {
                 MessageResponseViewModel<EmployeeVsRosterVM> responseObj = await ServiceEmployee.GetEmployee(txtScan.Text);
-                if (responseObj != null)
+                if (responseObj.Succesfull)
                 {
                     if (responseObj.Succesfull != false)
                     {
@@ -88,9 +89,54 @@ namespace IncogStuffControl.UserControls.Scan
                     }
                     txtScan.Text = string.Empty;
                 }
+                else
+                {
+                    MessageBoxModal.Show(responseObj.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
-       
+        private async void TxtScan_LostFocus(object sender, RoutedEventArgs e)
+        {
+
+            if (txtScan.Text.Length >= 12)
+            {
+                MessageResponseViewModel<EmployeeVsRosterVM> responseObj = await ServiceEmployee.GetEmployee(txtScan.Text);
+                if (responseObj.Succesfull)
+                {
+                    if (responseObj.Succesfull != false)
+                    {
+                        if (responseObj.Data != null)
+                        {
+
+                            employee = (EmployeeVsRosterVM)responseObj.Data;
+                        }
+                        else
+                        {
+                            MessageBoxModal.Show(responseObj.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBoxModal.Show(responseObj.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    txtScan.Text = string.Empty;
+                }
+                else
+                {
+                    MessageBoxModal.Show(responseObj.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+
+        }
+
+
+        private void TxtScan_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key.Equals(Key.Enter))
+            {
+                txtScan.Text = string.Empty;
+            }
+        }
     }
 }

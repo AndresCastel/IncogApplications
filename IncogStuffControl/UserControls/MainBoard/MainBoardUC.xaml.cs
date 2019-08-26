@@ -179,102 +179,125 @@ namespace IncogStuffControl.UserControls.MainBoard
         {
 
             //Validations SignIn Off
+            DateTime DateScan = DateTime.Now;
+
+
+
+
+
+
+
+
+
             string HourScan = General.ConvertDatetoMilitaryHour(DateTime.Now);
             TimeSpan tsScan = TimeSpan.ParseExact(HourScan, "hhmm", null);
-            TimeSpan tsRoster = TimeSpan.ParseExact(employeeroster.StartTime, "hhmm", null);
-
-            if (tsScan < tsRoster)
-            {
-                var mins = tsRoster.Subtract(tsScan).TotalMinutes;
-                EmployeeRegisterViewModel EmployeeRegister = new EmployeeRegisterViewModel();
-                string aproxHour;
-                if (mins > 20)
+            
+            EmployeeRegisterViewModel EmployeeRegister = new EmployeeRegisterViewModel();
+            string aproxHour = "";
+            switch (Type_Checked)
                 {
-                    MessageBoxResult res = MessageBoxModal.Show(General.ResolveOwnerWindow(), "You shift will start: " + employeeroster.StartTime + ", Do you want to approve that " + employeepriv.Employee.Name + " " + employeepriv.Employee.LastName + " starts at: " + HourScan, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                    if (res == MessageBoxResult.Yes)
+                    //Sign In
+                    case 1:
+                    if (employeepriv.Type_RegisterId == 1 && employeepriv.StartTime != null)
                     {
-                        aproxHour = General.RoundToNearest(tsScan, TimeSpan.FromMinutes(15));
+                        MessageBoxModal.Show(General.ResolveOwnerWindow(), "You already did Sign In: " + employeepriv.StartTime, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                        return;
+                    }
+                    TimeSpan tsRosterOn = TimeSpan.ParseExact(employeeroster.StartTime, "hhmm", null);
+                    DateTime RosterStartTime = new DateTime(employeeroster.Date.Year, employeeroster.Date.Month, employeeroster.Date.Day, tsRosterOn.Hours, tsRosterOn.Minutes, 0);
+                    if(DateScan < RosterStartTime)
+                    {
+                        TimeSpan ts = RosterStartTime - DateScan;
+                        double mins = ts.TotalMinutes;
+                        if (mins > 20)
+                        {
+                            MessageBoxResult res = MessageBoxModal.Show(General.ResolveOwnerWindow(), "You shift will start: " + employeeroster.StartTime + ", Do you want to approve that " + employeepriv.Employee.Name + " " + employeepriv.Employee.LastName + " starts at: " + HourScan, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                            if (res == MessageBoxResult.Yes)
+                            {
+                                aproxHour = General.RoundToNearest(tsScan, TimeSpan.FromMinutes(15));
+                            }
+                            else
+                            {
+                                aproxHour = employeeroster.StartTime;
+                            }
+                        }
+                        else
+                        {
+                            aproxHour = employeeroster.StartTime;
+                        }
                     }
                     else
                     {
                         aproxHour = employeeroster.StartTime;
                     }
-                }
-                else
-                {
-                    aproxHour = employeeroster.StartTime;
-                }
-                switch (Type_Checked)
-                {
-                    //Sign In
-                    case 1:
-                        if (employeepriv.Type_RegisterId == 1 && employeepriv.StartTime != null)
-                        {
-                            MessageBoxModal.Show(General.ResolveOwnerWindow(), "You already did Sign In: " + employeepriv.StartTime, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                            return;
-                        }
-                        break;
+
+                    EmployeeRegister.Day = DateTime.Now.Date;
+                    EmployeeRegister.StartTime = aproxHour;
+                    EmployeeRegister.Active = true;
+                    EmployeeRegister.Type_RegisterId = Type_Checked;
+                    break;
                     //Sign off
                     case 2:
-                        //if (employeepriv.Type_RegisterId != 1 || employeepriv.SignIn == DateTime.MinValue)
-                        //{
-                        //    MessageBoxModal.Show(ClassMethodUtil.ResolveOwnerWindow(), "You have not signed In", "Information", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Cancel, true);
-                        //    return;
-                        //}
-                        BreakUC oUC_Break = new BreakUC();
-                        MessageBoxResult Response = ViewWindow_Modal.Show(oUC_Break, "Break", oUC_Break.btnCancel);
-                        if (Response == MessageBoxResult.Cancel)
+                    if (employeepriv.Type_RegisterId != 1 || employeepriv.StartTime == null)
+                    {
+                        MessageBoxModal.Show(ClassMethodUtil.ResolveOwnerWindow(), "You have not signed In", "Information", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Cancel, true);
+                        return;
+                    }
+                    TimeSpan tsRosterOff = TimeSpan.ParseExact(employeeroster.EndTime, "hhmm", null);
+                    DateTime RosterEndTime = new DateTime(employeeroster.Date.Year, employeeroster.Date.Month, employeeroster.Date.Day, tsRosterOff.Hours, tsRosterOff.Minutes, 0);
+                    if (DateScan > RosterEndTime)
+                    {
+                        TimeSpan ts = DateScan - RosterEndTime;
+                        double mins = ts.TotalMinutes;
+                        if (mins > 20)
                         {
-                            return;
+                            MessageBoxResult res = MessageBoxModal.Show(General.ResolveOwnerWindow(), "You shift Finished: " + employeeroster.EndTime + ", Do you want to approve that " + employeepriv.Employee.Name + " " + employeepriv.Employee.LastName + " Signs off at: " + HourScan, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                            if (res == MessageBoxResult.Yes)
+                            {
+                                aproxHour = General.RoundToNearest(tsScan, TimeSpan.FromMinutes(15));
+                            }
+                            else
+                            {
+                                aproxHour = employeeroster.EndTime;
+                            }
                         }
-                        if (Response == MessageBoxResult.OK)
+                        else
                         {
-                            EmployeeRegister.Break = oUC_Break.Break;
+                            aproxHour = employeeroster.EndTime;
+                        }
+                    }
+                    else
+                    {
+                        aproxHour = General.RoundToNearest(tsScan, TimeSpan.FromMinutes(15));
+                    }
+                    BreakUC oUC_Break = new BreakUC(employeeroster.Break);
+                    MessageBoxResult Response = ViewWindow_Modal.Show(oUC_Break, "Break", oUC_Break.btnCancel);
+                    if (Response == MessageBoxResult.Cancel)
+                    {
+                        return;
+                    }
+                    if (Response == MessageBoxResult.OK)
+                    {
+                        EmployeeRegister.Break = oUC_Break.Break;
 
-                        }
-                        break;
+                    }
+                    EmployeeRegister.StartTime = employeepriv.StartTime;
+                    EmployeeRegister.EndTime = aproxHour;
+                    EmployeeRegister.Active = false;
+                    EmployeeRegister.Type_RegisterId = Type_Checked;
+                    break;
                     case 3://Equipment
-                           //if (employeepriv.Type_RegisterId != 1 || employeepriv.SignIn == DateTime.MinValue)
-                           //{
-                           //    MessageBoxModal.Show(ClassMethodUtil.ResolveOwnerWindow(), "You have not signed In", "Information", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Cancel, true);
-                           //    return;
-                           //}
-                        break;
+                    EmployeeRegister.Type_RegisterId = Type_Checked;
+                    break;
                     default:
                         break;
-                }
-                EmployeeRegister.Active = true;
-                //Save Employer Register Info
-                switch (Type_Checked)
-                {
-                    case 1:
-                        EmployeeRegister.Day = DateTime.Now.Date;
-                        EmployeeRegister.StartTime = aproxHour;
-                        break;
-                    case 2:
-                        //TODO: Validate SignOff Andres
-                        EmployeeRegister.StartTime = employeepriv.StartTime;
-                        EmployeeRegister.EndTime = aproxHour;
-                        EmployeeRegister.Active = false;
-                        break;
-                    default:
-                        break;
-                }
+                }               
+               
                 EmployeeRegister.Id = employeepriv.Id;
                 EmployeeRegister.EmployeeId = employeepriv.Employee.Id;
+                EmployeeRegister.Payroll = employeepriv.Employee.Payroll;
 
-
-                //Set Type of Register Sign In, Sign off, Equipment
-                if (Type_Checked != 3)
-                {
-                    EmployeeRegister.Type_RegisterId = Type_Checked;
-                }
-                else
-                {
-                    EmployeeRegister.Type_RegisterId = employeepriv.Type_RegisterId;
-                }
-
-
+               
                 EmployeeRegister.lstStuffAssig = SetStuff();
 
 
@@ -286,7 +309,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                 }
 
 
-            }
+            
             save = true;
         }
 

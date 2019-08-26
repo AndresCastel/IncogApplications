@@ -28,6 +28,36 @@ namespace IncogStuffControl.UserControls
             InitializeComponent();
         }
 
+        public BreakUC(int breakdef)
+        {
+            InitializeComponent();
+            setDefaultBreak(breakdef);
+        }
+
+        private void setDefaultBreak(int breakdef)
+        {
+            switch (breakdef)
+            {
+                case 0:
+                    chkNobreak.IsChecked = true;
+                    break;
+                case 15:
+                    chk15Min.IsChecked = true;
+                    break;
+                case 30:
+                    chk30Min.IsChecked = true;
+                    break;
+                case 45:
+                    chk45Min.IsChecked = true;
+                    break;
+                case 60:
+                    chk60Min.IsChecked = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             ViewWindow_Modal.Cerrar = ViewWindow_Modal.WinBehavior.OK;

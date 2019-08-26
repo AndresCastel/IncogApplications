@@ -14,6 +14,7 @@ namespace IncogStuffControl.Services.ViewModel
         public bool Active { get; set; }
         public DateTime Day { get; set; }
         public string StartTime { get; set; }
+        public string Payroll { get; set; }
         public string EndTime { get; set; }
         public int Break { get; set; }
         public List<StuffAssignViewModel> lstStuffAssig { get; set; }
