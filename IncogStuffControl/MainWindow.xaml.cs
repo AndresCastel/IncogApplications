@@ -127,12 +127,23 @@ namespace IncogStuffControl
             throw new NotImplementedException();
         }
 
-        private void Scanus_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private async void Scanus_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (sender is ScanIdCard)
             {
+                MainBoardUC MainUC;
                 contentUserControl.Content = null;
-                MainBoardUC MainUC = new MainBoardUC(((ScanIdCard)sender).employee);
+                MessageResponseViewModel<AllStuffVM> responseObj = await ServiceEmployee.GetAllStuff();
+                    if (responseObj.Succesfull)
+                    {
+                    MainUC = new MainBoardUC(((ScanIdCard)sender).employee, responseObj.Data.Stuff);
+                   
+                    }
+                    else
+                    {
+                    MainUC = new MainBoardUC(((ScanIdCard)sender).employee,  new List<StuffAssignViewModel>());
+                }
+                
                 MainUC.PropertyChanged += MainUC_PropertyChanged;
                 contentUserControl.Content = MainUC;
                 if (((ScanIdCard)sender).employee != null)

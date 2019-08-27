@@ -66,6 +66,60 @@ namespace IncogStuffControl.Services
             return emplo;
         }
 
+        public static async Task<MessageResponseViewModel<AllStuffVM>> GetAllStuff()
+        {
+
+            MessageResponseViewModel<AllStuffVM> Stuff = new MessageResponseViewModel<AllStuffVM>();
+            try
+            {
+
+
+                // Posting.
+                using (var client = new HttpClient())
+                {
+                    // Setting Base address.
+                    client.BaseAddress = new Uri("https://localhost:44390");
+
+
+                    // Setting content type.
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    // Setting timeout.
+                    client.Timeout = TimeSpan.FromSeconds(Convert.ToDouble(1000000));
+
+                    // Initialization.
+                    HttpResponseMessage response = new HttpResponseMessage();
+
+                    // HTTP GET
+                    response = await client.GetAsync("api/Employee/Stuff").ConfigureAwait(false);
+
+                    // Verification
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Reading Response.
+                        string result = response.Content.ReadAsStringAsync().Result;
+                        Stuff = JsonConvert.DeserializeObject<MessageResponseViewModel<AllStuffVM>>(result);
+
+                        // Releasing.
+                        response.Dispose();
+                    }
+                    else
+                    {
+                        // Reading Response.
+                        string result = response.Content.ReadAsStringAsync().Result;
+                        //responseObj.code = 602;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return Stuff;
+        }
+
         public static async Task<List<TimesheetsReportViewModel>> GetTimesheetReport()
         {
 

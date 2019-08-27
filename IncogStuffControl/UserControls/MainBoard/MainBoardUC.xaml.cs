@@ -64,11 +64,19 @@ namespace IncogStuffControl.UserControls.MainBoard
             InitializeComponent();
         }
 
-        public MainBoardUC(EmployeeVsRosterVM employeeVsRoster)
+        public MainBoardUC(EmployeeVsRosterVM employeeVsRoster, List<StuffAssignViewModel> _stuffAsign)
         {
             InitializeComponent();
             employeepriv = employeeVsRoster.employregister;
             employeeroster = employeeVsRoster.employRoster;
+            if(employeeroster==null)
+            {
+                btnSave.IsEnabled = false;
+            }
+            if(_stuffAsign != null)
+            {
+                SetEnableEquipment(_stuffAsign);
+            }
             SetEmployee(employeepriv);
             if (chkSignIn.IsChecked.Value)
             {
@@ -83,6 +91,81 @@ namespace IncogStuffControl.UserControls.MainBoard
                 Type_Checked = 3;
             }
         }
+
+        private void SetEnableEquipment(List<StuffAssignViewModel> stuffAsign)
+        {
+            foreach (var item in stuffAsign)
+            {
+                switch (item.StuffId)
+                {
+                    case 5:
+                        RadioUC.rbtRadio1.IsChecked = true;
+                        RadioUC.rbtRadio1.IsEnabled = false;
+                        break;
+                    case 6:
+                        RadioUC.rbtRadio2.IsChecked = true;
+                        RadioUC.rbtRadio2.IsEnabled = false;
+                        break;
+                    case 7:
+                        RadioUC.rbtRadio3.IsChecked = true;
+                        RadioUC.rbtRadio3.IsEnabled = false;
+                        break;
+                    case 11:
+                        RadioUC.rbtRadio4.IsChecked = true;
+                        RadioUC.rbtRadio4.IsEnabled = false;
+                        break;
+                    case 12:
+                        RadioUC.rbtRadio5.IsChecked = true;
+                        RadioUC.rbtRadio5.IsEnabled = false;
+                        break;
+                    case 13:
+                        RadioUC.rbtRadio6.IsChecked = true;
+                        RadioUC.rbtRadio6.IsEnabled = false;
+                        break;
+                    case 14:
+                        RadioUC.rbtRadio7.IsChecked = true;
+                        RadioUC.rbtRadio7.IsEnabled = false;
+                        break;
+                    case 15:
+                        RadioUC.rbtRadio8.IsChecked = true;
+                        RadioUC.rbtRadio8.IsEnabled = false;
+                        break;
+                    case 16:
+                        RadioUC.rbtRadio9.IsChecked = true;
+                        RadioUC.rbtRadio9.IsEnabled = false;
+                        break;
+                    case 17:
+                        RadioUC.rbtRadio10.IsChecked = true;
+                        RadioUC.rbtRadio10.IsEnabled = false;
+                        break;
+                    case 18:
+                        RadioUC.rbtRadio11.IsChecked = true;
+                        RadioUC.rbtRadio11.IsEnabled = false;
+                        break;
+                    case 19:
+                        RadioUC.rbtRadio12.IsChecked = true;
+                        RadioUC.rbtRadio12.IsEnabled = false;
+                        break;
+                    case 20:
+                        RadioUC.rbtRadio13.IsChecked = true;
+                        RadioUC.rbtRadio13.IsEnabled = false;
+                        break;
+                    case 21:
+                        RadioUC.rbtRadio14.IsChecked = true;
+                        RadioUC.rbtRadio14.IsEnabled = false;
+                        break;
+                    case 22:
+                        RadioUC.rbtRadio15.IsChecked = true;
+                        RadioUC.rbtRadio15.IsEnabled = false;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+
+       
 
         private void SetEmployee(EmployeeRegisterViewModel employee)
         {
@@ -126,48 +209,63 @@ namespace IncogStuffControl.UserControls.MainBoard
                     break;
                 case 5:
                     RadioUC.rbtRadio1.IsChecked = true;
+                    RadioUC.rbtRadio1.IsEnabled = true;
                     break;
                 case 6:
                     RadioUC.rbtRadio2.IsChecked = true;
+                    RadioUC.rbtRadio2.IsEnabled = true;
                     break;
                 case 7:
                     RadioUC.rbtRadio3.IsChecked = true;
+                    RadioUC.rbtRadio3.IsEnabled = true;
                     break;
                 case 11:
                     RadioUC.rbtRadio4.IsChecked = true;
+                    RadioUC.rbtRadio4.IsEnabled = true;
                     break;
                 case 12:
                     RadioUC.rbtRadio5.IsChecked = true;
+                    RadioUC.rbtRadio5.IsEnabled = true;
                     break;
                 case 13:
                     RadioUC.rbtRadio6.IsChecked = true;
+                    RadioUC.rbtRadio6.IsEnabled = true;
                     break;
                 case 14:
                     RadioUC.rbtRadio7.IsChecked = true;
+                    RadioUC.rbtRadio7.IsEnabled = true;
                     break;
                 case 15:
                     RadioUC.rbtRadio8.IsChecked = true;
+                    RadioUC.rbtRadio8.IsEnabled = true;
                     break;
                 case 16:
                     RadioUC.rbtRadio9.IsChecked = true;
+                    RadioUC.rbtRadio9.IsEnabled = true;
                     break;
                 case 17:
                     RadioUC.rbtRadio10.IsChecked = true;
+                    RadioUC.rbtRadio10.IsEnabled = true;
                     break;
                 case 18:
                     RadioUC.rbtRadio11.IsChecked = true;
+                    RadioUC.rbtRadio11.IsEnabled = true;
                     break;
                 case 19:
                     RadioUC.rbtRadio12.IsChecked = true;
+                    RadioUC.rbtRadio12.IsEnabled = true;
                     break;
                 case 20:
                     RadioUC.rbtRadio13.IsChecked = true;
+                    RadioUC.rbtRadio13.IsEnabled = true;
                     break;
                 case 21:
                     RadioUC.rbtRadio14.IsChecked = true;
+                    RadioUC.rbtRadio14.IsEnabled = true;
                     break;
                 case 22:
                     RadioUC.rbtRadio15.IsChecked = true;
+                    RadioUC.rbtRadio15.IsEnabled = true;
                     break;
 
                 default:
@@ -405,7 +503,7 @@ namespace IncogStuffControl.UserControls.MainBoard
 
             //Radios Section
 
-            if (RadioUC.rbtRadio1.IsChecked.Value)
+            if (RadioUC.rbtRadio1.IsChecked.Value && RadioUC.rbtRadio1.IsEnabled)
             {
                 StuffAssignViewModel StuffAssign = new StuffAssignViewModel();
                 StuffAssign.Quantity = 1;
@@ -414,7 +512,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                 lstAssignstuff.Add(StuffAssign);
             }
 
-            if (RadioUC.rbtRadio2.IsChecked.Value)
+            if (RadioUC.rbtRadio2.IsChecked.Value && RadioUC.rbtRadio2.IsEnabled)
             {
                 StuffAssignViewModel StuffAssign = new StuffAssignViewModel();
                 StuffAssign.Quantity = 1;
@@ -423,7 +521,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                 lstAssignstuff.Add(StuffAssign);
             }
 
-            if (RadioUC.rbtRadio3.IsChecked.Value)
+            if (RadioUC.rbtRadio3.IsChecked.Value && RadioUC.rbtRadio3.IsEnabled)
             {
                 StuffAssignViewModel StuffAssign = new StuffAssignViewModel();
                 StuffAssign.Quantity = 1;
@@ -432,7 +530,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                 lstAssignstuff.Add(StuffAssign);
             }
 
-            if (RadioUC.rbtRadio4.IsChecked.Value)
+            if (RadioUC.rbtRadio4.IsChecked.Value && RadioUC.rbtRadio4.IsEnabled)
             {
                 StuffAssignViewModel StuffAssign = new StuffAssignViewModel();
                 StuffAssign.Quantity = 1;
@@ -441,7 +539,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                 lstAssignstuff.Add(StuffAssign);
             }
 
-            if (RadioUC.rbtRadio5.IsChecked.Value)
+            if (RadioUC.rbtRadio5.IsChecked.Value && RadioUC.rbtRadio5.IsEnabled)
             {
                 StuffAssignViewModel StuffAssign = new StuffAssignViewModel();
                 StuffAssign.Quantity = 1;
@@ -450,7 +548,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                 lstAssignstuff.Add(StuffAssign);
             }
 
-            if (RadioUC.rbtRadio6.IsChecked.Value)
+            if (RadioUC.rbtRadio6.IsChecked.Value && RadioUC.rbtRadio6.IsEnabled)
             {
                 StuffAssignViewModel StuffAssign = new StuffAssignViewModel();
                 StuffAssign.Quantity = 1;
@@ -459,7 +557,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                 lstAssignstuff.Add(StuffAssign);
             }
 
-            if (RadioUC.rbtRadio7.IsChecked.Value)
+            if (RadioUC.rbtRadio7.IsChecked.Value && RadioUC.rbtRadio7.IsEnabled)
             {
                 StuffAssignViewModel StuffAssign = new StuffAssignViewModel();
                 StuffAssign.Quantity = 1;
@@ -468,7 +566,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                 lstAssignstuff.Add(StuffAssign);
             }
 
-            if (RadioUC.rbtRadio8.IsChecked.Value)
+            if (RadioUC.rbtRadio8.IsChecked.Value && RadioUC.rbtRadio8.IsEnabled)
             {
                 StuffAssignViewModel StuffAssign = new StuffAssignViewModel();
                 StuffAssign.Quantity = 1;
@@ -477,7 +575,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                 lstAssignstuff.Add(StuffAssign);
             }
 
-            if (RadioUC.rbtRadio9.IsChecked.Value)
+            if (RadioUC.rbtRadio9.IsChecked.Value && RadioUC.rbtRadio9.IsEnabled)
             {
                 StuffAssignViewModel StuffAssign = new StuffAssignViewModel();
                 StuffAssign.Quantity = 1;
@@ -486,7 +584,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                 lstAssignstuff.Add(StuffAssign);
             }
 
-            if (RadioUC.rbtRadio10.IsChecked.Value)
+            if (RadioUC.rbtRadio10.IsChecked.Value && RadioUC.rbtRadio10.IsEnabled)
             {
                 StuffAssignViewModel StuffAssign = new StuffAssignViewModel();
                 StuffAssign.Quantity = 1;
@@ -495,7 +593,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                 lstAssignstuff.Add(StuffAssign);
             }
 
-            if (RadioUC.rbtRadio11.IsChecked.Value)
+            if (RadioUC.rbtRadio11.IsChecked.Value && RadioUC.rbtRadio11.IsEnabled)
             {
                 StuffAssignViewModel StuffAssign = new StuffAssignViewModel();
                 StuffAssign.Quantity = 1;
@@ -504,7 +602,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                 lstAssignstuff.Add(StuffAssign);
             }
 
-            if (RadioUC.rbtRadio12.IsChecked.Value)
+            if (RadioUC.rbtRadio12.IsChecked.Value && RadioUC.rbtRadio12.IsEnabled)
             {
                 StuffAssignViewModel StuffAssign = new StuffAssignViewModel();
                 StuffAssign.Quantity = 1;
@@ -513,7 +611,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                 lstAssignstuff.Add(StuffAssign);
             }
 
-            if (RadioUC.rbtRadio13.IsChecked.Value)
+            if (RadioUC.rbtRadio13.IsChecked.Value && RadioUC.rbtRadio13.IsEnabled)
             {
                 StuffAssignViewModel StuffAssign = new StuffAssignViewModel();
                 StuffAssign.Quantity = 1;
@@ -522,7 +620,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                 lstAssignstuff.Add(StuffAssign);
             }
 
-            if (RadioUC.rbtRadio14.IsChecked.Value)
+            if (RadioUC.rbtRadio14.IsChecked.Value && RadioUC.rbtRadio14.IsEnabled)
             {
                 StuffAssignViewModel StuffAssign = new StuffAssignViewModel();
                 StuffAssign.Quantity = 1;
@@ -531,7 +629,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                 lstAssignstuff.Add(StuffAssign);
             }
 
-            if (RadioUC.rbtRadio15.IsChecked.Value)
+            if (RadioUC.rbtRadio15.IsChecked.Value && RadioUC.rbtRadio15.IsEnabled)
             {
                 StuffAssignViewModel StuffAssign = new StuffAssignViewModel();
                 StuffAssign.Quantity = 1;

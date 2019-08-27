@@ -51,6 +51,7 @@
     <Compile Include="Services\ServiceCharges.cs" />
     <Compile Include="Services\ServiceEmployee.cs" />
     <Compile Include="Services\ServiceStuff.cs.cs" />
+    <Compile Include="ViewModel\AllStuffVM.cs" />
     <Compile Include="ViewModel\EmployeeRegisterViewModel.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\EmployeeVsRosterVM.cs" />
