@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,6 +49,43 @@ namespace Incog.Utils
                 }
             }
             return owner;
+        }
+
+        //Validate if an excel is open
+        public static bool FileIsOpen(string Path)
+        {
+            bool retVal = false;
+            try
+            {
+
+                using (FileStream stream = new FileStream(Path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+                {
+                    try
+                    {
+                        stream.ReadByte();
+                    }
+                    catch (IOException)
+                    {
+                        retVal = true;
+                    }
+                    finally
+                    {
+                        stream.Close();
+                        stream.Dispose();
+                    }
+                }
+            }
+            catch (IOException e)
+            {
+                //file is opened at another location
+                retVal = true;
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                //Bypass this exception since this is due to the file is being set to read-only
+            }
+
+            return retVal;
         }
     }
 }

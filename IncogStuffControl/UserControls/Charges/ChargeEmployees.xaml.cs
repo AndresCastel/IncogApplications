@@ -19,17 +19,17 @@ using System.Data.OleDb;
 using System.Data;
 using IncogStuffControl.Services.Services;
 using Incog.Utils;
-using System.IO;
+
 
 namespace IncogStuffControl.UserControls.Charges
 {
     /// <summary>
-    /// Interaction logic for ChargeUC.xaml
+    /// Interaction logic for ChargeEmployees.xaml
     /// </summary>
-    public partial class ChargeUC : UserControl
+    public partial class ChargeEmployees : UserControl
     {
-        public List<RosterCViewModel> lstRoster;
-        public ChargeUC()
+        public List<EmployeeViewModel> lstEmployees;
+        public ChargeEmployees()
         {
             InitializeComponent();
         }
@@ -55,11 +55,8 @@ namespace IncogStuffControl.UserControls.Charges
                 string filename = dlg.FileName;
                 lblPath.Text = filename;
             }
-        }
 
-        private void btnCancelar_Click(object sender, RoutedEventArgs e)
-        {
-            ViewWindow_Modal.CloseModal();
+           
         }
 
         private async void BtnSave_Click(object sender, RoutedEventArgs e)
@@ -71,21 +68,19 @@ namespace IncogStuffControl.UserControls.Charges
             }
             else
             {
-                lstRoster = new List<RosterCViewModel>();
-                lstRoster = ReadFile(lblPath.Text);
+                lstEmployees = new List<EmployeeViewModel>();
+                lstEmployees = ReadFile(lblPath.Text);
             }
-            MessageResponseViewModel<RosterWM> responseObj;
-            if (lstRoster != null)
+            MessageResponseViewModel<EmployeesChargeMW> responseObj;
+            if (lstEmployees != null)
             {
-                responseObj = await ServiceCharges.ChageRoster(lstRoster);
-                
+                responseObj = await ServiceCharges.ChageEmployees(lstEmployees);
             }
             else
             {
                 return;
             }
-
-            if(responseObj.Succesfull==true)
+            if (responseObj.Succesfull == true)
             {
                 MessageBoxModal.Show(General.ResolveOwnerWindow(), "The process got Successful", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -96,7 +91,7 @@ namespace IncogStuffControl.UserControls.Charges
 
         }
 
-        private List<RosterCViewModel> ReadFile(string Path)
+        private List<EmployeeViewModel> ReadFile(string Path)
         {
             string connString = string.Empty;
             connString = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" + Path + "; Extended Properties='Excel 8.0;IMEX=1;HDR=No'";
@@ -106,10 +101,9 @@ namespace IncogStuffControl.UserControls.Charges
             try
             {
                 cmdExcel.Connection = connExcel;
-
                 //Check if the file is open
                 bool open = General.FileIsOpen(lblPath.Text);
-                if(open)
+                if (open)
                 {
                     MessageBoxModal.Show(General.ResolveOwnerWindow(), "The file is Open, Could you close it?", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                     return null;
@@ -132,101 +126,66 @@ namespace IncogStuffControl.UserControls.Charges
 
                 da.SelectCommand = cmdExcel;
                 da.Fill(ds);
-                int Day = 0;
-                int Date = 0;
-                int StartTime = 0;
-                int EndTime = 0;
-                int Break = 0;
-                int Precint = 0;
-                int Zone = 0;
-                int Area = 0;
-                int Shift = 0;
-                int Labour = 0;
-                int Employee = 0;
+                int Name = 0;
+                int MiddleName = 0;
+                int LastName = 0;
+                int Barcode = 0;
+                int Email = 0;
                 int Payroll = 0;
-                int LockedIn = 0;
-                int EventName = 0;
+                int RolId = 0;
+                int Active = 0;
 
                 for (int i = 0; i < ds.Tables[0].Columns.Count; i++)
                 {
-                    if (ds.Tables[0].Rows[0][i].ToString() == "Day")
+                    if (ds.Tables[0].Rows[0][i].ToString() == "Name")
                     {
-                        Day = i;
+                        Name = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Date")
+                    else if (ds.Tables[0].Rows[0][i].ToString() == "MiddleName")
                     {
-                        Date = i;
+                        MiddleName = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Start Time")
+                    else if (ds.Tables[0].Rows[0][i].ToString() == "LastName")
                     {
-                        StartTime = i;
+                        LastName = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "End Time")
+                    else if (ds.Tables[0].Rows[0][i].ToString() == "Barcode")
                     {
-                        EndTime = i;
+                        Barcode = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Break (Mins)")
+                    else if (ds.Tables[0].Rows[0][i].ToString() == "Email")
                     {
-                        Break = i;
+                        Email = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Precinct")
-                    {
-                        Precint = i;
-                    }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Zone")
-                    {
-                        Zone = i;
-                    }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Area")
-                    {
-                        Area = i;
-                    }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Shift No.")
-                    {
-                        Shift = i;
-                    }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Labour Type")
-                    {
-                        Labour = i;
-                    }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Employee")
-                    {
-                        Employee = i;
-                    }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Payroll No.")
+                    else if (ds.Tables[0].Rows[0][i].ToString() == "Payroll")
                     {
                         Payroll = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Locked In")
+                    else if (ds.Tables[0].Rows[0][i].ToString() == "RolId")
                     {
-                        LockedIn = i;
+                        RolId = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "EventName")
+                    else if (ds.Tables[0].Rows[0][i].ToString() == "Active")
                     {
-                        EventName = i;
+                        Active = i;
                     }
                 }
 
                 for (int i = 1; i < ds.Tables[0].Rows.Count; i++)
                 {
-                    RosterCViewModel Roster = new RosterCViewModel();
-                    Roster.Day = Convert.ToInt32(ds.Tables[0].Rows[i][Day].ToString());
-                    Roster.Area = ds.Tables[0].Rows[i][Area].ToString();
-                    Roster.Break = Convert.ToInt32(ds.Tables[0].Rows[i][Break].ToString());
-                    Roster.Date = Convert.ToDateTime(ds.Tables[0].Rows[i][Date].ToString());
-                    Roster.Employee = ds.Tables[0].Rows[i][Employee].ToString();
-                    Roster.EndTime = ds.Tables[0].Rows[i][EndTime].ToString();
-                    Roster.LabourType = ds.Tables[0].Rows[i][Labour].ToString();
-                    Roster.LookedIn = Convert.ToBoolean(ds.Tables[0].Rows[i][LockedIn].ToString());
-                    Roster.Payroll = ds.Tables[0].Rows[i][Payroll].ToString();
-                    Roster.Precint = ds.Tables[0].Rows[i][Precint].ToString();
-                    Roster.ShiftNum = Convert.ToInt32(ds.Tables[0].Rows[i][Shift].ToString());
-                    Roster.StartTime = ds.Tables[0].Rows[i][StartTime].ToString();
-                    Roster.Zone = ds.Tables[0].Rows[i][Zone].ToString();
-                    Roster.EventName = ds.Tables[0].Rows[i][EventName].ToString();
-                    lstRoster.Add(Roster);
+                    EmployeeViewModel employ = new EmployeeViewModel();
+                    employ.Name = ds.Tables[0].Rows[i][Name].ToString();
+                    employ.MiddleName = ds.Tables[0].Rows[i][MiddleName].ToString();
+                    employ.LastName = ds.Tables[0].Rows[i][LastName].ToString();
+                    employ.Barcode = ds.Tables[0].Rows[i][Barcode].ToString();
+                    employ.Email = ds.Tables[0].Rows[i][Email].ToString();
+                    employ.Payroll = ds.Tables[0].Rows[i][Payroll].ToString();
+                    employ.RolId = Convert.ToInt32(ds.Tables[0].Rows[i][RolId].ToString());
+                    employ.Active = true;
+                    
+                    lstEmployees.Add(employ);
                 }
-               
+
                 connExcel.Close();
             }
             catch
@@ -238,10 +197,13 @@ namespace IncogStuffControl.UserControls.Charges
                 cmdExcel.Dispose();
                 connExcel.Dispose();
             }
-            return lstRoster;
+            return lstEmployees;
         }
 
-       
 
+        private void btnCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            ViewWindow_Modal.CloseModal();
+        }
     }
 }

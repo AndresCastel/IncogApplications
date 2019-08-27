@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:my="clr-namespace:IncogStuffControl.UtilControls.Loading"
         xmlns:local="clr-namespace:IncogStuffControl"
          xmlns:CustomWindow="clr-namespace:Axede.WPF.CustomWindow;assembly=Axede.WPF.CustomWindow"
         mc:Ignorable="d"
@@ -18,6 +19,16 @@
             <ContentControl Name="contentUserControl" Height="auto">
 
         </ContentControl>
-    </StackPanel>
+            <my:LoadingAnimation x:Name="UCLoading" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <my:LoadingAnimation.Style>
+                    <Style TargetType="{x:Type my:LoadingAnimation}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+
+                    </Style>
+                </my:LoadingAnimation.Style>
+            </my:LoadingAnimation>
+        </StackPanel>
+        
     </DockPanel>
+    
     </Window >

@@ -1,4 +1,5 @@
-﻿using IncogStuffControl.Services.ViewModel;
+﻿using Incog.Utils;
+using IncogStuffControl.Services.ViewModel;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -24,10 +25,10 @@ namespace IncogStuffControl.Services
                 using (var client = new HttpClient())
                 {
                     // Setting Base address.
-                    client.BaseAddress = new Uri("https://localhost:44390");
-                    
+                    client.BaseAddress = new Uri(Globals.BaseUrl);
 
-                   // Setting content type.
+
+                    // Setting content type.
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -78,7 +79,7 @@ namespace IncogStuffControl.Services
                 using (var client = new HttpClient())
                 {
                     // Setting Base address.
-                    client.BaseAddress = new Uri("https://localhost:44390");
+                    client.BaseAddress = new Uri(Globals.BaseUrl);
 
 
                     // Setting content type.
@@ -132,7 +133,7 @@ namespace IncogStuffControl.Services
                 using (var client = new HttpClient())
                 {
                     // Setting Base address.
-                    client.BaseAddress = new Uri("https://localhost:44390");
+                    client.BaseAddress = new Uri(Globals.BaseUrl);
 
 
                     // Setting content type.
@@ -186,7 +187,7 @@ namespace IncogStuffControl.Services
                 using (var client = new HttpClient())
                 {
                     // Setting Base address.
-                    client.BaseAddress = new Uri("https://localhost:44390");
+                    client.BaseAddress = new Uri(Globals.BaseUrl);
 
 
                     // Setting content type.

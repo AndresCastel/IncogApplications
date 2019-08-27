@@ -76,6 +76,12 @@ namespace IncogStuffControl
             oMenuItemAddEmployee.Click += new RoutedEventHandler(oMenuItemAddEmployee_Click);
             oMenuItemLoadData.Items.Add(oMenuItemAddEmployee);
 
+            MenuItem oMenuItemAddRoster = new MenuItem();
+            oMenuItemAddRoster.InputGestureText = "Ctrl+L";
+            oMenuItemAddRoster.Header = "Add Roster";
+            oMenuItemAddRoster.Click += new RoutedEventHandler(oMenuItemAddRoster_Click);
+            oMenuItemLoadData.Items.Add(oMenuItemAddRoster);
+
 
             MenuItem oMenuItemReport = new MenuItem();
             oMenuItemReport.Header = "Reports";
@@ -83,7 +89,7 @@ namespace IncogStuffControl
 
             MenuItem oMenuItemLoadReports = new MenuItem();
             oMenuItemLoadReports.InputGestureText = "Ctrl+R";
-            oMenuItemLoadReports.Header = "Load Reports";
+            oMenuItemLoadReports.Header = "Timesheets";
             oMenuItemLoadReports.Click += new RoutedEventHandler(oMenuItemLoadReports_Click);
             oMenuItemReport.Items.Add(oMenuItemLoadReports);
         }
@@ -116,10 +122,16 @@ namespace IncogStuffControl
             }
         }
 
-        private void oMenuItemAddEmployee_Click(object sender, RoutedEventArgs e)
+        private void oMenuItemAddRoster_Click(object sender, RoutedEventArgs e)
         {
             ChargeUC oUC_Charge = new ChargeUC();
-             MessageBoxResult Response = ViewWindow_Modal.Show(oUC_Charge, "Load Roster", oUC_Charge.BtnCancel);
+            MessageBoxResult Response = ViewWindow_Modal.Show(oUC_Charge, "Load Roster", oUC_Charge.BtnCancel);
+        }
+
+        private void oMenuItemAddEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            ChargeEmployees oUC_Charge = new ChargeEmployees();
+             MessageBoxResult Response = ViewWindow_Modal.Show(oUC_Charge, "Load Employees", oUC_Charge.BtnCancel);
         }
 
         private void oMenuItemNewEmployee_Click(object sender, RoutedEventArgs e)

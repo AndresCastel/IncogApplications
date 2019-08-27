@@ -133,6 +133,9 @@
     <Compile Include="UserControls\BreakUC.xaml.cs">
       <DependentUpon>BreakUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Charges\ChargeEmployees.xaml.cs">
+      <DependentUpon>ChargeEmployees.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Charges\ChargeUC.xaml.cs">
       <DependentUpon>ChargeUC.xaml</DependentUpon>
     </Compile>
@@ -168,6 +171,18 @@
     <Compile Include="UtilControls\DropDownButton\DropDownButton.cs" />
     <Compile Include="UtilControls\DropDownButton\InverseBoolConverter.cs" />
     <Compile Include="UtilControls\DropDownButton\KeyboardUtilities.cs" />
+    <Compile Include="UtilControls\Loading\Block.xaml.cs">
+      <DependentUpon>Block.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UtilControls\Loading\LoadingAnimation.xaml.cs">
+      <DependentUpon>LoadingAnimation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UtilControls\Loading\LoadingAnimationWP.xaml.cs">
+      <DependentUpon>LoadingAnimationWP.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UtilControls\Loading\RectangleWP.xaml.cs">
+      <DependentUpon>RectangleWP.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UtilControls\ModalMessageBox\MessageBoxModal.cs" />
     <Compile Include="UtilControls\UpDownButton\NumericUpDownTextBox.xaml.cs">
       <DependentUpon>NumericUpDownTextBox.xaml</DependentUpon>
@@ -223,6 +238,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Charges\ChargeEmployees.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Charges\ChargeUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -252,6 +271,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Selectors\BreakSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UtilControls\Loading\Block.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UtilControls\Loading\LoadingAnimation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UtilControls\Loading\LoadingAnimationWP.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UtilControls\Loading\RectangleWP.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -388,5 +423,6 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
