@@ -15,14 +15,45 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace IncogStuffControl.UserControls
 {
     /// <summary>
     /// Interaction logic for ReportViewUC.xaml
     /// </summary>
-    public partial class ReportViewUC : UserControl
+    public partial class ReportViewUC : UserControl, INotifyPropertyChanged
     {
+
+        /// <summary>
+        /// Evento de acuerdo a la interfáz.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// Método que permite hacer el raise del evento de cambio de propiedad.
+        /// </summary>
+        /// <param name="info">Propiedad que está cambiando</param>
+        private void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
+        private bool _save;
+        public bool save
+        {
+            get { return _save; }
+            set
+            {
+                _save = value;
+                if (value)
+                {
+                    NotifyPropertyChanged("save");
+                }
+            }
+        }
         public ReportViewUC()
         {
             InitializeComponent();
@@ -48,6 +79,11 @@ namespace IncogStuffControl.UserControls
             _reportviewer.SetDisplayMode(DisplayMode.PrintLayout);
             _reportviewer.Refresh();
             _reportviewer.RefreshReport();
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            save = true;
         }
     }
 }

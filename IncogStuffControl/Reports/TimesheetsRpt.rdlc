@@ -342,21 +342,21 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Sign_In">
+                    <Textbox Name="StartTime">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!Sign_In.Value</Value>
+                              <Value>=Fields!StartTime.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Sign_In</rd:DefaultName>
+                      <rd:DefaultName>StartTime</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -372,21 +372,21 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Sign_Off">
+                    <Textbox Name="EndTime">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!Sign_Off.Value</Value>
+                              <Value>=Fields!EndTime.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Sign_Off</rd:DefaultName>
+                      <rd:DefaultName>EndTime</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -609,17 +609,32 @@
       </ConnectionProperties>
       <rd:DataSourceID>c72de01f-f0bf-460c-9e7b-9a4c53a248aa</rd:DataSourceID>
     </DataSource>
+    <DataSource Name="IncogStuffControlServicesViewModel">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>8c429190-47fa-40ab-b3c4-c4ace831871c</rd:DataSourceID>
+    </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="DS_TimeSheet">
       <Query>
-        <DataSourceName>IncogDbViewTimesheet</DataSourceName>
+        <DataSourceName>IncogStuffControlServicesViewModel</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
         <Field Name="Break">
           <DataField>Break</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Day">
+          <DataField>Day</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="EndTime">
+          <DataField>EndTime</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Id">
           <DataField>Id</DataField>
@@ -637,13 +652,9 @@
           <DataField>Payroll</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Sign_In">
-          <DataField>Sign_In</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="Sign_Off">
-          <DataField>Sign_Off</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+        <Field Name="StartTime">
+          <DataField>StartTime</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="TotalHours">
           <DataField>TotalHours</DataField>

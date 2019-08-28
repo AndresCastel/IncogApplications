@@ -87,13 +87,14 @@ namespace IncogStuffControl.UserControls.Scan
                     {
                         MessageBoxModal.Show(responseObj.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-                    txtScan.Text = string.Empty;
                 }
                 else
                 {
                     MessageBoxModal.Show(responseObj.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                txtScan.Text = string.Empty;
             }
+            
         }
 
         private async void TxtScan_LostFocus(object sender, RoutedEventArgs e)

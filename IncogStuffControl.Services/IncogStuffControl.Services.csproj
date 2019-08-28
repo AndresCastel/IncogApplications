@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\IncogStuffControl.Services.ViewModel.TimesheetsReportViewModel.datasource" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Incog.Utils\Incog.Utils.csproj">

@@ -12,8 +12,9 @@ namespace IncogStuffControl.Services.ViewModel
         public string Payroll { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
-        public DateTime Sign_In { get; set; }
-        public DateTime Sign_Off { get; set; }
+        public DateTime Day { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
         public int Break { get; set; }
         public double TotalHours
         {
@@ -25,7 +26,9 @@ namespace IncogStuffControl.Services.ViewModel
 
         private double CalculateDiff()
         {
-            TimeSpan diff = Sign_Off - Sign_In;
+            TimeSpan SignIn = TimeSpan.ParseExact(StartTime, "hhmm", null);
+            TimeSpan SignOff = TimeSpan.ParseExact(StartTime, "hhmm", null);
+            TimeSpan diff = SignOff - SignIn;
             double hours = diff.TotalHours - (double)(Break*100/60)/100;
             return hours;
         }

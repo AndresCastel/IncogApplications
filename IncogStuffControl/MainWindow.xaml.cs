@@ -97,9 +97,23 @@ namespace IncogStuffControl
         {
             List<TimesheetsReportViewModel> lst = await ServiceEmployee.GetTimesheetReport();
             ReportViewUC oReportTimesheet = new ReportViewUC(lst);
+            oReportTimesheet.PropertyChanged += OReportTimesheet_PropertyChanged;
             contentUserControl.Content = null;
 
             contentUserControl.Content = oReportTimesheet;
+        }
+
+        private void OReportTimesheet_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (sender is ReportViewUC)
+            {
+                contentUserControl.Content = null;
+                FocusManager.SetFocusedElement(this, scanus.txtScan);
+                Keyboard.Focus(scanus.txtScan);
+                contentUserControl.Content = scanus;
+                MenuBase.Visibility = Visibility.Hidden;
+                IncImage.Visibility = Visibility.Visible;
+            }
         }
 
         private void oMenuItemAddEmployee_Click(object sender, RoutedEventArgs e)

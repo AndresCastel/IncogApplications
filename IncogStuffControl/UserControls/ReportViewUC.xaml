@@ -6,10 +6,21 @@
              xmlns:local="clr-namespace:IncogStuffControl.UserControls"
             xmlns:rdlcreport="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"  
         mc:Ignorable="d"  
-         Height="450" Width="800">
-    <Grid>
-        <WindowsFormsHost Name="windowsFormsHost1" Grid.Row="0" >
+         Height="auto" Width="auto">
+    <Grid HorizontalAlignment="Stretch" Margin="0,-20,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <WindowsFormsHost Grid.Column="0" Height="600" Width="900" Name="windowsFormsHost1" Grid.Row="0" >
             <rdlcreport:ReportViewer x:Name="_reportviewer" />
         </WindowsFormsHost>
+        <Canvas Height="27" Grid.Column="0" Grid.Row="1" Name="canvas1" Width="176" HorizontalAlignment="Right" >
+            <Button Name="btnCancel" Height="45" Width="75" Content="Cancel" Click="btnCancel_Click" Canvas.Left="-90" Canvas.Top="0" TabIndex="7"></Button>
+        </Canvas>
     </Grid>
 </UserControl>

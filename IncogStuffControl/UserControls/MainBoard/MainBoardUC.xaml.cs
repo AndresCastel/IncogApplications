@@ -181,14 +181,6 @@ namespace IncogStuffControl.UserControls.MainBoard
             //Validations SignIn Off
             DateTime DateScan = DateTime.Now;
 
-
-
-
-
-
-
-
-
             string HourScan = General.ConvertDatetoMilitaryHour(DateTime.Now);
             TimeSpan tsScan = TimeSpan.ParseExact(HourScan, "hhmm", null);
             
