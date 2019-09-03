@@ -147,7 +147,7 @@ namespace IncogStuffControl.Services
                     HttpResponseMessage response = new HttpResponseMessage();
 
                     // HTTP GET
-                    response = await client.GetAsync("api/Employee/timesheet/").ConfigureAwait(false);
+                    response = await client.GetAsync("api/Reports/timesheet/").ConfigureAwait(false);
 
                     // Verification
                     if (response.IsSuccessStatusCode)

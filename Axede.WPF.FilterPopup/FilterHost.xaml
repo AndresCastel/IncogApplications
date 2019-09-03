@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="Axede.WPF.FilterPopup.FilterHost"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Height="auto" Width="auto" d:DesignHeight="58" d:DesignWidth="150" Loaded="UserControl_Loaded">
+    <StackPanel Margin="0" Height="auto" Width="Auto" >
+        <Border Name="BoderFooter" Style="{DynamicResource FilterBorderHeaderContextMenu}" Margin="0,0,0,0"  >
+            <Canvas  Style="{DynamicResource FilterHeaderContextMenu}"  Margin="0" VerticalAlignment="Center" >
+                <Image Source="/Axede.WpfForms.Application.GestionCobro;component/Themes/Images/FilterBase.png"  Style="{DynamicResource FilterHeaderImageContextMenu}" Canvas.Top="2" Canvas.Left="2" />
+                <Label Name="lblColumna" Content="Columna" Canvas.Left="19" Canvas.Top="0" Style="{DynamicResource FilterLabelHeaderContextMenu}" Height="Auto"/>
+            </Canvas>
+        </Border>
+        <StackPanel Margin="5,5,5,5">
+            <ContentControl Name="UC"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        </StackPanel>
+        <Border  Style="{DynamicResource FilterBorderFooterContextMenu}" >
+            <Canvas Style="{DynamicResource FilterFooterContextMenu}">
+                <ToggleButton  Style="{DynamicResource FilterToggleButton}" Name="btnRemoverFiltro"   Canvas.Left="0" Canvas.Top="2" Click="btnRemoverFiltro_Click">
+                    <Image Source="/Axede.WpfForms.Application.GestionCobro;component/Themes/Images/FilterRemove.png"  />
+                    <ToggleButton.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="5"/>
+                    </ToggleButton.Effect>
+                </ToggleButton>
+                <ToggleButton   Style="{DynamicResource FilterToggleButton}" Name="btnAceptar"  Canvas.Left="103" Canvas.Top="0" Click="btnAceptar_Click">
+                   <Image Source="/Axede.WpfForms.Application.GestionCobro;component/Themes/Images/FilterOk.png"  />
+                    <ToggleButton.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="5"/>
+                    </ToggleButton.Effect>
+                </ToggleButton>
+                <ToggleButton  Style="{DynamicResource FilterToggleButton}" Name="btnCancelar"  Canvas.Left="125" Canvas.Top="0" Click="btnCancelar_Click">
+                    <Image  Source="/Axede.WpfForms.Application.GestionCobro;component/Themes/Images/FilterCancel.png"  />
+                    <ToggleButton.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="5"/>
+                    </ToggleButton.Effect>
+                </ToggleButton>
+            </Canvas>
+        </Border>
+    </StackPanel>
+  
+</UserControl>

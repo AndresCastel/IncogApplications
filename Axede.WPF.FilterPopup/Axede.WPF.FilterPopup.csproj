@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{63C0CA12-4C2B-4FE6-9B25-3C4629BC1859}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Axede.WPF.FilterPopup</RootNamespace>
+    <AssemblyName>Axede.WPF.FilterPopup</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseColumnFilter.cs" />
+    <Compile Include="ColumnFilterEventArgs.cs" />
+    <Compile Include="ColumnFilters.cs" />
+    <Compile Include="ComboBoxColumnFilter.xaml.cs">
+      <DependentUpon>ComboBoxColumnFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RangeValueColumnFilter.xaml.cs">
+      <DependentUpon>RangeValueColumnFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RangeDateColumnFilter.xaml.cs">
+      <DependentUpon>RangeDateColumnFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FilterHost.xaml.cs">
+      <DependentUpon>FilterHost.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FilterPopupList.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextBoxColumnFilter.xaml.cs">
+      <DependentUpon>TextBoxColumnFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPFFilterPopupManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ComboBoxColumnFilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RangeValueColumnFilter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RangeDateColumnFilter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FilterHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TextBoxColumnFilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Axede.WPF.DataPicker\Axede.WPF.DataPicker.csproj">
+      <Project>{BE7B7297-6537-49C5-AC7B-28E0FC353C35}</Project>
+      <Name>Axede.WPF.DataPicker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Incog.wpf.Messages\Incog.Wpf.Messages.csproj">
+      <Project>{7a0b5ead-9f54-4de0-9764-7fd8cce89dab}</Project>
+      <Name>Incog.Wpf.Messages</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,10 @@
+﻿<Controls:BaseColumnFilter x:Class="Axede.WPF.FilterPopup.ComboBoxColumnFilter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Controls="clr-namespace:Axede.WPF.FilterPopup"
+             mc:Ignorable="d" 
+               d:DesignHeight="26" d:DesignWidth="140" Loaded="BaseColumnFilter_Loaded" KeyDown="BaseColumnFilter_KeyDown">
+            <ComboBox Height="23" Name="cmbFilter"  Width="140" SelectionChanged="cmbFilter_SelectionChanged" />
+</Controls:BaseColumnFilter>

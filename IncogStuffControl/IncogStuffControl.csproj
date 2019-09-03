@@ -14,6 +14,28 @@
     <WarningLevel>4</WarningLevel>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>C:\IncogDeploy\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://incognitusappscan.s3-website.us-east-2.amazonaws.com/</InstallUrl>
+    <ProductName>ScanTime</ProductName>
+    <PublisherName>Incognitus</PublisherName>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>scantime.htm</WebPage>
+    <ApplicationRevision>19</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -35,6 +57,18 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>BE12D9A3CC3CAB4C3BD370DED9F1214DBE7D3234</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>IncogStuffControl_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
@@ -154,6 +188,9 @@
     <Compile Include="UserControls\ReportViewUC.xaml.cs">
       <DependentUpon>ReportViewUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Roster\RosterAdminUC.xaml.cs">
+      <DependentUpon>RosterAdminUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Scan\ScanIdCard.xaml.cs">
       <DependentUpon>ScanIdCard.xaml</DependentUpon>
     </Compile>
@@ -171,6 +208,15 @@
     <Compile Include="UtilControls\DropDownButton\DropDownButton.cs" />
     <Compile Include="UtilControls\DropDownButton\InverseBoolConverter.cs" />
     <Compile Include="UtilControls\DropDownButton\KeyboardUtilities.cs" />
+    <Compile Include="UtilControls\Grid\DataGridContentControlColumn.cs" />
+    <Compile Include="UtilControls\Grid\GridPersonalizada.cs" />
+    <Compile Include="UtilControls\Grid\PageGridGestionUC.xaml.cs">
+      <DependentUpon>PageGridGestionUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UtilControls\Grid\PageGridUC.xaml.cs">
+      <DependentUpon>PageGridUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UtilControls\Grid\WPFDataGridHelper.cs" />
     <Compile Include="UtilControls\Loading\Block.xaml.cs">
       <DependentUpon>Block.xaml</DependentUpon>
     </Compile>
@@ -233,6 +279,7 @@
     <Page Include="Themes\MessageBoxModal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
     <Page Include="UserControls\BreakUC.xaml">
       <SubType>Designer</SubType>
@@ -266,11 +313,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Roster\RosterAdminUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Scan\ScanIdCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Selectors\BreakSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UtilControls\Grid\PageGridGestionUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UtilControls\Grid\PageGridUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -344,6 +403,7 @@
     <None Include="IncogDbViewTimesheet.xss">
       <DependentUpon>IncogDbViewTimesheet.xsd</DependentUpon>
     </None>
+    <None Include="IncogStuffControl_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\IncogStuffControl.Services.ViewModel.TimesheetsReport.datasource" />
     <None Include="Properties\DataSources\IncogStuffControl.Services.ViewModel.TimesheetsReportViewModel.datasource" />
@@ -362,6 +422,10 @@
     <ProjectReference Include="..\Axede.Wpf.CustomWindow\Axede.Wpf.CustomWindow.csproj">
       <Project>{2e8efe10-adf4-4b4f-b324-aa79021e39bd}</Project>
       <Name>Axede.Wpf.CustomWindow</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Axede.WPF.FilterPopup\Axede.WPF.FilterPopup.csproj">
+      <Project>{63c0ca12-4c2b-4fe6-9b25-3c4629bc1859}</Project>
+      <Name>Axede.WPF.FilterPopup</Name>
     </ProjectReference>
     <ProjectReference Include="..\Incog.Utils\Incog.Utils.csproj">
       <Project>{01141362-bac9-46b6-9985-3d61ff9fe5b3}</Project>
@@ -387,6 +451,13 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Resource Include="Themes\Images\RemoveGrid.png" />
+    <Resource Include="Themes\Images\EditGrid.png" />
+    <Resource Include="Themes\Images\FindGrid.png" />
+    <Resource Include="Themes\Images\Forward .png" />
+    <Resource Include="Themes\Images\Left .png" />
+    <Resource Include="Themes\Images\Rewind.png" />
+    <Resource Include="Themes\Images\Rigth.png" />
     <Resource Include="Themes\Images\excelLogo.png" />
     <Resource Include="Themes\Images\Ico-Warning.png" />
     <Resource Include="Themes\Images\MsgError48.png" />
@@ -422,6 +493,25 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="Mensajes.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

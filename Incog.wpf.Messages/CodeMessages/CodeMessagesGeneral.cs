@@ -9,8 +9,20 @@ namespace Incog.wpf.Messages
         public partial class CodeMessagesGeneral
     {
             public const string TituloModalMensajes = "TituloModalMensajes";
+        public const string General_ToolTip_BotonConsultarGrilla = "General_ToolTip_BotonConsultarGrilla";
+        public const string General_ToolTip_BotonCorreoGrilla = "General_ToolTip_BotonCorreoGrilla";
+        public const string General_ToolTip_BotonDirectorio = "General_ToolTip_BotonDirectorio";
+        public const string General_ToolTip_BotonEditarGrilla = "General_ToolTip_BotonEditarGrilla";
+        public const string General_ToolTip_BotonEliminaGrilla = "General_ToolTip_BotonEliminaGrilla";
+        public const string General_TextoEstadoActivo = "General_TextoEstadoActivo";
+        public const string General_TextoEstadoInactivo = "General_TextoEstadoInactivo";
+        public const string General_TextoPagina = "General_TextoPagina";
+        public const string General_TextoRegistro = "General_TextoRegistro";
+        public const string General_FiltroToolTipBotonAceptar = "General_FiltroToolTipBotonAceptar";
+        public const string General_FiltroToolTipBotonCancelar = "General_FiltroToolTipBotonCancelar";
+        public const string General_FiltroToolTipBotonRemover = "General_FiltroToolTipBotonRemover";
 
-            public const string General_TextoBotonAceptar = "General_TextoBotonAceptar";
+        public const string General_TextoBotonAceptar = "General_TextoBotonAceptar";
             public const string General_TextoBotonCancelar = "General_TextoBotonCancelar";
             public const string General_ToolTipBotonAceptar = "General_ToolTipBotonAceptar";
 
@@ -19,9 +31,13 @@ namespace Incog.wpf.Messages
             public const string AcercaDe_DescripcionProducto = "AcercaDe_DescripcionProducto";
             public const string AcercaDe_Version = "AcercaDe_Version";
 
+        public const string General_ToolTipBotonPrimeraPagina = "General_ToolTipBotonPrimeraPagina";
+        public const string General_ToolTipBotonAnteriorPagina = "General_ToolTipBotonAnteriorPagina";
+        public const string General_ToolTipBotonSiguientePagina = "General_ToolTipBotonSiguientePagina";
+        public const string General_ToolTipBotonUltimaPagina = "General_ToolTipBotonUltimaPagina";
 
 
-            public const string Aplicacion_ErrorDatosBasicos = "Aplicacion_ErrorDatosBasicos";
+        public const string Aplicacion_ErrorDatosBasicos = "Aplicacion_ErrorDatosBasicos";
             public const string Aplicacion_InstanciaEnEjecucion = "Aplicacion_InstanciaEnEjecucion";
             public const string Aplicacion_VerificandoInstanciaAplicacion = "Aplicacion_VerificandoInstanciaAplicacion";
 

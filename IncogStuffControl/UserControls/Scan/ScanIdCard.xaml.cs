@@ -1,4 +1,5 @@
-﻿using IncogStuffControl.Services;
+﻿using Incog.Utils;
+using IncogStuffControl.Services;
 using IncogStuffControl.Services.ViewModel;
 using IncogStuffControl.UtilControls.ModalMessageBox;
 using System;
@@ -66,7 +67,7 @@ namespace IncogStuffControl.UserControls.Scan
 
 
             
-            if (txtScan.Text.Length >= 12)
+            if (txtScan.Text.Length == 12)
             {
                 MessageResponseViewModel<EmployeeVsRosterVM> responseObj = await ServiceEmployee.GetEmployee(txtScan.Text);
                 if (responseObj.Succesfull)
@@ -80,64 +81,24 @@ namespace IncogStuffControl.UserControls.Scan
                         }
                         else
                         {
-                            MessageBoxModal.Show(responseObj.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBoxModal.Show(General.ResolveOwnerWindow(), responseObj.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
                     else
                     {
-                        MessageBoxModal.Show(responseObj.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBoxModal.Show(General.ResolveOwnerWindow(), responseObj.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else
                 {
-                    MessageBoxModal.Show(responseObj.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBoxModal.Show(General.ResolveOwnerWindow(), responseObj.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 txtScan.Text = string.Empty;
             }
             
         }
 
-        private async void TxtScan_LostFocus(object sender, RoutedEventArgs e)
-        {
+       
 
-            if (txtScan.Text.Length >= 12)
-            {
-                MessageResponseViewModel<EmployeeVsRosterVM> responseObj = await ServiceEmployee.GetEmployee(txtScan.Text);
-                if (responseObj.Succesfull)
-                {
-                    if (responseObj.Succesfull != false)
-                    {
-                        if (responseObj.Data != null)
-                        {
-
-                            employee = (EmployeeVsRosterVM)responseObj.Data;
-                        }
-                        else
-                        {
-                            MessageBoxModal.Show(responseObj.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                    }
-                    else
-                    {
-                        MessageBoxModal.Show(responseObj.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    txtScan.Text = string.Empty;
-                }
-                else
-                {
-                    MessageBoxModal.Show(responseObj.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-
-        }
-
-
-        private void TxtScan_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key.Equals(Key.Enter))
-            {
-                txtScan.Text = string.Empty;
-            }
-        }
     }
 }

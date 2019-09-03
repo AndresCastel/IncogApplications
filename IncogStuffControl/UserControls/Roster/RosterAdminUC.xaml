@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="IncogStuffControl.UserControls.Roster.RosterAdminUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:grid="clr-namespace:IncogStuffControl.UtilControls.Grid"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" x:Name="Uc_RosterAdmin" 
+             Height="auto" Width="auto" Loaded="Uc_RosterAdmin_Loaded"
+                  xmlns:my="clr-namespace:IncogStuffControl.UtilControls.Loading">
+    <StackPanel Name="parentstack" Height="118" Width="768" Background="{StaticResource UCBackgroundColor}" >
+        <StackPanel VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Left" Height="35" Width="Auto">
+           
+        </StackPanel>
+        <DataGrid Style="{DynamicResource GridNotifications_Style}" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Name="grvRoster" Height="500" IsReadOnly="True" ItemsSource="{Binding}" AutoGenerateColumns="False" AllowDrop="False" Loaded="grvRosterAdmin_Loaded" Sorting="grvRosterAdmin_Sorting" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn CanUserReorder="False" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Button Style="{DynamicResource DataGridButton_Style}"  Name="btnConsultarGrilla" Click="Consultar_Click" Height="20" Width="20">
+                                    <Image Source="/IncogStuffControl;component/Themes/Images/FindGrid.png" Stretch="None"/>
+                                    <Button.Effect>
+                                        <DropShadowEffect BlurRadius="10" ShadowDepth="5"/>
+                                    </Button.Effect>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn CanUserReorder="False" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Button Style="{DynamicResource DataGridButton_Style}" Name="btnEditarGrilla" Click="Editar_Click" Height="20" Width="20">
+                                    <Image Source="/IncogStuffControl;component/Themes/Images/EditGrid.png" Stretch="None"/>
+                                    <Button.Effect>
+                                        <DropShadowEffect BlurRadius="10" ShadowDepth="5"/>
+                                    </Button.Effect>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn CanUserReorder="False" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Button Style="{DynamicResource DataGridButton_Style}"  Name="btnEliminarGrilla" Click="Eliminar_Click" Height="20" Width="20">
+                                    <Image Source="/IncogStuffControl;component/Themes/Images/RemoveGrid.png" Stretch="None"/>
+                                    <Button.Effect>
+                                        <DropShadowEffect BlurRadius="10" ShadowDepth="5"/>
+                                    </Button.Effect>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <grid:GridPersonalizada    Binding="{Binding Day}" Width="30"/>
+                <grid:GridPersonalizada    Binding="{Binding DateShort}" Width="*"/>
+                <grid:GridPersonalizada    Binding="{Binding StartTime}" Width="80"/>
+                <grid:GridPersonalizada    Binding="{Binding EndTime}" Width="80"/>
+                <grid:GridPersonalizada    Binding="{Binding Break}" Width="50"/>
+                <grid:GridPersonalizada    Binding="{Binding Precint}" Width="*"/>
+                <grid:GridPersonalizada    Binding="{Binding Zone}" Width="*"/>
+                <grid:GridPersonalizada    Binding="{Binding Area}" Width="*"/>
+                <grid:GridPersonalizada    Binding="{Binding LabourType}" Width="*"/>
+                <grid:GridPersonalizada    Binding="{Binding Employee}" Width="200"/>
+                <grid:GridPersonalizada    Binding="{Binding Payroll}" Width="*"/>
+                <grid:GridPersonalizada    Binding="{Binding EventName}" Width="*"/>
+               
+            </DataGrid.Columns>
+        </DataGrid>
+        <my:LoadingAnimation x:Name="UCLoading" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <my:LoadingAnimation.Style>
+                <Style TargetType="{x:Type my:LoadingAnimation}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+
+                </Style>
+            </my:LoadingAnimation.Style>
+        </my:LoadingAnimation>
+        <grid:PageGridGestionUC x:Name="Paginador" HorizontalAlignment="Center" />
+    </StackPanel>
+</UserControl>

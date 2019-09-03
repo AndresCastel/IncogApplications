@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,19 @@ namespace Incog.Utils
             string MilitaryHour;
             MilitaryHour = Time.ToString("hhmm");
             return MilitaryHour;
+        }
+
+        /// <summary>
+        /// Convierte un la Lista em un ObservableCollection
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="coll"></param>
+        /// <returns></returns>
+        public static ObservableCollection<T> ToObservableCollection<T>(List<T> coll, ObservableCollection<T> c)
+        {
+            c.Clear();
+            foreach (var e in coll) c.Add(e);
+            return c;
         }
 
         public static string RoundUp(TimeSpan dt, TimeSpan d)

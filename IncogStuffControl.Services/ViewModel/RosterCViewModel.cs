@@ -8,7 +8,7 @@ namespace IncogStuffControl.Services.ViewModel
 {
     public class RosterCViewModel : ViewModelBase
     {
-        public int Day { get; set; }
+        public int Day { get; set; }        
         public DateTime Date { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
@@ -23,5 +23,9 @@ namespace IncogStuffControl.Services.ViewModel
         public string EventName { get; set; }
         public bool LookedIn { get; set; }
         public bool Confirm { get; set; }
+        public string DateShort
+        {
+            get { return Date.ToShortDateString(); }
+        }
     }
 }

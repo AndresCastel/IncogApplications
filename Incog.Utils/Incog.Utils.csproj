@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassMethodUtil.cs" />
+    <Compile Include="Enums\TipoPaginaPaginado.cs" />
     <Compile Include="General.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -15,6 +15,7 @@ using System.Windows.Input;
 using IncogStuffControl.Services.ViewModel;
 using IncogStuffControl.Services;
 using IncogStuffControl.UserControls.Charges;
+using IncogStuffControl.UserControls.Roster;
 
 namespace IncogStuffControl
 {
@@ -40,58 +41,75 @@ namespace IncogStuffControl
         private void HandleEsc(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
+            {
                 Close();
-            
+                this.Dispose();
+            }
         }
 
         //Create Menu
         private void CreateMenuBase()
         {
-
-          
-
+            //Employee
             MenuItem oMenuItemEmployee = new MenuItem();
             oMenuItemEmployee.Header = "Employee";
             MenuBase.Items.Add(oMenuItemEmployee);
-
+            //Employee - New Employee
             MenuItem oMenuItemNewEmployee = new MenuItem();
             oMenuItemNewEmployee.InputGestureText = "Ctrl+N";
             oMenuItemNewEmployee.Header = "New";
             oMenuItemNewEmployee.Click += new RoutedEventHandler(oMenuItemNewEmployee_Click);
             oMenuItemEmployee.Items.Add(oMenuItemNewEmployee);
-
+            //Employee - Edit Employee
             MenuItem oMenuItemEditEmployee = new MenuItem();
             oMenuItemEditEmployee.InputGestureText = "Ctrl+E";
             oMenuItemEditEmployee.Header = "Edit";
             oMenuItemEditEmployee.Click += new RoutedEventHandler(oMenuItemEditEmployee_Click);
             oMenuItemEmployee.Items.Add(oMenuItemEditEmployee);
-
+            //Load
             MenuItem oMenuItemLoadData = new MenuItem();
             oMenuItemLoadData.Header = "Load Data";
             MenuBase.Items.Add(oMenuItemLoadData);
-
+            //Load - Load Employees
             MenuItem oMenuItemAddEmployee = new MenuItem();
             oMenuItemAddEmployee.InputGestureText = "Ctrl+L";
-            oMenuItemAddEmployee.Header = "Add Employees";
+            oMenuItemAddEmployee.Header = "Load Employees";
             oMenuItemAddEmployee.Click += new RoutedEventHandler(oMenuItemAddEmployee_Click);
             oMenuItemLoadData.Items.Add(oMenuItemAddEmployee);
-
+            //Load - Load Roster
             MenuItem oMenuItemAddRoster = new MenuItem();
             oMenuItemAddRoster.InputGestureText = "Ctrl+L";
-            oMenuItemAddRoster.Header = "Add Roster";
+            oMenuItemAddRoster.Header = "Load Roster";
             oMenuItemAddRoster.Click += new RoutedEventHandler(oMenuItemAddRoster_Click);
             oMenuItemLoadData.Items.Add(oMenuItemAddRoster);
-
-
+            //Roster
+            MenuItem oMenuItemRoster = new MenuItem();
+            oMenuItemRoster.Header = "Roster";
+            MenuBase.Items.Add(oMenuItemRoster);
+            //Roster - Modify Roster
+            MenuItem oMenuItemModifyRoster = new MenuItem();
+            oMenuItemModifyRoster.InputGestureText = "Ctrl+L";
+            oMenuItemModifyRoster.Header = "Modify Roster";
+            oMenuItemModifyRoster.Click += new RoutedEventHandler(oMenuItemModRoster_Click);
+            oMenuItemRoster.Items.Add(oMenuItemModifyRoster);
+            //Reports
             MenuItem oMenuItemReport = new MenuItem();
             oMenuItemReport.Header = "Reports";
             MenuBase.Items.Add(oMenuItemReport);
-
+            //Reports - Timesheet
             MenuItem oMenuItemLoadReports = new MenuItem();
             oMenuItemLoadReports.InputGestureText = "Ctrl+R";
             oMenuItemLoadReports.Header = "Timesheets";
             oMenuItemLoadReports.Click += new RoutedEventHandler(oMenuItemLoadReports_Click);
             oMenuItemReport.Items.Add(oMenuItemLoadReports);
+        }
+
+        private void oMenuItemModRoster_Click(object sender, RoutedEventArgs e)
+        {
+            RosterAdminUC oRoster = new RosterAdminUC(true);           
+            contentUserControl.Content = null;
+
+            contentUserControl.Content = oRoster;
         }
 
         private void oMenuItemEditEmployee_Click(object sender, RoutedEventArgs e)
