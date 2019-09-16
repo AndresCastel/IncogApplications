@@ -19,6 +19,8 @@ using System.Data.OleDb;
 using System.Data;
 using IncogStuffControl.Services.Services;
 using Incog.Utils;
+using Excel = Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Interop.Excel;
 
 
 namespace IncogStuffControl.UserControls.Charges
@@ -93,39 +95,16 @@ namespace IncogStuffControl.UserControls.Charges
 
         private List<EmployeeViewModel> ReadFile(string Path)
         {
-            string connString = string.Empty;
-            connString = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" + Path + "; Extended Properties='Excel 8.0;IMEX=1;HDR=No'";
-
-            OleDbConnection connExcel = new OleDbConnection(connString);
-            OleDbCommand cmdExcel = new OleDbCommand();
+            
             try
             {
-                cmdExcel.Connection = connExcel;
-                //Check if the file is open
-                bool open = General.FileIsOpen(lblPath.Text);
-                if (open)
-                {
-                    MessageBoxModal.Show(General.ResolveOwnerWindow(), "The file is Open, Could you close it?", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                    return null;
-                }
-                //Check if the Sheet Exists
-                connExcel.Open();
-                DataTable dtExcelSchema;
-                //Get the Schema of the WorkBook
-                dtExcelSchema = connExcel.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                connExcel.Close();
+                Excel.Application xlapp = new Excel.Application();
+                _Workbook xlWoork = xlapp.Workbooks.Open(Path);
+                _Worksheet xlWorksheet = xlWoork.Sheets[1];
+                Range xlRange = xlWorksheet.UsedRange;
+                int rowCount = xlRange.Rows.Count;
+                int colCount = xlRange.Columns.Count;
 
-                //Read Data from Sheet1
-                connExcel.Open();
-                OleDbDataAdapter da = new OleDbDataAdapter();
-                DataSet ds = new DataSet();
-                string SheetName = dtExcelSchema.Rows[0]["TABLE_NAME"].ToString();
-                cmdExcel.CommandText = "SELECT * From [" + SheetName + "]";
-                //Range Query
-                //cmdExcel.CommandText = "SELECT * From [" + SheetName + "A3:B5]";
-
-                da.SelectCommand = cmdExcel;
-                da.Fill(ds);
                 int Name = 0;
                 int MiddleName = 0;
                 int LastName = 0;
@@ -135,68 +114,64 @@ namespace IncogStuffControl.UserControls.Charges
                 int RolId = 0;
                 int Active = 0;
 
-                for (int i = 0; i < ds.Tables[0].Columns.Count; i++)
+                for (int i = 1; i <= colCount; i++)
                 {
-                    if (ds.Tables[0].Rows[0][i].ToString() == "Name")
+                    if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "Name")
                     {
                         Name = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "MiddleName")
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "MiddleName")
                     {
                         MiddleName = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "LastName")
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "LastName")
                     {
                         LastName = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Barcode")
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "Barcode")
                     {
                         Barcode = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Email")
-                    {
-                        Email = i;
-                    }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Payroll")
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "Payroll")
                     {
                         Payroll = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "RolId")
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "Email")
+                    {
+                        Email = i;
+                    }
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "RolId")
                     {
                         RolId = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Active")
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "Active")
                     {
                         Active = i;
                     }
                 }
 
-                for (int i = 1; i < ds.Tables[0].Rows.Count; i++)
+                for (int i = 2; i < rowCount; i++)
                 {
                     EmployeeViewModel employ = new EmployeeViewModel();
-                    employ.Name = ds.Tables[0].Rows[i][Name].ToString();
-                    employ.MiddleName = ds.Tables[0].Rows[i][MiddleName].ToString();
-                    employ.LastName = ds.Tables[0].Rows[i][LastName].ToString();
-                    employ.Barcode = ds.Tables[0].Rows[i][Barcode].ToString();
-                    employ.Email = ds.Tables[0].Rows[i][Email].ToString();
-                    employ.Payroll = ds.Tables[0].Rows[i][Payroll].ToString();
-                    employ.RolId = Convert.ToInt32(ds.Tables[0].Rows[i][RolId].ToString());
+                    employ.Name = (xlWorksheet.Cells[i, Name] as Excel.Range).Value;
+                    employ.MiddleName = (xlWorksheet.Cells[i, MiddleName] as Excel.Range).Value;
+                    employ.LastName = (xlWorksheet.Cells[i, LastName] as Excel.Range).Value;
+                    employ.Barcode = (xlWorksheet.Cells[i, Barcode] as Excel.Range).Value;
+                    employ.Email = (xlWorksheet.Cells[i, Email] as Excel.Range).Value;
+                    employ.Payroll = (xlWorksheet.Cells[i, Payroll] as Excel.Range).Value;
+                    employ.RolId = Convert.ToInt32((xlWorksheet.Cells[i, RolId] as Excel.Range).Value);
                     employ.Active = true;
                     
                     lstEmployees.Add(employ);
                 }
 
-                connExcel.Close();
+                xlapp.Workbooks.Close();
             }
-            catch
+            catch (Exception ex)
             {
-                return null;
+                MessageBoxModal.Show(General.ResolveOwnerWindow(), ex.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            finally
-            {
-                cmdExcel.Dispose();
-                connExcel.Dispose();
-            }
+            GC.Collect();
             return lstEmployees;
         }
 

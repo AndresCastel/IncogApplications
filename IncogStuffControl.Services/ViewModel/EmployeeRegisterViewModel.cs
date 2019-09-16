@@ -18,6 +18,8 @@ namespace IncogStuffControl.Services.ViewModel
         public string EndTime { get; set; }
         public int Break { get; set; }
         public List<StuffAssignViewModel> lstStuffAssig { get; set; }
+        public int RosterId { get; set; }
+        public RosterCViewModel Roster { get; set; }
 
         public EmployeeRegisterViewModel()
         {

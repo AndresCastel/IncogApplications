@@ -69,7 +69,11 @@ namespace IncogStuffControl.UserControls.Scan
             
             if (txtScan.Text.Length == 12)
             {
-                MessageResponseViewModel<EmployeeVsRosterVM> responseObj = await ServiceEmployee.GetEmployee(txtScan.Text);
+                EmployeeRegisterViewModel employeer = new EmployeeRegisterViewModel();
+                employeer.Employee = new EmployeeViewModel();
+                employeer.Employee.Barcode = txtScan.Text;
+                employeer.Day = DateTime.Now;
+                MessageResponseViewModel<EmployeeVsRosterVM> responseObj = await ServiceEmployee.GetEmployee(employeer);
                 if (responseObj.Succesfull)
                 {
                     if (responseObj.Succesfull != false)

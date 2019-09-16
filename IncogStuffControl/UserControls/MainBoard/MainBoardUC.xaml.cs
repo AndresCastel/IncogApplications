@@ -1,6 +1,7 @@
 ﻿using Incog.Utils;
 using IncogStuffControl.Services;
 using IncogStuffControl.Services.ViewModel;
+using IncogStuffControl.UserControls.MainBoardParts;
 using IncogStuffControl.UtilControls.ModalMessageBox;
 using IncogStuffControl.UtilControls.ViewModal;
 using System;
@@ -69,11 +70,11 @@ namespace IncogStuffControl.UserControls.MainBoard
             InitializeComponent();
             employeepriv = employeeVsRoster.employregister;
             employeeroster = employeeVsRoster.employRoster;
-            if(employeeroster==null)
+            if (employeeroster == null)
             {
                 btnSave.IsEnabled = false;
             }
-            if(_stuffAsign != null)
+            if (_stuffAsign != null)
             {
                 SetEnableEquipment(_stuffAsign);
             }
@@ -165,7 +166,7 @@ namespace IncogStuffControl.UserControls.MainBoard
             }
         }
 
-       
+
 
         private void SetEmployee(EmployeeRegisterViewModel employee)
         {
@@ -281,21 +282,25 @@ namespace IncogStuffControl.UserControls.MainBoard
 
             string HourScan = General.ConvertDatetoMilitaryHour(DateTime.Now);
             TimeSpan tsScan = TimeSpan.ParseExact(HourScan, "hhmm", null);
-            
+
             EmployeeRegisterViewModel EmployeeRegister = new EmployeeRegisterViewModel();
             string aproxHour = "";
             switch (Type_Checked)
-                {
-                    //Sign In
-                    case 1:
+            {
+                //Sign In
+                case 1:
                     if (employeepriv.Type_RegisterId == 1 && employeepriv.StartTime != null)
                     {
                         MessageBoxModal.Show(General.ResolveOwnerWindow(), "You already did Sign In: " + employeepriv.StartTime, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                         return;
                     }
+                    if (employeeroster.StartTime.Length < 4)
+                    {
+                        employeeroster.StartTime = "0" + employeeroster.StartTime;
+                    }
                     TimeSpan tsRosterOn = TimeSpan.ParseExact(employeeroster.StartTime, "hhmm", null);
                     DateTime RosterStartTime = new DateTime(employeeroster.Date.Year, employeeroster.Date.Month, employeeroster.Date.Day, tsRosterOn.Hours, tsRosterOn.Minutes, 0);
-                    if(DateScan < RosterStartTime)
+                    if (DateScan < RosterStartTime)
                     {
                         TimeSpan ts = RosterStartTime - DateScan;
                         double mins = ts.TotalMinutes;
@@ -318,7 +323,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                     }
                     else
                     {
-                        aproxHour = employeeroster.StartTime;
+                        aproxHour = General.RoundToNearest(tsScan, TimeSpan.FromMinutes(15)); ;
                     }
 
                     EmployeeRegister.Day = DateTime.Now.Date;
@@ -326,12 +331,16 @@ namespace IncogStuffControl.UserControls.MainBoard
                     EmployeeRegister.Active = true;
                     EmployeeRegister.Type_RegisterId = Type_Checked;
                     break;
-                    //Sign off
-                    case 2:
+                //Sign off
+                case 2:
                     if (employeepriv.Type_RegisterId != 1 || employeepriv.StartTime == null)
                     {
                         MessageBoxModal.Show(ClassMethodUtil.ResolveOwnerWindow(), "You have not signed In", "Information", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Cancel, true);
                         return;
+                    }
+                    if (employeeroster.EndTime.Length < 4)
+                    {
+                        employeeroster.EndTime = "0" + employeeroster.EndTime;
                     }
                     TimeSpan tsRosterOff = TimeSpan.ParseExact(employeeroster.EndTime, "hhmm", null);
                     DateTime RosterEndTime = new DateTime(employeeroster.Date.Year, employeeroster.Date.Month, employeeroster.Date.Day, tsRosterOff.Hours, tsRosterOff.Minutes, 0);
@@ -376,30 +385,30 @@ namespace IncogStuffControl.UserControls.MainBoard
                     EmployeeRegister.Active = false;
                     EmployeeRegister.Type_RegisterId = Type_Checked;
                     break;
-                    case 3://Equipment
+                case 3://Equipment
                     EmployeeRegister.Type_RegisterId = Type_Checked;
                     break;
-                    default:
-                        break;
-                }               
-               
-                EmployeeRegister.Id = employeepriv.Id;
-                EmployeeRegister.EmployeeId = employeepriv.Employee.Id;
-                EmployeeRegister.Payroll = employeepriv.Employee.Payroll;
+                default:
+                    break;
+            }
 
-               
-                EmployeeRegister.lstStuffAssig = SetStuff();
+            EmployeeRegister.Id = employeepriv.Id;
+            EmployeeRegister.EmployeeId = employeepriv.Employee.Id;
+            EmployeeRegister.Payroll = employeepriv.Employee.Payroll;
+            EmployeeRegister.RosterId = employeeroster.Id;
 
-
-                MessageResponseViewModel<EmployeeRegisterViewModel> responseObj = await ServiceEmployee.RegisterEmployeeStuff(EmployeeRegister);
-                if (!responseObj.Succesfull)
-                {
-                    MessageBoxModal.Show(ClassMethodUtil.ResolveOwnerWindow(), responseObj.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Cancel, true);
-                    return;
-                }
+            EmployeeRegister.lstStuffAssig = SetStuff();
 
 
-            
+            MessageResponseViewModel<EmployeeRegisterViewModel> responseObj = await ServiceEmployee.RegisterEmployeeStuff(EmployeeRegister);
+            if (!responseObj.Succesfull)
+            {
+                MessageBoxModal.Show(ClassMethodUtil.ResolveOwnerWindow(), responseObj.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Cancel, true);
+                return;
+            }
+
+
+
             save = true;
         }
 

@@ -26,11 +26,11 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://incognitusappscan.s3-website.us-east-2.amazonaws.com/</InstallUrl>
-    <ProductName>ScanTime</ProductName>
+    <ProductName>ScanTimeIncognitus</ProductName>
     <PublisherName>Incognitus</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
-    <WebPage>scantime.htm</WebPage>
-    <ApplicationRevision>19</ApplicationRevision>
+    <WebPage>ScanTimeIncognitus.htm</WebPage>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -71,6 +71,13 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportViewer.Runtime.Common.12.0.2402.15\lib\Microsoft.ReportViewer.Common.dll</HintPath>
     </Reference>
@@ -87,9 +94,14 @@
       <HintPath>..\packages\Microsoft.ReportViewer.Runtime.WinForms.12.0.2402.15\lib\Microsoft.ReportViewer.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="ReachFramework" />
+    <Reference Include="sapbusinessobjects.wpf.viewer, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="SAPBusinessObjects.WPF.ViewerShared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -130,16 +142,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BusinessClass\Enums\BreakEnum.cs" />
-    <Compile Include="IncogDbDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IncogDbDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="IncogDbViewTimesheet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IncogDbViewTimesheet.xsd</DependentUpon>
-    </Compile>
+    <Compile Include="BusinessClass\Enums\EstadoProceso.cs" />
     <Compile Include="Properties\EnumResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -158,6 +161,13 @@
     </Compile>
     <Compile Include="MainApp\Loading\RectangleWP.xaml.cs">
       <DependentUpon>RectangleWP.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\TimeReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TimeReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Splash\DynamicSplashScreen.cs" />
     <Compile Include="Splash\SplashScreen.xaml.cs">
@@ -197,6 +207,9 @@
     <Compile Include="UserControls\Selectors\BreakSelector.xaml.cs">
       <DependentUpon>BreakSelector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Timesheet\TimesheetUC.xaml.cs">
+      <DependentUpon>TimesheetUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UtilClass\ClearTextBox.cs" />
     <Compile Include="UtilClass\LocalizedEnumConverter.cs" />
     <Compile Include="UtilClass\ResourceEnumConverter.cs" />
@@ -208,6 +221,9 @@
     <Compile Include="UtilControls\DropDownButton\DropDownButton.cs" />
     <Compile Include="UtilControls\DropDownButton\InverseBoolConverter.cs" />
     <Compile Include="UtilControls\DropDownButton\KeyboardUtilities.cs" />
+    <Compile Include="UtilControls\Exportacion\UC_Exportacion.xaml.cs">
+      <DependentUpon>UC_Exportacion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UtilControls\Grid\DataGridContentControlColumn.cs" />
     <Compile Include="UtilControls\Grid\GridPersonalizada.cs" />
     <Compile Include="UtilControls\Grid\PageGridGestionUC.xaml.cs">
@@ -325,6 +341,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Timesheet\TimesheetUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UtilControls\Exportacion\UC_Exportacion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UtilControls\Grid\PageGridGestionUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -380,29 +404,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\TimesheetsRpt.rdlc" />
-    <None Include="IncogDbDataSet.xsc">
-      <DependentUpon>IncogDbDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="IncogDbDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>IncogDbDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="IncogDbDataSet.xss">
-      <DependentUpon>IncogDbDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="IncogDbViewTimesheet.xsc">
-      <DependentUpon>IncogDbViewTimesheet.xsd</DependentUpon>
-    </None>
-    <None Include="IncogDbViewTimesheet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>IncogDbViewTimesheet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="IncogDbViewTimesheet.xss">
-      <DependentUpon>IncogDbViewTimesheet.xsd</DependentUpon>
-    </None>
+    <Content Include="Reports\TimeReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TimeReport.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Reports\TimesheetsRpt.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="IncogStuffControl_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\IncogStuffControl.Services.ViewModel.TimesheetsReport.datasource" />
@@ -466,35 +475,6 @@
     <Resource Include="Themes\Images\MsgWarning48.png" />
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="Microsoft.Office.Core">
-      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>7</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="Microsoft.Office.Interop.Excel">
-      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>8</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="VBIDE">
-      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>5</VersionMajor>
-      <VersionMinor>3</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
@@ -512,7 +492,19 @@
       <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
+    <PublishFile Include="Reports\TimeReport.rpt">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

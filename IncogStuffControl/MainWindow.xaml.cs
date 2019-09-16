@@ -16,6 +16,7 @@ using IncogStuffControl.Services.ViewModel;
 using IncogStuffControl.Services;
 using IncogStuffControl.UserControls.Charges;
 using IncogStuffControl.UserControls.Roster;
+using IncogStuffControl.UserControls.Timesheet;
 
 namespace IncogStuffControl
 {
@@ -119,9 +120,9 @@ namespace IncogStuffControl
 
         private async void  oMenuItemLoadReports_Click(object sender, RoutedEventArgs e)
         {
-            List<TimesheetsReportViewModel> lst = await ServiceEmployee.GetTimesheetReport();
-            ReportViewUC oReportTimesheet = new ReportViewUC(lst);
-            oReportTimesheet.PropertyChanged += OReportTimesheet_PropertyChanged;
+            //List<TimesheetsReportViewModel> lst = await ServiceEmployee.GetTimesheetReport();
+            TimesheetUC oReportTimesheet = new TimesheetUC(true);
+            oReportTimesheet.PropertyChanged += MainUC_PropertyChanged;
             contentUserControl.Content = null;
 
             contentUserControl.Content = oReportTimesheet;
@@ -198,6 +199,15 @@ namespace IncogStuffControl
         private void MainUC_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (sender is MainBoardUC)
+            {
+                contentUserControl.Content = null;
+                FocusManager.SetFocusedElement(this, scanus.txtScan);
+                Keyboard.Focus(scanus.txtScan);
+                contentUserControl.Content = scanus;
+                MenuBase.Visibility = Visibility.Hidden;
+                IncImage.Visibility = Visibility.Visible;
+            }
+            if (sender is TimesheetUC)
             {
                 contentUserControl.Content = null;
                 FocusManager.SetFocusedElement(this, scanus.txtScan);

@@ -65,7 +65,7 @@ namespace IncogStuffControl.Services.Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                return resulMessage;
             }
 
             return resulMessage;

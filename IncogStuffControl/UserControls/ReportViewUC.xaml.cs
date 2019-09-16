@@ -16,6 +16,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using Incog.Utils;
+using IncogStuffControl.Reports;
 
 namespace IncogStuffControl.UserControls
 {
@@ -60,30 +62,24 @@ namespace IncogStuffControl.UserControls
            
         }
         private static string _path = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
-        public static string ContentStart = _path + @"\IncogStuffControl\Reports\TimesheetsRpt.rdlc";
+        public static string ContentStart = Globals.BaseUrlReports + "/TimesheetsRpt.rdlc";
         public ReportViewUC(List<TimesheetsReportViewModel> lstTimesheet)
         {
             InitializeComponent();
 
-            _reportviewer.LocalReport.DataSources.Clear();
-            var rpds_model = new ReportDataSource() { Name = "DS_TimeSheet", Value = lstTimesheet };
-            _reportviewer.LocalReport.DataSources.Add(rpds_model);
-
-            ReportParameter[] param = new ReportParameter[]
-            {
-
-            };
-            _reportviewer.LocalReport.EnableExternalImages = true;
-
-            _reportviewer.LocalReport.ReportPath = ContentStart;
-            _reportviewer.SetDisplayMode(DisplayMode.PrintLayout);
-            _reportviewer.Refresh();
-            _reportviewer.RefreshReport();
+          
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             save = true;
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            TimeReport repo = new TimeReport();
+            repo.Load(@"TimeReport.rpt");
+            Viewer.ViewerCore.ReportSource = repo;
         }
     }
 }

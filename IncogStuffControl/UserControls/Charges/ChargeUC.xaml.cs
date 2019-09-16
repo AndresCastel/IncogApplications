@@ -20,6 +20,8 @@ using System.Data;
 using IncogStuffControl.Services.Services;
 using Incog.Utils;
 using System.IO;
+using Excel = Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Interop.Excel;
 
 namespace IncogStuffControl.UserControls.Charges
 {
@@ -98,146 +100,123 @@ namespace IncogStuffControl.UserControls.Charges
 
         private List<RosterCViewModel> ReadFile(string Path)
         {
-            string connString = string.Empty;
-            connString = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" + Path + "; Extended Properties='Excel 8.0;IMEX=1;HDR=No'";
-
-            OleDbConnection connExcel = new OleDbConnection(connString);
-            OleDbCommand cmdExcel = new OleDbCommand();
             try
             {
-                cmdExcel.Connection = connExcel;
-
-                //Check if the file is open
-                bool open = General.FileIsOpen(lblPath.Text);
-                if(open)
+                    //Interop
+                   // System.Runtime.InteropServices.Marshal.GetActiveObject("Excel.Application");
+                Excel.Application xlapp = new Excel.Application();
+            _Workbook xlWoork = xlapp.Workbooks.Open(Path);
+            _Worksheet xlWorksheet = xlWoork.Sheets[1];
+            Range xlRange = xlWorksheet.UsedRange;
+            int rowCount = xlRange.Rows.Count;
+            int colCount = xlRange.Columns.Count;
+            int Day = 0;
+            int Date = 0;
+            int StartTime = 0;
+            int EndTime = 0;
+            int Break = 0;
+            int Precint = 0;
+            int Zone = 0;
+            int Area = 0;
+            int Shift = 0;
+            int Labour = 0;
+            int Employee = 0;
+            int Payroll = 0;
+            int LockedIn = 0;
+            int EventName = 0;
+                string val = (String)(xlWorksheet.Cells[1, 1] as Excel.Range).Value;
+                for (int i = 1; i <= colCount; i++)
                 {
-                    MessageBoxModal.Show(General.ResolveOwnerWindow(), "The file is Open, Could you close it?", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                    return null;
-                }
-                //Check if the Sheet Exists
-                connExcel.Open();
-                DataTable dtExcelSchema;
-                //Get the Schema of the WorkBook
-                dtExcelSchema = connExcel.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                connExcel.Close();
-
-                //Read Data from Sheet1
-                connExcel.Open();
-                OleDbDataAdapter da = new OleDbDataAdapter();
-                DataSet ds = new DataSet();
-                string SheetName = dtExcelSchema.Rows[0]["TABLE_NAME"].ToString();
-                cmdExcel.CommandText = "SELECT * From [" + SheetName + "]";
-                //Range Query
-                //cmdExcel.CommandText = "SELECT * From [" + SheetName + "A3:B5]";
-
-                da.SelectCommand = cmdExcel;
-                da.Fill(ds);
-                int Day = 0;
-                int Date = 0;
-                int StartTime = 0;
-                int EndTime = 0;
-                int Break = 0;
-                int Precint = 0;
-                int Zone = 0;
-                int Area = 0;
-                int Shift = 0;
-                int Labour = 0;
-                int Employee = 0;
-                int Payroll = 0;
-                int LockedIn = 0;
-                int EventName = 0;
-
-                for (int i = 0; i < ds.Tables[0].Columns.Count; i++)
-                {
-                    if (ds.Tables[0].Rows[0][i].ToString() == "Day")
+                    if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "Day")
                     {
                         Day = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Date")
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "Date")
                     {
                         Date = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Start Time")
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "Start Time")
                     {
                         StartTime = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "End Time")
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "End Time")
                     {
                         EndTime = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Break (Mins)")
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "Break (Mins)")
                     {
                         Break = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Precinct")
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "Precinct")
                     {
                         Precint = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Zone")
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "Zone")
                     {
                         Zone = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Area")
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "Area")
                     {
                         Area = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Shift No.")
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "Shift No.")
                     {
                         Shift = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Labour Type")
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "Labour Type")
                     {
                         Labour = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Employee")
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "Employee")
                     {
                         Employee = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Payroll No.")
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "Payroll No.")
                     {
                         Payroll = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "Locked In")
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "Locked In")
                     {
                         LockedIn = i;
                     }
-                    else if (ds.Tables[0].Rows[0][i].ToString() == "EventName")
+                    else if ((String)(xlWorksheet.Cells[1, i] as Excel.Range).Value == "EventName")
                     {
                         EventName = i;
                     }
-                }
 
-                for (int i = 1; i < ds.Tables[0].Rows.Count; i++)
+                }
+           
+
+                var val2 = (xlWorksheet.Cells[2, Payroll] as Excel.Range).Value2;
+                var val3 = (xlWorksheet.Cells[3, Precint] as Excel.Range).Value2;
+                for (int i = 2; i < rowCount; i++)
                 {
                     RosterCViewModel Roster = new RosterCViewModel();
-                    Roster.Day = Convert.ToInt32(ds.Tables[0].Rows[i][Day].ToString());
-                    Roster.Area = ds.Tables[0].Rows[i][Area].ToString();
-                    Roster.Break = Convert.ToInt32(ds.Tables[0].Rows[i][Break].ToString());
-                    Roster.Date = Convert.ToDateTime(ds.Tables[0].Rows[i][Date].ToString());
-                    Roster.Employee = ds.Tables[0].Rows[i][Employee].ToString();
-                    Roster.EndTime = ds.Tables[0].Rows[i][EndTime].ToString();
-                    Roster.LabourType = ds.Tables[0].Rows[i][Labour].ToString();
-                    Roster.LookedIn = Convert.ToBoolean(ds.Tables[0].Rows[i][LockedIn].ToString());
-                    Roster.Payroll = ds.Tables[0].Rows[i][Payroll].ToString();
-                    Roster.Precint = ds.Tables[0].Rows[i][Precint].ToString();
-                    Roster.ShiftNum = Convert.ToInt32(ds.Tables[0].Rows[i][Shift].ToString());
-                    Roster.StartTime = ds.Tables[0].Rows[i][StartTime].ToString();
-                    Roster.Zone = ds.Tables[0].Rows[i][Zone].ToString();
-                    Roster.EventName = ds.Tables[0].Rows[i][EventName].ToString();
+                    Roster.Day = Convert.ToInt32((xlWorksheet.Cells[i, Day] as Excel.Range).Value);
+                    Roster.Area = (xlWorksheet.Cells[i, Area] as Excel.Range).Value;
+                    Roster.Break = Convert.ToInt32((xlWorksheet.Cells[i, Break] as Excel.Range).Value);
+                    Roster.Date = Convert.ToDateTime((xlWorksheet.Cells[i, Date] as Excel.Range).Value);
+                    Roster.Employee = (xlWorksheet.Cells[i, Employee] as Excel.Range).Value;
+                    Roster.EndTime = Convert.ToString((xlWorksheet.Cells[i, EndTime] as Excel.Range).Value);
+                    Roster.LabourType = (xlWorksheet.Cells[i, Labour] as Excel.Range).Value;
+                    Roster.LookedIn = Convert.ToBoolean((xlWorksheet.Cells[i, LockedIn] as Excel.Range).Value);
+                    Roster.Payroll = Convert.ToString((xlWorksheet.Cells[i, Payroll] as Excel.Range).Value);
+                    Roster.Precint = (xlWorksheet.Cells[i, Precint] as Excel.Range).Value;
+                    Roster.ShiftNum = Convert.ToInt32((xlWorksheet.Cells[i, Shift] as Excel.Range).Value);
+                    Roster.StartTime = Convert.ToString((xlWorksheet.Cells[i, StartTime] as Excel.Range).Value);
+                    Roster.Zone = (xlWorksheet.Cells[i, Zone] as Excel.Range).Value;
+                    Roster.EventName = (xlWorksheet.Cells[i, EventName] as Excel.Range).Value;
                     lstRoster.Add(Roster);
                 }
-               
-                connExcel.Close();
+
+                xlapp.Workbooks.Close();
             }
-            catch
+            catch (Exception ex)
             {
-                return null;
+                MessageBoxModal.Show(General.ResolveOwnerWindow(), ex.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            finally
-            {
-                cmdExcel.Dispose();
-                connExcel.Dispose();
-            }
+            GC.Collect();
+
             return lstRoster;
         }
 

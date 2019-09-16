@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,6 +20,26 @@ namespace Incog.Utils
             string MilitaryHour;
             MilitaryHour = Time.ToString("hhmm");
             return MilitaryHour;
+        }
+
+        /// <summary>
+        /// Verifica si el archivo está en uso
+        /// </summary>
+        /// <param name="sRuta"></param>
+        /// <param name="sNombreArchivo"></param>
+        /// <returns></returns>
+        public static bool VerificaArchivoEnUso(string sRuta, string sNombreArchivo)
+        {
+            try
+            {
+                using (var stream = new FileStream(sRuta + "\\" + sNombreArchivo, FileMode.Open, FileAccess.Read)) { }
+            }
+            catch (IOException)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -63,6 +85,34 @@ namespace Incog.Utils
                 }
             }
             return owner;
+        }
+
+        public static DataTable ConvertToDataTableTimesheets<T>(IList<T> data)
+        {
+            PropertyDescriptorCollection properties =
+               TypeDescriptor.GetProperties(typeof(T));
+            DataTable table = new DataTable();
+            foreach (PropertyDescriptor prop in properties)
+                if (prop.Name == "DateShort" || prop.Name == "StartTime" || prop.Name == "EndTime" || prop.Name == "Break" || prop.Name == "Hours"
+                    || prop.Name == "LabourType" || prop.Name == "Employee" || prop.Name == "Payroll" || prop.Name == "Precint"
+                    || prop.Name == "Zone" || prop.Name == "Area" || prop.Name == "LookedIn" || prop.Name == "EventName") {
+                    table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+                }
+            foreach (T item in data)
+            {
+                DataRow row = table.NewRow();
+                foreach (PropertyDescriptor prop in properties)
+                    if (prop.Name == "DateShort" || prop.Name == "StartTime" || prop.Name == "EndTime" || prop.Name == "Break" || prop.Name == "Hours"
+                   || prop.Name == "LabourType" || prop.Name == "Employee" || prop.Name == "Payroll" || prop.Name == "Precint"
+                   || prop.Name == "Zone" || prop.Name == "Area" || prop.Name == "LookedIn" || prop.Name == "EventName")
+                    {
+                            row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
+                       
+                    }
+                table.Rows.Add(row);
+            }
+            return table;
+
         }
 
         //Validate if an excel is open

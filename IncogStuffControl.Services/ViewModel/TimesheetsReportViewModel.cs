@@ -8,28 +8,53 @@ namespace IncogStuffControl.Services.ViewModel
 {
     public class TimesheetsReportViewModel
     {
-        public int Id { get; set; }
-        public string Payroll { get; set; }
-        public string Name { get; set; }
-        public string LastName { get; set; }
         public DateTime Day { get; set; }
+        public string DateShort
+        {
+            get
+            {
+                return Day.ToShortDateString();
+            }
+        }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
         public int Break { get; set; }
-        public double TotalHours
+        public double Hours
         {
             get
             {
                 return CalculateDiff();
             }
         }
+        public string LabourType { get; set; }
+        public string Employee { get; set; }
+        public string Payroll { get; set; }
+        public string Precint { get; set; }
+        public string Zone { get; set; }
+        public string Area { get; set; }
+        public bool LookedIn { get; set; }
+        public string LastName { get; set; }
+        public bool Active { get; set; }
+        public int Id { get; set; }
+        public string EventName { get; set; }
+        public bool Confirm { get; set; }
+        
 
         private double CalculateDiff()
         {
             TimeSpan SignIn = TimeSpan.ParseExact(StartTime, "hhmm", null);
-            TimeSpan SignOff = TimeSpan.ParseExact(StartTime, "hhmm", null);
-            TimeSpan diff = SignOff - SignIn;
-            double hours = diff.TotalHours - (double)(Break*100/60)/100;
+            TimeSpan diff;
+            if (EndTime != null)
+            {
+                TimeSpan SignOff = TimeSpan.ParseExact(EndTime, "hhmm", null);
+                diff = SignOff - SignIn;
+            }
+            else
+            {
+                diff = new TimeSpan();
+            }
+
+            double hours = diff.TotalHours - (double)(Break * 100 / 60) / 100;
             return hours;
         }
     }

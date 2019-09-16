@@ -131,7 +131,7 @@
   <Message>
     <Code>Aplicacion_VerificandoInstanciaAplicacion</Code>
     <Language>ES</Language>
-    <Description>Verificando Instancia de la Aplicación...</Description>
+    <Description>Checking Instances for this Application...</Description>
     <Modulo>Seguridad</Modulo>
   </Message>
 

@@ -13,7 +13,7 @@ namespace IncogStuffControl.Services
 {
     public class ServiceEmployee
     {
-        public static async Task<MessageResponseViewModel<EmployeeVsRosterVM>> GetEmployee(string barcode)
+        public static async Task<MessageResponseViewModel<EmployeeVsRosterVM>> GetEmployee(EmployeeRegisterViewModel employer)
         {
 
             MessageResponseViewModel<EmployeeVsRosterVM> emplo = new MessageResponseViewModel<EmployeeVsRosterVM>();
@@ -35,11 +35,14 @@ namespace IncogStuffControl.Services
                     // Setting timeout.
                     client.Timeout = TimeSpan.FromSeconds(Convert.ToDouble(1000000));
 
+                    var json = JsonConvert.SerializeObject(employer);
+                    var stringContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
+
                     // Initialization.
                     HttpResponseMessage response = new HttpResponseMessage();
 
                     // HTTP GET
-                    response = await client.GetAsync("api/Employee/get/" + barcode).ConfigureAwait(false);
+                    response = await client.PostAsync("api/Employee/get/", stringContent).ConfigureAwait(false);
 
                     // Verification
                     if (response.IsSuccessStatusCode)
@@ -121,7 +124,7 @@ namespace IncogStuffControl.Services
             return Stuff;
         }
 
-        public static async Task<List<TimesheetsReportViewModel>> GetTimesheetReport()
+        public static async Task<List<TimesheetsReportViewModel>> GetTimesheetReport(FilterParametersRoster Filter)
         {
 
             List<TimesheetsReportViewModel> lst = new List<TimesheetsReportViewModel>();
@@ -143,11 +146,14 @@ namespace IncogStuffControl.Services
                     // Setting timeout.
                     client.Timeout = TimeSpan.FromSeconds(Convert.ToDouble(1000000));
 
+                    var json = JsonConvert.SerializeObject(Filter);
+                    var stringContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
+
                     // Initialization.
                     HttpResponseMessage response = new HttpResponseMessage();
 
-                    // HTTP GET
-                    response = await client.GetAsync("api/Reports/timesheet/").ConfigureAwait(false);
+                    // HTTP Post
+                    response = await client.PostAsync("api/Reports/timesheet/", stringContent).ConfigureAwait(false);
 
                     // Verification
                     if (response.IsSuccessStatusCode)

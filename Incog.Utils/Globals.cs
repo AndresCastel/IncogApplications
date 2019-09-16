@@ -17,6 +17,25 @@ namespace Incog.Utils
         }
 
         /// <summary>
+        /// Establece si está habilitado el logging de la aplicación
+        /// </summary>
+        public static bool bEnabledTracking
+        {
+            get
+            {
+                string sEnabledTracking = "";
+                if (!string.IsNullOrEmpty(sEnabledTracking))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>
         /// Número de registros por páginaPop
         /// </summary>
         public static int iRegistrosPaginaPopUp
@@ -46,9 +65,14 @@ namespace Incog.Utils
         {
             get { return "https://localhost:44390"; }
         }
+
         //public static string BaseUrl
         //{
         //    get { return "http://incognitusbackapi-dev.us-west-2.elasticbeanstalk.com"; }
         //}
+        public static string BaseUrlReports
+        {
+            get { return "https://incognitusappscan.s3.us-east-2.amazonaws.com"; }
+        }
     }
 }

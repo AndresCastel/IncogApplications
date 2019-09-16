@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="IncogStuffControl.UtilControls.Exportacion.UC_Exportacion"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="76" d:DesignWidth="250" Loaded="UserControl_Loaded">
+    <Grid HorizontalAlignment="Stretch" >
+        <Canvas Height="27" Margin="37,44,37,9" Name="canvas1" Width="176">
+            <Button Canvas.Left="8" Canvas.Top="0" Click="btnExportar_Click" Content="Exportar" Height="23" IsManipulationEnabled="True" Name="btnExportar" TabIndex="4" Width="75" />
+            <Button Canvas.Left="93" Canvas.Top="0" Click="btnCancelar_Click" Content="Cancelar" Height="23" Name="btnCancelar" TabIndex="5" Width="75" />
+        </Canvas>
+        <Label Content="Progreso" Height="28" HorizontalAlignment="Left" Margin="5,0,0,0" Name="lblProgreso" VerticalAlignment="Top" Style="{DynamicResource LabelExportProgress}"/>
+        <ProgressBar Height="20" Margin="10,20,12,40" Name="mainProgressBar" VerticalAlignment="Center"  Style="{DynamicResource ProgressBarExport}"/>
+        <Label Content="Total" Height="28" HorizontalAlignment="Left" Margin="113,2,0,0" Name="lblTotal" VerticalAlignment="Top" Style="{DynamicResource LabelExportTotal}" />
+    </Grid>
+</UserControl>
+
