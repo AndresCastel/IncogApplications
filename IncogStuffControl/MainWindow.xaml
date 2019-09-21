@@ -11,12 +11,12 @@
         Title="Incognitus"  ResizeMode="NoResize" WindowState="Maximized" d:DesignHeight="393" d:DesignWidth="735">
     <DockPanel>
         <Menu Name="MenuBase" Visibility="Hidden" Style="{DynamicResource MenuMain}"  DockPanel.Dock="Top"  />
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Height="auto" Width="auto" HorizontalAlignment="Center" VerticalAlignment="Center">
         
         <Image Name="IncImage" Source="/IncogStuffControl;component/Themes/Images/logo-header.png" Stretch="Fill" Height="100" Width="50">
 
         </Image>
-            <ContentControl Name="contentUserControl" Height="auto">
+            <ContentControl Name="contentUserControl" Height="auto" Width="auto">
 
         </ContentControl>
             <my:LoadingAnimation x:Name="UCLoading" HorizontalAlignment="Center" VerticalAlignment="Center">

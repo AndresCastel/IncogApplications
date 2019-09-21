@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="IncogStuffControl.UserControls.Selectors.DateRange"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              xmlns:datapicker="clr-namespace:Axede.WPF.DataPicker;assembly=Axede.WPF.DataPicker"    
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:IncogStuffControl.UserControls.Selectors"
+             mc:Ignorable="d" 
+             Height="auto" Width="auto" Loaded="UserControl_Loaded" >
+    <StackPanel Height="auto" Width="auto">
+        <Grid Height="auto" Name="grid1" Width="auto">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Label Name="lblDateStart" Content="From:" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <datapicker:DatePickerEx x:Name="dtpDateFrom"  Height="25" Width="200"   Grid.Column="1"  Margin="2,6,0,3" 
+                         AlternativeCalendarStyle="{DynamicResource calendarWithGotToTodayStyle}"  TabIndex="5" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" ToolTipService.ShowOnDisabled="True" SelectedDateChanged="DtpDateTo_SelectedDateChanged"/>
+            <Label Name="lblDateEnd" Content="To:" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <datapicker:DatePickerEx x:Name="dtpDateTo"  Height="25" Width="200" Grid.Row="1"   Grid.Column="1"  Margin="2,6,0,3" 
+                         AlternativeCalendarStyle="{DynamicResource calendarWithGotToTodayStyle}"  TabIndex="5" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" ToolTipService.ShowOnDisabled="True" SelectedDateChanged="DtpDateTo_SelectedDateChanged"/>
+        </Grid>
+        <Separator />
+        <Canvas Height="27" Name="canvas1" Width="176">
+            <Button Name="btnExport" Content="Export" Height="23" Width="75" Click="btnExport_Click" Canvas.Left="8" Canvas.Top="0" IsManipulationEnabled="True" TabIndex="5"></Button>
+            <Button Name="btnCancelar" Content="Cancel" Height="23" Width="75" Click="btnCancelar_Click" Canvas.Left="93" Canvas.Top="0" TabIndex="6"></Button>
+        </Canvas>
+    </StackPanel>
+</UserControl>

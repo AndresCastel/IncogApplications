@@ -20,6 +20,8 @@ using Incog.Utils.Enums;
 using Incog.wpf.Messages;
 using IncogStuffControl.Services;
 using IncogStuffControl.Services.ViewModel;
+using IncogStuffControl.UserControls.Selectors;
+using IncogStuffControl.UtilClass.ResourceEnum;
 using IncogStuffControl.UtilControls.Exportacion;
 using IncogStuffControl.UtilControls.Grid;
 using IncogStuffControl.UtilControls.ModalMessageBox;
@@ -35,7 +37,8 @@ namespace IncogStuffControl.UserControls.Timesheet
 
         #region Definiciones
 
-       
+        private List<TimesheetsReportViewModel> timesheets;
+
         #endregion
 
         public TimesheetUC()
@@ -78,10 +81,44 @@ namespace IncogStuffControl.UserControls.Timesheet
             }
         }
 
+        private FilterParametersTimesheet _Filter;
+        public FilterParametersTimesheet Filter
+        {
+            get { return _Filter; }
+            set
+            {
+                _Filter = value;
+
+            }
+        }
+        private DateTime _dateFilter;
+        public DateTime dateFilter
+        {
+            get { return dtpDate.SelectedDate.Value; }
+            set
+            {
+                _dateFilter = value;
+              
+            }
+        }
+
+        public int countDateChanged = 0;
+        private DateRange _dateRange;
+        public DateRange dateRange
+        {
+            get { return _dateRange; }
+            set
+            {
+                _dateRange = value;
+
+            }
+        }
+
         public TimesheetUC(bool oControlExpandido = false)
         {
             InitializeComponent();
-            FillGrid();
+            dtpDate.SelectedDate = DateTime.Now;
+           // FillGrid();
            // Paginador.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Paginador_PropertyChanged);
             if (oControlExpandido == true)
             {
@@ -93,7 +130,7 @@ namespace IncogStuffControl.UserControls.Timesheet
 
         private async void FillGrid()
         {
-            List<TimesheetsReportViewModel> timesheets = await ServiceEmployee.GetTimesheetReport(new FilterParametersRoster() { filter = "All" });
+            timesheets = await ServiceEmployee.GetTimesheetReport(Filter);
             grvTimesheet.ItemsSource = timesheets;
         }
 
@@ -207,39 +244,57 @@ namespace IncogStuffControl.UserControls.Timesheet
 
         private void Consultar_Click(object sender, RoutedEventArgs e)
         {
-            //DtoEstadoGestion Seleccionado = grvEstadoGestion.SelectedItem as DtoEstadoGestion;
-            //EstadoGestion oEstadoGestion = new EstadoGestion();
-            //oEstadoGestion.Ide_EstadoGestion = Seleccionado.Ide_EstadoGestion;
-            //UC_CrudEstadoGestion crearEstadoGestion = new UC_CrudEstadoGestion(OperacionCRUD.Consultar, oEstadoGestion);
-            //string sModulo = AdministradorMensaje.Instance.GetMensajePorCodigo(Mensajes.CodigoMensaje.EstadoGestion_TextoGrillaColumnaEstadoGestion);
-            //string sTitulo = string.Format(AdministradorMensaje.Instance.GetMensajePorCodigo(CodigoMensaje.General_TituloConsultar), sModulo);
-            //MessageBoxResult Response = ViewWindow_Modal.Show(crearEstadoGestion, sTitulo, crearEstadoGestion.btnCancelar);
+            TimesheetsReportViewModel Seleccionado = grvTimesheet.SelectedItem as TimesheetsReportViewModel;
+            TimesheetCrudUC Timesheets = new TimesheetCrudUC(OperacionCRUD.Consultar, Seleccionado, timesheets);
+            Timesheets.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Timesheet_PropertyChanged);
+            string sTitulo = "View";
+            MessageBoxResult Response = ViewWindow_Modal.Show(Timesheets, sTitulo, Timesheets.btnCancelar);
         }
 
         private void Editar_Click(object sender, RoutedEventArgs e)
         {
-            //DtoEstadoGestion Seleccionado = grvEstadoGestion.SelectedItem as DtoEstadoGestion;
-            //EstadoGestion oEstadoGestion = new EstadoGestion();
-            //oEstadoGestion.Ide_EstadoGestion = Seleccionado.Ide_EstadoGestion;
-            //UC_CrudEstadoGestion crearEstadoGestion = new UC_CrudEstadoGestion(OperacionCRUD.Modificar, oEstadoGestion);
-            //crearEstadoGestion.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(crearEstado_PropertyChanged);
-            //string sModulo = AdministradorMensaje.Instance.GetMensajePorCodigo(Mensajes.CodigoMensaje.EstadoGestion_TextoGrillaColumnaEstadoGestion);
-            //string sTitulo = string.Format(AdministradorMensaje.Instance.GetMensajePorCodigo(CodigoMensaje.General_TituloEditar), sModulo);
-            //MessageBoxResult Response = ViewWindow_Modal.Show(crearEstadoGestion, sTitulo, crearEstadoGestion.btnCancelar);
+            TimesheetsReportViewModel Seleccionado = grvTimesheet.SelectedItem as TimesheetsReportViewModel;
+            TimesheetCrudUC Timesheets = new TimesheetCrudUC(OperacionCRUD.Modificar, Seleccionado, timesheets);
+            Timesheets.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Timesheet_PropertyChanged);
+            string sTitulo = "Edit";
+            MessageBoxResult Response = ViewWindow_Modal.Show(Timesheets, sTitulo, Timesheets.btnCancelar);
         }
 
-        private void Eliminar_Click(object sender, RoutedEventArgs e)
+        private void Timesheet_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            //string sTituloModal = AdministradorMensaje.Instance.GetMensajePorCodigo(CodigoMensaje.TituloModalMensajes);
-            //MessageBoxResult Response = MessageBoxModal.Show(General.ResolveOwnerWindow(), AdministradorMensaje.Instance.GetMensajePorCodigo(CodigoMensaje.General_AlertaEliminarRegistro), sTituloModal, MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel, true);
+            if (sender is TimesheetCrudUC)
+            {
+                FillGrid();
+                ViewWindow_Modal.CloseModal();
+            }
+        }
 
-            //if (Response == MessageBoxResult.OK)
-            //{
-            //    DtoEstadoGestion oDtoElim = grvEstadoGestion.SelectedItem as DtoEstadoGestion;
-            //    EstadoGestion oEstadoGestion = new EstadoGestion();
-            //    oEstadoGestion.Ide_EstadoGestion = oDtoElim.Ide_EstadoGestion;
-            //    _AdminEstadoGestion_Presenter.EliminarEstadoGestion();
-            //}
+        private async void Eliminar_Click(object sender, RoutedEventArgs e)
+        {
+            TimesheetsReportViewModel Seleccionado = grvTimesheet.SelectedItem as TimesheetsReportViewModel;
+            if(Seleccionado.EndTime==null)
+            {
+                MessageBoxModal.Show(General.ResolveOwnerWindow(), "You can deleted this register once it sign off", "Information", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Cancel, true);
+                return;
+            }
+            string sTituloModal = "Delete";
+            MessageBoxResult Response = MessageBoxModal.Show(General.ResolveOwnerWindow(), "Are you sure you want to delete this register?", sTituloModal, MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel, true);
+
+            if (Response == MessageBoxResult.OK)
+            {
+               
+
+                MessageResponseViewModel<bool> result = await ServiceEmployee.DeleteTimesheets(Seleccionado).ConfigureAwait(true);
+                if (result.Succesfull)
+                {
+                    MessageBoxModal.Show(General.ResolveOwnerWindow(), "Timesheet sucesfully deleted", "Information", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Cancel, true);
+                    FillGrid();
+                }
+                else
+                {
+                    MessageBoxModal.Show(General.ResolveOwnerWindow(), result.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.Cancel, true);
+                }
+            }
         }
 
         #endregion
@@ -298,6 +353,9 @@ namespace IncogStuffControl.UserControls.Timesheet
             get { return _OrdenCampo; }
             set { _OrdenCampo = value; }
         }
+
+        public List<TimesheetsReportViewModel> Timesheets { get => timesheets; set => timesheets = value; }
+
         private WPFFilterPopupManager oWPFFilterPopupManager = null;
 
 
@@ -322,19 +380,14 @@ namespace IncogStuffControl.UserControls.Timesheet
 
         async void oWPFFilterPopupManager_ColumnFilterExec(object sender, ColumnFilterEventArgs e)
         {
-            FilterParametersRoster filter = new FilterParametersRoster();
+            FilterParametersTimesheet filter = new FilterParametersTimesheet();
             string sFilter = string.Empty;
             foreach (ColumnFilters CF in e.ColumnFilters)
             {
                 if (CF == null) continue;
                 if (CF.FilterExpression != string.Empty)
                 {
-                    if (CF.FieldName == "Payroll")
-                    {
-                        filter.Payroll = CF.FilterExpression;
-                        filter.filter = "Payroll";
-                    }
-                    else if(CF.FieldName == "Employee")
+                   if(CF.FieldName == "Employee")
                     {
                         filter.Employee = CF.FilterExpression;
                         filter.filter = "Employee";
@@ -342,10 +395,11 @@ namespace IncogStuffControl.UserControls.Timesheet
                 }                   
                 
             }
-        
-           // Filtro = sFilter;
+
+            // Filtro = sFilter;
             //_TipoPagina = TipoPaginaPaginado.PrimeraPagina;
             //_CurrentPageIndex = 1;
+            filter.DateGridFilter = dateFilter;
             List<TimesheetsReportViewModel> lst = await ServiceEmployee.GetTimesheetReport(filter);
             grvTimesheet.ItemsSource = lst;
 
@@ -364,6 +418,26 @@ namespace IncogStuffControl.UserControls.Timesheet
 
         private async void btnExportar_Click(object sender, RoutedEventArgs e)
         {
+            dateRange = new DateRange();
+            dateRange.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(DateRange_PropertyChanged);
+            MessageBoxResult Response = ViewWindow_Modal.Show(dateRange, "Export", dateRange.btnCancelar);
+            if(Response == MessageBoxResult.Cancel)
+            {
+                return;
+            }
+            ViewWindow_Modal.CloseModal();
+
+        }
+
+        private async void DateRange_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            FilterParametersTimesheet filter = new FilterParametersTimesheet();
+            filter.filter = "Export";
+            filter.DateFrom = dateRange.dateInitial;
+            filter.DateTo = dateRange.dateEnd;
+
+
+
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
 
             // Set filter for file extension and default file extension 
@@ -383,31 +457,13 @@ namespace IncogStuffControl.UserControls.Timesheet
 
 
             ExcelUtlity obj = new ExcelUtlity();
-             DataTable dt = General.ConvertToDataTableTimesheets(await ServiceEmployee.GetTimesheetReport(new FilterParametersRoster()));
+            DataTable dt = General.ConvertToDataTableTimesheets(await ServiceEmployee.GetTimesheetReport(filter));
             obj.WriteDataTableToExcel(dt, "Timesheet", dlg.FileName, "Details");
 
 
             //obj.WriteDataTableToExcel(dt, "Person Details", "D:\\testPersonExceldata.xlsx", "Details");
             MessageBoxModal.Show(General.ResolveOwnerWindow(), "Data Exported: " + dlg.FileName, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
 
-
-
-
-
-
-
-
-
-            //List<TimesheetsReportViewModel> lstExportCasos = await ServiceEmployee.GetTimesheetReport(new FilterParametersRoster());
-            //UC_Exportacion oUC_Exportacion = new UC_Exportacion();
-            //oUC_Exportacion.Inicializar(lstExportCasos, ";");
-            //List<TimesheetsReportViewModel> tim = new List<TimesheetsReportViewModel>();
-
-            //DataTable dt = General.ConvertToDataTable(tim);
-
-            //string sTituloExportar = "Export";
-
-            // MessageBoxResult Response = ViewWindow_Modal.Show(oUC_Exportacion, sTituloExportar, oUC_Exportacion.btnCancelar);
         }
 
         private void btnAyuda_Click(object sender, RoutedEventArgs e)
@@ -417,12 +473,28 @@ namespace IncogStuffControl.UserControls.Timesheet
 
         private async void btnNuevo_Click(object sender, RoutedEventArgs e)
         {
-           
+            TimesheetsReportViewModel Seleccionado = grvTimesheet.SelectedItem as TimesheetsReportViewModel;
+            TimesheetCrudUC Timesheets = new TimesheetCrudUC(OperacionCRUD.Nuevo, Seleccionado, timesheets);
+            Timesheets.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Timesheet_PropertyChanged);
+            string sTitulo = "New";
+            MessageBoxResult Response = ViewWindow_Modal.Show(Timesheets, sTitulo, Timesheets.btnCancelar);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             save = true;
+        }
+
+        private void DtpDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dtpDate.SelectedDate != null)
+            {
+                Filter = new FilterParametersTimesheet();
+                Filter.filter = "All";
+                Filter.DateGridFilter = dateFilter;
+                FillGrid();
+                countDateChanged++;
+            }
         }
     }
 }

@@ -91,6 +91,7 @@ namespace IncogStuffControl.UserControls.MainBoard
             {
                 Type_Checked = 3;
             }
+           
         }
 
         private void SetEnableEquipment(List<StuffAssignViewModel> stuffAsign)

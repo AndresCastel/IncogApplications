@@ -174,14 +174,14 @@
   <Message>
     <Code>General_TextoBotonYES_Msg</Code>
     <Language>ES</Language>
-    <Description>Sí</Description>
+    <Description>Yes</Description>
     <Modulo>General</Modulo>
   </Message>
 
   <Message>
     <Code>General_ErrorConsultandoBaseDatos</Code>
     <Language>ES</Language>
-    <Description>Error consultando datos en la Base de Datos...</Description>
+    <Description>Error with the database...</Description>
     <Modulo>General</Modulo>
   </Message>
 
@@ -195,7 +195,7 @@
   <Message>
     <Code>General_TextoBotonYES_Msg</Code>
     <Language>ES</Language>
-    <Description>Sí</Description>
+    <Description>Yes</Description>
     <Modulo>General</Modulo>
   </Message>
 

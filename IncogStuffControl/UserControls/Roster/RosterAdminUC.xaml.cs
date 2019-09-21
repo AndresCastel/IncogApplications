@@ -1,4 +1,5 @@
 ﻿using Axede.WPF.FilterPopup;
+using System.Data;
 using Incog.Utils;
 using Incog.Utils.Enums;
 using Incog.wpf.Messages;
@@ -15,16 +16,45 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using IncogStuffControl.UtilControls.ModalMessageBox;
 
 namespace IncogStuffControl.UserControls.Roster
 {
     /// <summary>
     /// Interaction logic for RosterAdminUC.xaml
     /// </summary>
-    public partial class RosterAdminUC : UserControl
+    public partial class RosterAdminUC : UserControl, INotifyPropertyChanged
     {
 
-       
+        /// <summary>
+        /// Evento de acuerdo a la interfáz.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// Método que permite hacer el raise del evento de cambio de propiedad.
+        /// </summary>
+        /// <param name="info">Propiedad que está cambiando</param>
+        private void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
+        private bool _save;
+        public bool save
+        {
+            get { return _save; }
+            set
+            {
+                _save = value;
+                if (value)
+                {
+                    NotifyPropertyChanged("save");
+                }
+            }
+        }
 
         private void Uc_RosterAdmin_Loaded(object sender, RoutedEventArgs e)
         {
@@ -328,14 +358,34 @@ namespace IncogStuffControl.UserControls.Roster
             //MessageBoxResult Response = ViewWindow_Modal.Show(crearEstado, sTitulo, crearEstado.btnCancelar);
         }
 
-        private void btnExportar_Click(object sender, RoutedEventArgs e)
+        private async void btnExportar_Click(object sender, RoutedEventArgs e)
         {
-            //List<DtoExportEstadoGestion> lstExportEstadoGestion = _AdminEstadoGestion_Presenter.ObtenerListaEstadoGestionExportacion();
-            //UC_Exportacion oUC_Exportacion = new UC_Exportacion();
-            //oUC_Exportacion.Inicializar(lstExportEstadoGestion, ";");
-            //string sTituloExportar = AdministradorMensaje.Instance.GetMensajePorCodigo(Mensajes.CodigoMensaje.EstadoGestion_TextoTituloExportar);
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
 
-            //MessageBoxResult Response = ViewWindow_Modal.Show(oUC_Exportacion, sTituloExportar, oUC_Exportacion.btnCancelar);
+            // Set filter for file extension and default file extension 
+            dlg.DefaultExt = ".xlsx";
+            dlg.Filter = "Excel Files (*.xlsx)|*.xlsx|Excel Files (*.xls)|*.xls";
+
+            Nullable<bool> result = dlg.ShowDialog();
+
+
+            // Get the selected file name and display in a TextBox 
+            if (result == true)
+            {
+                // Open document 
+                string filename = dlg.FileName;
+            }
+
+
+
+            ExcelUtlity obj = new ExcelUtlity();
+            DataTable dt = General.ConvertToDataTableTimesheets(await ServiceEmployee.GetTimesheetReport(new FilterParametersTimesheet()));
+            obj.WriteDataTableToExcel(dt, "Roster", dlg.FileName, "Details");
+
+
+            //obj.WriteDataTableToExcel(dt, "Person Details", "D:\\testPersonExceldata.xlsx", "Details");
+            MessageBoxModal.Show(General.ResolveOwnerWindow(), "Data Exported: " + dlg.FileName, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+
         }
 
         private void btnAyuda_Click(object sender, RoutedEventArgs e)
@@ -660,6 +710,11 @@ namespace IncogStuffControl.UserControls.Roster
         }
 
         #endregion
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            save = true;
+        }
     }
 }
 

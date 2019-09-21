@@ -95,7 +95,19 @@ namespace IncogStuffControl.UserControls.Scan
                 }
                 else
                 {
-                    MessageBoxModal.Show(General.ResolveOwnerWindow(), responseObj.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if(responseObj.Message.Contains("shift today"))
+                    {
+                      MessageBoxResult res=  MessageBoxModal.Show(General.ResolveOwnerWindow(), responseObj.Message + " Do you like to add into it the roster today", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                      if(res == MessageBoxResult.Yes)
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        MessageBoxModal.Show(General.ResolveOwnerWindow(), responseObj.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                   
                 }
                 txtScan.Text = string.Empty;
             }

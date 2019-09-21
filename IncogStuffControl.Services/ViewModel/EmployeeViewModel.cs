@@ -16,5 +16,6 @@ namespace IncogStuffControl.Services.ViewModel
         public string Payroll { get; set; }
         public int RolId { get; set; }
         public bool Active { get; set; }
+        public string FullName { get { return Name + " " + LastName; } }
     }
 }

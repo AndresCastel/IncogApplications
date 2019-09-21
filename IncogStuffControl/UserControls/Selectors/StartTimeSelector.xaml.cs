@@ -1,5 +1,4 @@
-﻿using IncogStuffControl.BusinessClass.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,16 +16,13 @@ using System.Windows.Shapes;
 namespace IncogStuffControl.UserControls.Selectors
 {
     /// <summary>
-    /// Interaction logic for BreakSelector.xaml
+    /// Interaction logic for StartTimeSelector.xaml
     /// </summary>
-    public partial class BreakSelector : UserControl
+    public partial class StartTimeSelector : UserControl
     {
-        private int[] ValidGainValues = new[] { 0, 15, 30, 45, 60 };
-        public BreakSelector()
+        public StartTimeSelector()
         {
             InitializeComponent();
-            cmbBreaks.ItemsSource = ValidGainValues;
-            cmbBreaks.SelectedItem = 0;
         }
     }
 }

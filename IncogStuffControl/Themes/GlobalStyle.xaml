@@ -1282,10 +1282,10 @@
 
     </Style>
     <LinearGradientBrush x:Key="NormalBrush_ComboBox" EndPoint="0.5,1" StartPoint="0.5,0">
-        <GradientStop Color="#FFA3AEB9" Offset="0" />
-        <GradientStop Color="#FF8399A9" Offset="0.375" />
-        <GradientStop Color="#FF718597" Offset="0.375" />
-        <GradientStop Color="#FF617584" Offset="1" />
+        <GradientStop Color="#89F786" Offset="0" />
+        <GradientStop Color="#27B223" Offset="0.375" />
+        <GradientStop Color="#27B223" Offset="0.375" />
+        <GradientStop Color="#89F786" Offset="1" />
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="NormalBrush_ComboBoxValidate" EndPoint="0.5,1" StartPoint="0.5,0">
         <GradientStop Color="#FFD49999" Offset="0" />
@@ -2415,7 +2415,7 @@
         <Grid Height="25">
             <Border Name="MainBorder"  Background="#1AAA51" BorderThickness="0,0,1,1" BorderBrush="White" >
                 <Grid >
-                    <Image x:Name="ImgFilter" Source="/Axede.WpfForms.Application.GestionCobro;component/Themes/Images/FilterBase.png" Height="15" Width="15"   HorizontalAlignment="Left" Visibility="Collapsed"/>
+                    <Image x:Name="ImgFilter" Source="/IncogStuffControl;component/Themes/Images/FilterBase.png" Height="15" Width="15"   HorizontalAlignment="Left" Visibility="Collapsed"/>
                     <Border VerticalAlignment="Top"   />
                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding Content}" />
                 </Grid>
@@ -3836,7 +3836,7 @@
                                             Template="{DynamicResource TodayButtonTemplate}" 
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            Content="Hoy" />
+                                            Content="Today" />
 
                             </StackPanel>
                         </StackPanel>

@@ -207,6 +207,15 @@
     <Compile Include="UserControls\Selectors\BreakSelector.xaml.cs">
       <DependentUpon>BreakSelector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Selectors\DateRange.xaml.cs">
+      <DependentUpon>DateRange.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Selectors\StartTimeSelector.xaml.cs">
+      <DependentUpon>StartTimeSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Timesheet\TimesheetCrudUC.xaml.cs">
+      <DependentUpon>TimesheetCrudUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Timesheet\TimesheetUC.xaml.cs">
       <DependentUpon>TimesheetUC.xaml</DependentUpon>
     </Compile>
@@ -214,6 +223,7 @@
     <Compile Include="UtilClass\LocalizedEnumConverter.cs" />
     <Compile Include="UtilClass\ResourceEnumConverter.cs" />
     <Compile Include="UtilClass\ResourceEnum\LocalizedEnumConverter.cs" />
+    <Compile Include="UtilClass\ResourceEnum\OperacionCRUD.cs" />
     <Compile Include="UtilClass\ResourceEnum\ResourceEnumConverter.cs" />
     <Compile Include="UtilClass\SearchTextBox.cs" />
     <Compile Include="UtilControls\ButtonImage\ButtonImage.cs" />
@@ -341,6 +351,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Selectors\DateRange.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Selectors\StartTimeSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Timesheet\TimesheetCrudUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Timesheet\TimesheetUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -432,6 +454,10 @@
       <Project>{2e8efe10-adf4-4b4f-b324-aa79021e39bd}</Project>
       <Name>Axede.Wpf.CustomWindow</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Axede.WPF.DataPicker\Axede.WPF.DataPicker.csproj">
+      <Project>{be7b7297-6537-49c5-ac7b-28e0fc353c35}</Project>
+      <Name>Axede.WPF.DataPicker</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Axede.WPF.FilterPopup\Axede.WPF.FilterPopup.csproj">
       <Project>{63c0ca12-4c2b-4fe6-9b25-3c4629bc1859}</Project>
       <Name>Axede.WPF.FilterPopup</Name>
@@ -505,6 +531,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

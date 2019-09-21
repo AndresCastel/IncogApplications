@@ -57,6 +57,7 @@
     <Compile Include="ViewModel\EmployeesChargeMW.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\EmployeeVsRosterVM.cs" />
+    <Compile Include="ViewModel\FilterParametersTimesheet.cs" />
     <Compile Include="ViewModel\MessageResponseViewModel.cs" />
     <Compile Include="ViewModel\FilterParametersRoster.cs" />
     <Compile Include="ViewModel\RosterCViewModel.cs" />
