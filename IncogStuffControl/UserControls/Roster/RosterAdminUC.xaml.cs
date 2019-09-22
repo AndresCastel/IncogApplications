@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using IncogStuffControl.UtilControls.ModalMessageBox;
+using IncogStuffControl.UserControls.Selectors;
 
 namespace IncogStuffControl.UserControls.Roster
 {
@@ -25,6 +26,13 @@ namespace IncogStuffControl.UserControls.Roster
     /// </summary>
     public partial class RosterAdminUC : UserControl, INotifyPropertyChanged
     {
+        private string _OrdenCampo = "Asc";
+        private RosterWM lstRoster;
+        public string CampoOrden
+        {
+            get { return _CampoOrden; }
+            set { _CampoOrden = value; }
+        }
 
         /// <summary>
         /// Evento de acuerdo a la interfáz.
@@ -41,7 +49,7 @@ namespace IncogStuffControl.UserControls.Roster
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
-
+        private string _CampoOrden = "Nom_Tercero, Nom_EstadoGestion";
         private bool _save;
         public bool save
         {
@@ -53,6 +61,72 @@ namespace IncogStuffControl.UserControls.Roster
                 {
                     NotifyPropertyChanged("save");
                 }
+            }
+        }
+
+        private FilterParametersRoster _Filter;
+        public FilterParametersRoster Filter
+        {
+            get { return _Filter; }
+            set
+            {
+                _Filter = value;
+
+            }
+        }
+
+        public string OrdenCampo
+        {
+            get { return _OrdenCampo; }
+            set { _OrdenCampo = value; }
+        }
+
+        private DateTime _dateFilter;
+        public DateTime dateFilter
+        {
+            get { return dtpDate.SelectedDate.Value; }
+            set
+            {
+                _dateFilter = value;
+
+            }
+        }
+
+        private DateRange _dateRange;
+        public DateRange dateRange
+        {
+            get { return _dateRange; }
+            set
+            {
+                _dateRange = value;
+
+            }
+        }
+
+        public RosterAdminUC(bool oControlExpandido = false)
+        {
+            InitializeComponent();
+            dtpDate.SelectedDate = DateTime.Now;
+           
+            if (oControlExpandido == true)
+            {
+                parentstack.Width = double.NaN;
+                parentstack.Height = double.NaN;
+            }
+
+        }
+
+        private async void FillGrid()
+        {
+            MessageResponseViewModel<RosterWM> responseObj = await ServiceRoster.GetRoster(Filter);
+            if (responseObj.Succesfull)
+            { 
+            grvRoster.ItemsSource = responseObj.Data.lstRoster;
+                lblReg.Content = responseObj.Data.lstRoster.Count();
+            }
+            else
+            {
+                MessageBoxModal.Show(General.ResolveOwnerWindow(), responseObj.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -77,45 +151,7 @@ namespace IncogStuffControl.UserControls.Roster
        // private AdminEstadoGestion_Presenter _AdminEstadoGestion_Presenter;
 
 
-        //Paginado
-        private int _CurrentPageIndex = 1;
-        private int _TotalPage = 0;
-        private int _TotalRegistros = 0;
-        private TipoPaginaPaginado _TipoPagina = TipoPaginaPaginado.PrimeraPagina;
-        private string _CampoOrden = "Nom_Tercero, Nom_EstadoGestion";
-        private string _OrdenCampo = "Asc";
-        private string _Filtro = string.Empty;
-
-        public string Filtro
-        {
-            get { return _Filtro; }
-            set { _Filtro = value; }
-        }
-        public int CurrentPageIndex
-        {
-            get { return _CurrentPageIndex; }
-            set { _CurrentPageIndex = value; }
-        }
-        public int TotalPage
-        {
-            get { return _TotalPage; }
-            set { _TotalPage = value; }
-        }
-        public TipoPaginaPaginado TipoPagina
-        {
-            get { return _TipoPagina; }
-            set { _TipoPagina = value; }
-        }
-        public string CampoOrden
-        {
-            get { return _CampoOrden; }
-            set { _CampoOrden = value; }
-        }
-        public string OrdenCampo
-        {
-            get { return _OrdenCampo; }
-            set { _OrdenCampo = value; }
-        }
+       
         private WPFFilterPopupManager oWPFFilterPopupManager = null;
 
       
@@ -128,31 +164,15 @@ namespace IncogStuffControl.UserControls.Roster
         {
             InitializeComponent();
             //
-           // _AdminEstadoGestion_Presenter = new AdminEstadoGestion_Presenter(this);
-            Paginador.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Paginador_PropertyChanged);
+          
             parentstack.Width = double.NaN;
             parentstack.Height = double.NaN;
 
 
         }
-        public RosterAdminUC(bool oControlExpandido = false)
-        {
-            InitializeComponent();
-            FillGrid();
-            Paginador.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Paginador_PropertyChanged);
-            if (oControlExpandido == true)
-            {
-                parentstack.Width = double.NaN;
-                parentstack.Height = double.NaN;
-            }
+        
 
-        }
-
-        private async void FillGrid()
-        {
-            MessageResponseViewModel<RosterWM> responseObj = await ServiceRoster.GetRoster( new FilterParametersRoster() { filter = "All" });
-            grvRoster.ItemsSource = responseObj.Data.lstRoster;
-        }
+       
 
         #endregion
 
@@ -167,44 +187,18 @@ namespace IncogStuffControl.UserControls.Roster
 
         public void Inicio()
         {
-            //if (ObserGrilla == null)
-            //{
+           
             CargaRecursos();
-            //}
 
         }
 
         private void ObtenerListaEstadoGestion()
         {
-            //Task tsk = Task.Factory.StartNew(() =>
-            //{
-            //    EstadoProcesoCargueGrilla = EstadoProceso.Ocupado;
-
-            //    Thread.Sleep(100);
-
-            //    this.Dispatcher.BeginInvoke(
-            //  (Action)(() => _AdminEstadoGestion_Presenter.ObtenerListaEstadoGestion()));
-
-            //});
-            //tsk.ContinueWith(t =>
-            //{
-            //    EstableceSeguridad();
-
-            //    EstadoProcesoCargueGrilla = EstadoProceso.Disponible;
-
-            //}, TaskScheduler.FromCurrentSynchronizationContext());
 
         }
 
         private void CargaRecursos()
         {
-            //btnNuevo.Content = AdministradorMensaje.Instance.GetMensajePorCodigo(Mensajes.CodigoMensaje.General_TextoBotonNuevo);
-            //btnExportar.Content = AdministradorMensaje.Instance.GetMensajePorCodigo(Mensajes.CodigoMensaje.General_TextoBotonExportar);
-            //btnAyuda.Content = AdministradorMensaje.Instance.GetMensajePorCodigo(Mensajes.CodigoMensaje.General_TextoBotonAyuda);
-
-            //btnNuevo.ToolTip = AdministradorMensaje.Instance.GetMensajePorCodigo(Mensajes.CodigoMensaje.EstadoGestion_ToolTipBotonNuevo);
-            //btnExportar.ToolTip = AdministradorMensaje.Instance.GetMensajePorCodigo(Mensajes.CodigoMensaje.EstadoGestion_ToolTipBotonExportar);
-            //btnAyuda.ToolTip = AdministradorMensaje.Instance.GetMensajePorCodigo(Mensajes.CodigoMensaje.General_ToolTipBotonAyuda);
 
             grvRoster.Columns[3].Header = "Day";
             grvRoster.Columns[4].Header = "Date";
@@ -221,29 +215,7 @@ namespace IncogStuffControl.UserControls.Roster
 
         }
 
-        private void ActualizarTotalPaginas()
-        {
-
-            if (_TotalRegistros % Globals.iRegistrosPagina > 0)
-            {
-                _TotalPage = (int)(_TotalRegistros / Globals.iRegistrosPagina) + 1;
-            }
-            else
-            {
-                _TotalPage = (int)(_TotalRegistros / Globals.iRegistrosPagina);
-            }
-            if (_CurrentPageIndex > _TotalPage)
-            {
-                _CurrentPageIndex = _CurrentPageIndex - 1;
-            }
-            else if (_CurrentPageIndex == 0 && _TotalPage > 0)
-            {
-                _CurrentPageIndex = 1;
-            }
-            Paginador.LblPaginas.Content = AdministradorMensaje.Instance.GetMensajePorCodigo(Incog.wpf.Messages.CodeMessagesGeneral.General_TextoPagina) + _CurrentPageIndex.ToString() + "/" + _TotalPage.ToString() + " - " + AdministradorMensaje.Instance.GetMensajePorCodigo(Incog.wpf.Messages.CodeMessagesGeneral.General_TextoRegistro) + _TotalRegistros.ToString();
-            EstableceAtributosGrilla();
-        }
-
+     
         #endregion
 
         #region Eventos de Notificacion Hijos
@@ -271,79 +243,7 @@ namespace IncogStuffControl.UserControls.Roster
             //}
         }
 
-        /// <summary>
-        /// Notifica la accion del Control Paginador
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void Paginador_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-
-            switch (((PageGridGestionUC)sender).NotificarAccionPag)
-            {
-                case TipoPaginaPaginado.PaginaAnterior:
-                    if (_CurrentPageIndex > 1)
-                    {
-                        _TipoPagina = TipoPaginaPaginado.PaginaAnterior;
-                       // _AdminEstadoGestion_Presenter.ObtenerListaEstadoGestion();
-                        _CurrentPageIndex--;
-                    }
-                    else
-                    {
-                        _CurrentPageIndex = 2;
-                        _TipoPagina = TipoPaginaPaginado.PrimeraPagina;
-                        //_AdminEstadoGestion_Presenter.ObtenerListaEstadoGestion();
-                        _CurrentPageIndex = 1;
-                    }
-
-                    Paginador.LblPaginas.Content = AdministradorMensaje.Instance.GetMensajePorCodigo(Incog.wpf.Messages.CodeMessagesGeneral.General_TextoPagina) + _CurrentPageIndex.ToString() + "/" + _TotalPage.ToString() + " - " + AdministradorMensaje.Instance.GetMensajePorCodigo(Incog.wpf.Messages.CodeMessagesGeneral.General_TextoRegistro) + _TotalRegistros.ToString();
-                    break;
-
-                case TipoPaginaPaginado.PaginaSiguiente:
-                    if (_CurrentPageIndex < _TotalPage)
-                    {
-                        if (_CurrentPageIndex > 1)
-                        {
-                            _TipoPagina = TipoPaginaPaginado.PaginaSiguiente;
-                           // _AdminEstadoGestion_Presenter.ObtenerListaEstadoGestion();
-                            _CurrentPageIndex++;
-                        }
-                        else
-                        {
-                            _TipoPagina = TipoPaginaPaginado.PaginaSiguiente;
-                           // _AdminEstadoGestion_Presenter.ObtenerListaEstadoGestion();
-                            _CurrentPageIndex = 2;
-                        }
-                    }
-                    else
-                    {
-                        _TipoPagina = TipoPaginaPaginado.UltimaPagina;
-                        _CurrentPageIndex = _TotalPage;
-                    }
-                    Paginador.LblPaginas.Content = AdministradorMensaje.Instance.GetMensajePorCodigo(Incog.wpf.Messages.CodeMessagesGeneral.General_TextoPagina) + _CurrentPageIndex.ToString() + "/" + _TotalPage.ToString() + " - " + AdministradorMensaje.Instance.GetMensajePorCodigo(Incog.wpf.Messages.CodeMessagesGeneral.General_TextoRegistro) + _TotalRegistros.ToString();
-                    break;
-
-                case TipoPaginaPaginado.PrimeraPagina:
-                    _CurrentPageIndex = 1;
-                    _TipoPagina = TipoPaginaPaginado.PrimeraPagina;
-                   // _AdminEstadoGestion_Presenter.ObtenerListaEstadoGestion();
-                    Paginador.LblPaginas.Content = AdministradorMensaje.Instance.GetMensajePorCodigo(Incog.wpf.Messages.CodeMessagesGeneral.General_TextoPagina) + _CurrentPageIndex.ToString() + "/" + _TotalPage.ToString() + " - " + AdministradorMensaje.Instance.GetMensajePorCodigo(Incog.wpf.Messages.CodeMessagesGeneral.General_TextoRegistro) + _TotalRegistros.ToString();
-                    break;
-
-                case TipoPaginaPaginado.UltimaPagina:
-                    _CurrentPageIndex = _TotalPage - 1;
-                    _TipoPagina = TipoPaginaPaginado.UltimaPagina;
-                    //_AdminEstadoGestion_Presenter.ObtenerListaEstadoGestion();
-                    _CurrentPageIndex = _TotalPage;
-                    Paginador.LblPaginas.Content = AdministradorMensaje.Instance.GetMensajePorCodigo(Incog.wpf.Messages.CodeMessagesGeneral.General_TextoPagina) + _CurrentPageIndex.ToString() + "/" + _TotalPage.ToString() + " - " + AdministradorMensaje.Instance.GetMensajePorCodigo(Incog.wpf.Messages.CodeMessagesGeneral.General_TextoRegistro) + _TotalRegistros.ToString();
-                    break;
-
-                default:
-                    break;
-            }
-            ActualizarTotalPaginas();
-        }
-
+        
         #endregion
 
         #region Botones Principales
@@ -470,71 +370,20 @@ namespace IncogStuffControl.UserControls.Roster
 
         private void grvRosterAdmin_Sorting(object sender, DataGridSortingEventArgs e)
         {
-            DataGrid dataGrid = sender as DataGrid;
-            string sortPropertyName = WPFDataGridHelper.GetSortMemberPath(e.Column);
-            if (!string.IsNullOrEmpty(sortPropertyName))
-            {
-                //Cancela el ordenamiento por defecto
-                e.Handled = true;
+           
 
-                //establece el nuevo ordenamiento
-                _CampoOrden = sortPropertyName;
-                if (_CampoOrden == "Estado")
-                {
-                    _CampoOrden = "Estado_EstadoGestion";
-                }
-
-                if (e.Column.SortDirection.HasValue && e.Column.SortDirection.Value == ListSortDirection.Descending)
-                {
-                    _OrdenCampo = "Desc";
-                }
-                else if (e.Column.SortDirection.HasValue && e.Column.SortDirection.Value == ListSortDirection.Ascending)
-                {
-                    _OrdenCampo = "Asc";
-                }
-
-                _TipoPagina = TipoPaginaPaginado.PaginaActual;
-                //_AdminEstadoGestion_Presenter.ObtenerListaEstadoGestion();
-
-                if (_OrdenCampo == "Asc")
-                {
-                    e.Column.SortDirection = ListSortDirection.Descending;
-                }
-                else if (_OrdenCampo == "Desc")
-                {
-                    e.Column.SortDirection = ListSortDirection.Ascending;
-                }
-
-            }
+           
         }
 
         void oWPFFilterPopupManager_ColumnFilterAdding(object sender, ColumnFilterEventArgs e)
         {
             switch (e.FieldName)
             {
-                case "Day":
-                    //if (ListaTipoCliente != null)
-                    //{
-                    //    if (ListaTipoCliente.Count > 0)
-                    //    {
-                    //        List<FilterPopupList> oListaTipoCliente = new List<FilterPopupList>();
-                    //        foreach (DtoTipoCliente oDtoTipCli in ListaTipoCliente)
-                    //        {
-                    //            oListaTipoCliente.Add(new FilterPopupList() { IdValor = oDtoTipCli.Ide_TipoCliente, Valor = oDtoTipCli.Nom_TipoCliente });
-                    //        }
-
-                    //        e.ColumnFilter = new ComboBoxColumnFilter(oListaTipoCliente);
-                    //    }
-                    //}
-                    break;
                 case "DateShort":
                     e.ColumnFilter = new RangeDateColumnFilter();
                     break;             
                    
                 case "Employee":
-                    e.ColumnFilter = new TextBoxColumnFilter();
-                    break;
-                case "Payroll":
                     e.ColumnFilter = new TextBoxColumnFilter();
                     break;
 
@@ -552,29 +401,15 @@ namespace IncogStuffControl.UserControls.Roster
                 if (CF == null) continue;
                 if (CF.FilterExpression != string.Empty)
                 {
-                    if (CF.FieldName == "Payroll")
-                    {
-                        filter.Payroll = CF.FilterExpression;
-                        filter.filter = "Payroll";
-                    }
-                    else if (CF.FieldName == "DateShort")
-                    {
-                        DateTime dFInicio = Convert.ToDateTime(CF.FilterExpression.Split('|')[0]);
-                        DateTime dFFin = Convert.ToDateTime(CF.FilterExpression.Split('|')[1]);
-                        filter.DateStart = dFInicio;
-                        filter.DateEnd = dFFin;
-                        filter.filter = "Date";
-                    }
                     if (CF.FieldName == "Employee")
                     {
                         filter.Employee = CF.FilterExpression;
+                        filter.filter = "Employee";
                     }
                 }
-            }
 
-            Filtro = sFilter;
-            _TipoPagina = TipoPaginaPaginado.PrimeraPagina;
-            _CurrentPageIndex = 1;
+            }
+            filter.DateGridFilter = dateFilter;
             MessageResponseViewModel<RosterWM> responseObj = await ServiceRoster.GetRoster(filter);
             grvRoster.ItemsSource = responseObj.Data.lstRoster;
             
@@ -714,6 +549,17 @@ namespace IncogStuffControl.UserControls.Roster
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             save = true;
+        }
+
+        private void DtpDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dtpDate.SelectedDate != null)
+            {
+                Filter = new FilterParametersRoster();
+                Filter.filter = "All";
+                Filter.DateGridFilter = dateFilter;
+                FillGrid();
+            }
         }
     }
 }

@@ -97,10 +97,52 @@ namespace IncogStuffControl.UserControls.Scan
                 {
                     if(responseObj.Message.Contains("shift today"))
                     {
-                      MessageBoxResult res=  MessageBoxModal.Show(General.ResolveOwnerWindow(), responseObj.Message + " Do you like to add into it the roster today", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                      MessageBoxResult res=  MessageBoxModal.Show(General.ResolveOwnerWindow(), responseObj.Message + " Do you like to add it into the roster today", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Error);
                       if(res == MessageBoxResult.Yes)
                         {
+                           
+                            MessageResponseViewModel<EmployeeViewModel> responseemploy = await ServiceEmployee.GetEmploy(employeer.Employee);
+                            if (responseemploy.Succesfull)
+                            {
+                                RosterCViewModel roster = new RosterCViewModel();
+                                roster.Date = DateTime.Now;
+                                roster.EventName = "Shift Added";
+                                roster.Employee = responseemploy.Data.FullName;
+                                roster.Break = 30;
+                                string HourScan = General.ConvertDatetoMilitaryHour(DateTime.Now);
+                                TimeSpan tsScan = TimeSpan.ParseExact(HourScan, "hhmm", null);
+                                roster.StartTime = General.RoundToNearest(tsScan, TimeSpan.FromMinutes(15));
+                                TimeSpan tsScanEnd = tsScan.Add(new TimeSpan(7, 0, 0));
+                                roster.EndTime = General.RoundToNearest(tsScanEnd, TimeSpan.FromMinutes(15));
+                                roster.LabourType = "General Labour";
+                                roster.Payroll = responseemploy.Data.Payroll;
+                                roster.ShiftNum = 1;
+                                MessageResponseViewModel<bool> responseroster = await ServiceRoster.SetRoster(roster);
+                                if (responseroster.Succesfull)
+                                {
+                                    MessageResponseViewModel<EmployeeVsRosterVM> responseEmploRoster = await ServiceEmployee.GetEmployee(employeer);
+                                    if (responseEmploRoster.Succesfull != false)
+                                    {
+                                        if (responseEmploRoster.Data != null)
+                                        {
 
+                                            employee = (EmployeeVsRosterVM)responseEmploRoster.Data;
+                                        }
+                                        else
+                                        {
+                                            MessageBoxModal.Show(General.ResolveOwnerWindow(), responseObj.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Error);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBoxModal.Show(General.ResolveOwnerWindow(), responseObj.Message, "Information", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    }
+                                }
+                            }
+                            //Get employee
+                          
+                           // roster.Employee = (EmployeeVsRosterVM)responseObj.Data.
+                           // MessageResponseViewModel<bool> responseCreate = await  ServiceRoster.SetRoster(roster);
                         }
                     }
                     else

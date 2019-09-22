@@ -9,8 +9,13 @@
              Height="auto" Width="auto" Loaded="Uc_Timesheet_Loaded"
                   xmlns:my="clr-namespace:IncogStuffControl.UtilControls.Loading">
     <StackPanel Name="parentstack" Height="118" Width="768" Background="{StaticResource UCBackgroundColor}" >
-        <Label Content="TIMESHEETS"> </Label>
+        <StackPanel Orientation="Horizontal">
+        <Label Content="TIMESHEETS "> </Label>
+         <Label Content="Total Registers: "></Label>
+            <Label Name="lblReg" ></Label>
+        </StackPanel>
         <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" Height="35" Width="Auto">
+            
             <Grid Height="25" Name="grdBotones" Width="400">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="75*" />

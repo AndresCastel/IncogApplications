@@ -8,9 +8,9 @@ namespace IncogStuffControl.Services.ViewModel
 {
     public class FilterParametersRoster
     {
-        public int Day { get; set; }        
-        public DateTime DateStart { get; set; }
-        public DateTime DateEnd { get; set; }
+        public DateTime DateGridFilter { get; set; }
+        public DateTime DateFrom { get; set; }
+        public DateTime DateTo { get; set; }
         public string Employee { get; set; }
         public string Payroll { get; set; }
         public string filter { get; set; }

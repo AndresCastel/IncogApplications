@@ -238,6 +238,63 @@ namespace IncogStuffControl.Services
             return Stuff;
         }
 
+        public static async Task<MessageResponseViewModel<EmployeeViewModel>> GetEmploy(EmployeeViewModel employee)
+        {
+
+            MessageResponseViewModel<EmployeeViewModel> employ = new MessageResponseViewModel<EmployeeViewModel>();
+            try
+            {
+
+
+                // Posting.
+                using (var client = new HttpClient())
+                {
+                    // Setting Base address.
+                    client.BaseAddress = new Uri(Globals.BaseUrl);
+
+
+                    // Setting content type.
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    // Setting timeout.
+                    client.Timeout = TimeSpan.FromSeconds(Convert.ToDouble(1000000));
+
+                    var json = JsonConvert.SerializeObject(employee);
+                    var stringContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
+
+                    // Initialization.
+                    HttpResponseMessage response = new HttpResponseMessage();
+
+                    // HTTP Post
+                    response = await client.PostAsync("api/Employee/get/code/", stringContent).ConfigureAwait(false);
+
+                    // Verification
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Reading Response.
+                        string result = response.Content.ReadAsStringAsync().Result;
+                        employ = JsonConvert.DeserializeObject<MessageResponseViewModel<EmployeeViewModel>>(result);
+
+                        // Releasing.
+                        response.Dispose();
+                    }
+                    else
+                    {
+                        // Reading Response.
+                        string result = response.Content.ReadAsStringAsync().Result;
+                        //responseObj.code = 602;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return employ;
+        }
+
         public static async Task<MessageResponseViewModel<AllStuffVM>> GetAllStuff()
         {
 

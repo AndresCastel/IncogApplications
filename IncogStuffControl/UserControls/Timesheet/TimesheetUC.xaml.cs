@@ -118,8 +118,7 @@ namespace IncogStuffControl.UserControls.Timesheet
         {
             InitializeComponent();
             dtpDate.SelectedDate = DateTime.Now;
-           // FillGrid();
-           // Paginador.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Paginador_PropertyChanged);
+           
             if (oControlExpandido == true)
             {
                 parentstack.Width = double.NaN;
@@ -132,6 +131,7 @@ namespace IncogStuffControl.UserControls.Timesheet
         {
             timesheets = await ServiceEmployee.GetTimesheetReport(Filter);
             grvTimesheet.ItemsSource = timesheets;
+            lblReg.Content = timesheets.Count();
         }
 
         public void Inicio()

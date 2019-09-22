@@ -4,20 +4,29 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:grid="clr-namespace:IncogStuffControl.UtilControls.Grid"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:datapicker="clr-namespace:Axede.WPF.DataPicker;assembly=Axede.WPF.DataPicker"    
              mc:Ignorable="d" x:Name="Uc_RosterAdmin" 
              Height="auto" Width="auto" Loaded="Uc_RosterAdmin_Loaded"
                   xmlns:my="clr-namespace:IncogStuffControl.UtilControls.Loading">
     <StackPanel Name="parentstack" Height="118" Width="768" Background="{StaticResource UCBackgroundColor}" >
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Roster "></Label>
+            <Label Content="Total Registers: "></Label>
+            <Label Name="lblReg" ></Label>
+        </StackPanel>
         <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" Height="35" Width="Auto">
-            <Grid Height="25" Name="grdBotones" Width="241">
+            <Grid Height="25" Name="grdBotones" Width="400">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="75*" />
                     <ColumnDefinition Width="75*" />
                     <ColumnDefinition Width="75*" />
+                    <ColumnDefinition Width="150*" />
                 </Grid.ColumnDefinitions>
                 <Button Name="btnNuevo" IsEnabled="False" Content="Add" Click="btnNuevo_Click"  Width="75" TabIndex="1"></Button>
                 <Button Name="btnExportar"  Content="Export" Click="btnExportar_Click" Width="75" Grid.Column="1" TabIndex="2"></Button>
                 <Button Name="btnCancel"  Content="Cancel" Click="btnCancel_Click" Width="75" Grid.Column="2" TabIndex="3"></Button>
+                <datapicker:DatePickerEx x:Name="dtpDate" SelectedDateChanged="DtpDate_SelectedDateChanged"  Height="25" Width="150"   Grid.Column="3"  Margin="0,0,0,0" 
+                         AlternativeCalendarStyle="{DynamicResource calendarWithGotToTodayStyle}"  TabIndex="5" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" ToolTipService.ShowOnDisabled="True"/>
             </Grid>
         </StackPanel>
         <Separator />
@@ -88,6 +97,6 @@
                 </Style>
             </my:LoadingAnimation.Style>
         </my:LoadingAnimation>
-        <grid:PageGridGestionUC x:Name="Paginador" HorizontalAlignment="Center" />
+       
     </StackPanel>
 </UserControl>
