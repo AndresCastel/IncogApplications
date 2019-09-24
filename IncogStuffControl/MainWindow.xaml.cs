@@ -90,7 +90,7 @@ namespace IncogStuffControl
             //Roster - Modify Roster
             MenuItem oMenuItemModifyRoster = new MenuItem();
             oMenuItemModifyRoster.InputGestureText = "Ctrl+L";
-            oMenuItemModifyRoster.Header = "Modify Roster";
+            oMenuItemModifyRoster.Header = "Roster";
             oMenuItemModifyRoster.Click += new RoutedEventHandler(oMenuItemModRoster_Click);
             oMenuItemRoster.Items.Add(oMenuItemModifyRoster);
             //Reports
@@ -107,7 +107,8 @@ namespace IncogStuffControl
 
         private void oMenuItemModRoster_Click(object sender, RoutedEventArgs e)
         {
-            RosterAdminUC oRoster = new RosterAdminUC(true);           
+            RosterAdminUC oRoster = new RosterAdminUC(true);
+            oRoster.PropertyChanged += MainUC_PropertyChanged;
             contentUserControl.Content = null;
 
             contentUserControl.Content = oRoster;
@@ -208,6 +209,15 @@ namespace IncogStuffControl
                 IncImage.Visibility = Visibility.Visible;
             }
             if (sender is TimesheetUC)
+            {
+                contentUserControl.Content = null;
+                FocusManager.SetFocusedElement(this, scanus.txtScan);
+                Keyboard.Focus(scanus.txtScan);
+                contentUserControl.Content = scanus;
+                MenuBase.Visibility = Visibility.Hidden;
+                IncImage.Visibility = Visibility.Visible;
+            }
+            if (sender is RosterAdminUC)
             {
                 contentUserControl.Content = null;
                 FocusManager.SetFocusedElement(this, scanus.txtScan);

@@ -1896,7 +1896,7 @@
                             <Setter Property="Padding" Value="4,0,0,0"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            <Setter Property="Foreground" Value="Red"/>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="ForegroundPanel" Property="Background" Value="{DynamicResource Accent}" />
@@ -1906,7 +1906,7 @@
                             </Trigger.EnterActions>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="False">
-                            <Setter TargetName="ForegroundPanel" Property="Background" Value="Gray" />
+                            <Setter TargetName="ForegroundPanel" Property="Background" Value="Green" />
                             <Trigger.EnterActions>
                                 <BeginStoryboard x:Name="BeginStoryboardCheckedFalse" Storyboard="{StaticResource StoryboardIsCheckedOff}" />
                                 <RemoveStoryboard BeginStoryboardName="BeginStoryboardCheckedTrue" />

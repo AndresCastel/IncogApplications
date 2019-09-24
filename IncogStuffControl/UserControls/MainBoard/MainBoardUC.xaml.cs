@@ -343,18 +343,33 @@ namespace IncogStuffControl.UserControls.MainBoard
                     {
                         employeeroster.EndTime = "0" + employeeroster.EndTime;
                     }
+                    if (employeeroster.StartTime.Length < 4)
+                    {
+                        employeeroster.StartTime = "0" + employeeroster.StartTime;
+                    }
                     TimeSpan tsRosterOff = TimeSpan.ParseExact(employeeroster.EndTime, "hhmm", null);
+                    TimeSpan tsRosterIn = TimeSpan.ParseExact(employeeroster.StartTime, "hhmm", null);
+                    DateTime RosterIn = new DateTime(employeeroster.Date.Year, employeeroster.Date.Month, employeeroster.Date.Day, tsRosterIn.Hours, tsRosterIn.Minutes, 0);
                     DateTime RosterEndTime = new DateTime(employeeroster.Date.Year, employeeroster.Date.Month, employeeroster.Date.Day, tsRosterOff.Hours, tsRosterOff.Minutes, 0);
                     if (DateScan > RosterEndTime)
                     {
-                        TimeSpan ts = DateScan - RosterEndTime;
-                        double mins = ts.TotalMinutes;
-                        if (mins > 20)
+                        
+                        //if it is true means is the same day
+                        if (RosterIn < RosterEndTime)
                         {
-                            MessageBoxResult res = MessageBoxModal.Show(General.ResolveOwnerWindow(), "You shift Finished: " + employeeroster.EndTime + ", Do you want to approve that " + employeepriv.Employee.Name + " " + employeepriv.Employee.LastName + " Signs off at: " + HourScan, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                            if (res == MessageBoxResult.Yes)
+                            TimeSpan ts = DateScan - RosterEndTime;
+                            double mins = ts.TotalMinutes;
+                            if (mins > 20)
                             {
-                                aproxHour = General.RoundToNearest(tsScan, TimeSpan.FromMinutes(15));
+                                MessageBoxResult res = MessageBoxModal.Show(General.ResolveOwnerWindow(), "You shift Finished: " + employeeroster.EndTime + ", Do you want to approve that " + employeepriv.Employee.Name + " " + employeepriv.Employee.LastName + " Signs off at: " + HourScan, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                                if (res == MessageBoxResult.Yes)
+                                {
+                                    aproxHour = General.RoundToNearest(tsScan, TimeSpan.FromMinutes(15));
+                                }
+                                else
+                                {
+                                    aproxHour = employeeroster.EndTime;
+                                }
                             }
                             else
                             {
@@ -363,7 +378,29 @@ namespace IncogStuffControl.UserControls.MainBoard
                         }
                         else
                         {
-                            aproxHour = employeeroster.EndTime;
+                            TimeSpan ts2 = DateScan - RosterEndTime;
+                            double mins2 = ts2.TotalMinutes;
+                            if (mins2 > 1000)
+                            {
+                                mins2 = mins2 - 1440;
+                            }
+
+                            if (mins2 > 20)
+                            {
+                                MessageBoxResult res = MessageBoxModal.Show(General.ResolveOwnerWindow(), "You shift Finished: " + employeeroster.EndTime + ", Do you want to approve that " + employeepriv.Employee.Name + " " + employeepriv.Employee.LastName + " Signs off at: " + HourScan, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                                if (res == MessageBoxResult.Yes)
+                                {
+                                    aproxHour = General.RoundToNearest(tsScan, TimeSpan.FromMinutes(15));
+                                }
+                                else
+                                {
+                                    aproxHour = employeeroster.EndTime;
+                                }
+                            }
+                            else
+                            {
+                                aproxHour = employeeroster.EndTime;
+                            }
                         }
                     }
                     else

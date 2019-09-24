@@ -65,14 +65,17 @@ namespace IncogStuffControl.UserControls.Scan
         private async void txtScan_TextChanged(object sender, TextChangedEventArgs e)
         {
 
-
             
-            if (txtScan.Text.Length == 12)
+        }
+
+        private async void TxtScan_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
             {
                 EmployeeRegisterViewModel employeer = new EmployeeRegisterViewModel();
                 employeer.Employee = new EmployeeViewModel();
                 employeer.Employee.Barcode = txtScan.Text;
-                employeer.Day = DateTime.Now;
+                employeer.Day = DateTime.Now.Date;
                 MessageResponseViewModel<EmployeeVsRosterVM> responseObj = await ServiceEmployee.GetEmployee(employeer);
                 if (responseObj.Succesfull)
                 {
@@ -95,17 +98,17 @@ namespace IncogStuffControl.UserControls.Scan
                 }
                 else
                 {
-                    if(responseObj.Message.Contains("shift today"))
+                    if (responseObj.Message.Contains("shift today"))
                     {
-                      MessageBoxResult res=  MessageBoxModal.Show(General.ResolveOwnerWindow(), responseObj.Message + " Do you like to add it into the roster today", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Error);
-                      if(res == MessageBoxResult.Yes)
+                        MessageBoxResult res = MessageBoxModal.Show(General.ResolveOwnerWindow(), responseObj.Message + " Do you like to add it into the roster today", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                        if (res == MessageBoxResult.Yes)
                         {
-                           
+
                             MessageResponseViewModel<EmployeeViewModel> responseemploy = await ServiceEmployee.GetEmploy(employeer.Employee);
                             if (responseemploy.Succesfull)
                             {
                                 RosterCViewModel roster = new RosterCViewModel();
-                                roster.Date = DateTime.Now;
+                                roster.Date = DateTime.Now.Date;
                                 roster.EventName = "Shift Added";
                                 roster.Employee = responseemploy.Data.FullName;
                                 roster.Break = 30;
@@ -140,23 +143,19 @@ namespace IncogStuffControl.UserControls.Scan
                                 }
                             }
                             //Get employee
-                          
-                           // roster.Employee = (EmployeeVsRosterVM)responseObj.Data.
-                           // MessageResponseViewModel<bool> responseCreate = await  ServiceRoster.SetRoster(roster);
+
+                            // roster.Employee = (EmployeeVsRosterVM)responseObj.Data.
+                            // MessageResponseViewModel<bool> responseCreate = await  ServiceRoster.SetRoster(roster);
                         }
                     }
                     else
                     {
                         MessageBoxModal.Show(General.ResolveOwnerWindow(), responseObj.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-                   
+
                 }
                 txtScan.Text = string.Empty;
             }
-            
         }
-
-       
-
     }
 }

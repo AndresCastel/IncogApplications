@@ -123,7 +123,7 @@ namespace IncogStuffControl.UserControls.Timesheet
             {
                 EmployeeViewModel em = new EmployeeViewModel();
                 ListEmployee = responseObj.Data.OrderBy(o => o.FullName).ToList();
-                em = ListEmployee.Where(o => o.Payroll == _Timesheet.Payroll).FirstOrDefault();
+                em = ListEmployee.Where(o => o.Payroll.TrimStart(new Char[] { '0' }) == _Timesheet.Payroll.TrimStart(new Char[] { '0' })).FirstOrDefault();
 
                 cmbEmployee.ItemsSource = ListEmployee;
                 //Fill Values

@@ -156,9 +156,9 @@ namespace IncogStuffControl.UserControls.Charges
                     employ.Name = (xlWorksheet.Cells[i, Name] as Excel.Range).Value;
                     employ.MiddleName = (xlWorksheet.Cells[i, MiddleName] as Excel.Range).Value;
                     employ.LastName = (xlWorksheet.Cells[i, LastName] as Excel.Range).Value;
-                    employ.Barcode = (xlWorksheet.Cells[i, Barcode] as Excel.Range).Value;
+                    employ.Barcode = Convert.ToString((xlWorksheet.Cells[i, Barcode] as Excel.Range).Value);
                     employ.Email = (xlWorksheet.Cells[i, Email] as Excel.Range).Value;
-                    employ.Payroll = (xlWorksheet.Cells[i, Payroll] as Excel.Range).Value;
+                    employ.Payroll = Convert.ToString((xlWorksheet.Cells[i, Payroll] as Excel.Range).Value);
                     employ.RolId = Convert.ToInt32((xlWorksheet.Cells[i, RolId] as Excel.Range).Value);
                     employ.Active = true;
                     

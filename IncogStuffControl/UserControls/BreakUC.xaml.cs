@@ -31,6 +31,7 @@ namespace IncogStuffControl.UserControls
         public BreakUC(int breakdef)
         {
             InitializeComponent();
+            Break = breakdef;
             setDefaultBreak(breakdef);
         }
 

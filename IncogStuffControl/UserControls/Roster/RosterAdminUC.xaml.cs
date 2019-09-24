@@ -18,6 +18,7 @@ using System.Windows;
 using System.Windows.Controls;
 using IncogStuffControl.UtilControls.ModalMessageBox;
 using IncogStuffControl.UserControls.Selectors;
+using IncogStuffControl.UtilControls.ViewModal;
 
 namespace IncogStuffControl.UserControls.Roster
 {
@@ -260,6 +261,26 @@ namespace IncogStuffControl.UserControls.Roster
 
         private async void btnExportar_Click(object sender, RoutedEventArgs e)
         {
+            dateRange = new DateRange();
+            dateRange.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(DateRange_PropertyChanged);
+            MessageBoxResult Response = ViewWindow_Modal.Show(dateRange, "Export", dateRange.btnCancelar);
+            if (Response == MessageBoxResult.Cancel)
+            {
+                return;
+            }
+            ViewWindow_Modal.CloseModal();
+
+        }
+
+        private async void DateRange_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            FilterParametersRoster filter = new FilterParametersRoster();
+            filter.filter = "Export";
+            filter.DateFrom = dateRange.dateInitial;
+            filter.DateTo = dateRange.dateEnd;
+
+
+
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
 
             // Set filter for file extension and default file extension 
@@ -276,10 +297,10 @@ namespace IncogStuffControl.UserControls.Roster
                 string filename = dlg.FileName;
             }
 
-
+            var res = await ServiceRoster.GetRoster(filter);
 
             ExcelUtlity obj = new ExcelUtlity();
-            DataTable dt = General.ConvertToDataTableTimesheets(await ServiceEmployee.GetTimesheetReport(new FilterParametersTimesheet()));
+            DataTable dt = General.ConvertToDataTableRoster(res.Data.lstRoster);
             obj.WriteDataTableToExcel(dt, "Roster", dlg.FileName, "Details");
 
 

@@ -11,7 +11,7 @@
             <TextBlock Text="Scan your Id Card" Foreground="#FF040404" >
             </TextBlock>
         </Label>
-        <TextBox Width="0" Name="txtScan"  Focusable="True"  TextChanged="txtScan_TextChanged" ></TextBox>
+        <TextBox Width="0" Name="txtScan"  Focusable="True"  TextChanged="txtScan_TextChanged" KeyUp="TxtScan_KeyUp" ></TextBox>
         <!--<Button Width="50" Height="30" Name="btnTest" Click="btnTest_Click"  >
             <TextBlock Text="scan">
             </TextBlock>
