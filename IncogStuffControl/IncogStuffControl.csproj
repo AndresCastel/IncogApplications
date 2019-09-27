@@ -26,11 +26,11 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://incognitusappscan.s3-website.us-east-2.amazonaws.com/</InstallUrl>
-    <ProductName>ScanTimeIncognitus</ProductName>
+    <ProductName>Time Control Incog</ProductName>
     <PublisherName>Incognitus</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
-    <WebPage>ScanTimeIncognitus.htm</WebPage>
-    <ApplicationRevision>3</ApplicationRevision>
+    <WebPage>TimeControl.htm</WebPage>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -429,7 +429,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Resource Include="Themes\Images\FilterBase.png" />
-    <Resource Include="Themes\Images\Incog.ico" />
+    <Resource Include="Themes\Images\Incog.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <EmbeddedResource Include="Properties\EnumResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EnumResources.Designer.cs</LastGenOutput>

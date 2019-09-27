@@ -327,7 +327,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                         aproxHour = General.RoundToNearest(tsScan, TimeSpan.FromMinutes(15)); ;
                     }
 
-                    EmployeeRegister.Day = DateTime.Now.Date;
+                    EmployeeRegister.Day = DateTime.Now.ToString("yyyy-MM-dd"); 
                     EmployeeRegister.StartTime = aproxHour;
                     EmployeeRegister.Active = true;
                     EmployeeRegister.Type_RegisterId = Type_Checked;
@@ -420,6 +420,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                     }
                     EmployeeRegister.StartTime = employeepriv.StartTime;
                     EmployeeRegister.EndTime = aproxHour;
+                    EmployeeRegister.Day = employeeroster.Date.ToString("yyyy-MM-dd");
                     EmployeeRegister.Active = false;
                     EmployeeRegister.Type_RegisterId = Type_Checked;
                     break;
@@ -434,6 +435,7 @@ namespace IncogStuffControl.UserControls.MainBoard
             EmployeeRegister.EmployeeId = employeepriv.Employee.Id;
             EmployeeRegister.Payroll = employeepriv.Employee.Payroll;
             EmployeeRegister.RosterId = employeeroster.Id;
+            
 
             EmployeeRegister.lstStuffAssig = SetStuff();
 

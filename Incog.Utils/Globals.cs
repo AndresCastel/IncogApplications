@@ -68,7 +68,7 @@ namespace Incog.Utils
 
         //public static string BaseUrl
         //{
-        //    get { return "http://incognitusbackapi-dev.us-west-2.elasticbeanstalk.com"; }
+        //    get { return "http://incognitusbackapi-test.ap-southeast-2.elasticbeanstalk.com/"; }
         //}
         public static string BaseUrlReports
         {

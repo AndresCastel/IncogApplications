@@ -189,27 +189,32 @@ namespace IncogStuffControl.UserControls.Charges
 
                 var val2 = (xlWorksheet.Cells[2, Payroll] as Excel.Range).Value2;
                 var val3 = (xlWorksheet.Cells[3, Precint] as Excel.Range).Value2;
-                for (int i = 2; i < rowCount; i++)
+                for (int i = 2; i <= rowCount; i++)
                 {
-                    RosterCViewModel Roster = new RosterCViewModel();
-                    Roster.Day = Convert.ToInt32((xlWorksheet.Cells[i, Day] as Excel.Range).Value);
-                    Roster.Area = (xlWorksheet.Cells[i, Area] as Excel.Range).Value;
-                    Roster.Break = Convert.ToInt32((xlWorksheet.Cells[i, Break] as Excel.Range).Value);
-                    Roster.Date = Convert.ToDateTime((xlWorksheet.Cells[i, Date] as Excel.Range).Value);
-                    Roster.Employee = (xlWorksheet.Cells[i, Employee] as Excel.Range).Value;
-                    Roster.EndTime = Convert.ToString((xlWorksheet.Cells[i, EndTime] as Excel.Range).Value);
-                    Roster.LabourType = (xlWorksheet.Cells[i, Labour] as Excel.Range).Value;
-                    Roster.LookedIn = Convert.ToBoolean((xlWorksheet.Cells[i, LockedIn] as Excel.Range).Value);
-                    Roster.Payroll = Convert.ToString((xlWorksheet.Cells[i, Payroll] as Excel.Range).Value);
-                    Roster.Precint = (xlWorksheet.Cells[i, Precint] as Excel.Range).Value;
-                    Roster.ShiftNum = Convert.ToInt32((xlWorksheet.Cells[i, Shift] as Excel.Range).Value);
-                    Roster.StartTime = Convert.ToString((xlWorksheet.Cells[i, StartTime] as Excel.Range).Value);
-                    Roster.Zone = (xlWorksheet.Cells[i, Zone] as Excel.Range).Value;
-                    Roster.EventName = (xlWorksheet.Cells[i, EventName] as Excel.Range).Value;
-                    lstRoster.Add(Roster);
+                    if ((xlWorksheet.Cells[i, Date] as Excel.Range).Value != null)
+                    {
+                        RosterCViewModel Roster = new RosterCViewModel();
+                        Roster.Day = Convert.ToInt32((xlWorksheet.Cells[i, Day] as Excel.Range).Value);
+                        Roster.Area = (xlWorksheet.Cells[i, Area] as Excel.Range).Value;
+                        Roster.Break = Convert.ToInt32((xlWorksheet.Cells[i, Break] as Excel.Range).Value);
+                        Roster.Date = Convert.ToDateTime((xlWorksheet.Cells[i, Date] as Excel.Range).Value);
+                        Roster.Employee = (xlWorksheet.Cells[i, Employee] as Excel.Range).Value;
+                        Roster.EndTime = Convert.ToString((xlWorksheet.Cells[i, EndTime] as Excel.Range).Value);
+                        Roster.LabourType = (xlWorksheet.Cells[i, Labour] as Excel.Range).Value;
+                        Roster.LookedIn = Convert.ToBoolean((xlWorksheet.Cells[i, LockedIn] as Excel.Range).Value);
+                        Roster.Payroll = Convert.ToString((xlWorksheet.Cells[i, Payroll] as Excel.Range).Value);
+                        Roster.Precint = (xlWorksheet.Cells[i, Precint] as Excel.Range).Value;
+                        Roster.ShiftNum = Convert.ToInt32((xlWorksheet.Cells[i, Shift] as Excel.Range).Value);
+                        Roster.StartTime = Convert.ToString((xlWorksheet.Cells[i, StartTime] as Excel.Range).Value);
+                        Roster.Zone = (xlWorksheet.Cells[i, Zone] as Excel.Range).Value;
+                        Roster.EventName = (xlWorksheet.Cells[i, EventName] as Excel.Range).Value;
+
+                        lstRoster.Add(Roster);
+                    }
                 }
 
                 xlapp.Workbooks.Close();
+                xlWoork.Close();
             }
             catch (Exception ex)
             {

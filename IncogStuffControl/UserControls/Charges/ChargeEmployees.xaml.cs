@@ -150,7 +150,7 @@ namespace IncogStuffControl.UserControls.Charges
                     }
                 }
 
-                for (int i = 2; i < rowCount; i++)
+                for (int i = 2; i <= rowCount; i++)
                 {
                     EmployeeViewModel employ = new EmployeeViewModel();
                     employ.Name = (xlWorksheet.Cells[i, Name] as Excel.Range).Value;

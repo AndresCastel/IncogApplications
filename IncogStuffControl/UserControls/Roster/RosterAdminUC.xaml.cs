@@ -249,14 +249,17 @@ namespace IncogStuffControl.UserControls.Roster
 
         #region Botones Principales
 
-        private void btnNuevo_Click(object sender, RoutedEventArgs e)
+        private async void btnNuevo_Click(object sender, RoutedEventArgs e)
         {
-            //EstadoGestion oEstadoGestion = new EstadoGestion();
-            //UC_CrudEstadoGestion crearEstado = new UC_CrudEstadoGestion(OperacionCRUD.Nuevo, oEstadoGestion);
-            //crearEstado.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(crearEstado_PropertyChanged);
-            //string sModulo = AdministradorMensaje.Instance.GetMensajePorCodigo(Mensajes.CodigoMensaje.EstadoGestion_TextoGrillaColumnaEstadoGestion);
-            //string sTitulo = string.Format(AdministradorMensaje.Instance.GetMensajePorCodigo(CodigoMensaje.General_TituloCrear), sModulo);
-            //MessageBoxResult Response = ViewWindow_Modal.Show(crearEstado, sTitulo, crearEstado.btnCancelar);
+            MessageResponseViewModel<string> responseObj;
+            TestObjectVM test = new TestObjectVM();
+            //var usCulture = new System.Globalization.CultureInfo("en-AU");
+           // test.Date = DateTime.Now.ToString("yyyy-MM-dd");
+            test.Datestring = DateTime.Now.ToString("yyyy-MM-dd");
+            DateTime oDate = DateTime.ParseExact(test.Datestring, "yyyy-MM-dd", null);
+            responseObj = await ServiceRoster.GetDate(test);
+            // MessageBoxModal.Show(General.ResolveOwnerWindow, DateTime.Now.Date.ToString(), true);
+            MessageBoxModal.Show(General.ResolveOwnerWindow(), DateTime.Now.Date.ToString(), "Information", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private async void btnExportar_Click(object sender, RoutedEventArgs e)
@@ -276,8 +279,8 @@ namespace IncogStuffControl.UserControls.Roster
         {
             FilterParametersRoster filter = new FilterParametersRoster();
             filter.filter = "Export";
-            filter.DateFrom = dateRange.dateInitial;
-            filter.DateTo = dateRange.dateEnd;
+            filter.DateFrom = dateRange.dateInitial.ToString("yyyy-MM-dd");
+            filter.DateTo = dateRange.dateEnd.ToString("yyyy-MM-dd");
 
 
 
@@ -430,7 +433,7 @@ namespace IncogStuffControl.UserControls.Roster
                 }
 
             }
-            filter.DateGridFilter = dateFilter;
+            filter.DateGridFilter = dateFilter.ToString("yyyy-MM-dd");
             MessageResponseViewModel<RosterWM> responseObj = await ServiceRoster.GetRoster(filter);
             grvRoster.ItemsSource = responseObj.Data.lstRoster;
             
@@ -578,7 +581,7 @@ namespace IncogStuffControl.UserControls.Roster
             {
                 Filter = new FilterParametersRoster();
                 Filter.filter = "All";
-                Filter.DateGridFilter = dateFilter;
+                Filter.DateGridFilter = dateFilter.Date.ToString("yyyy-MM-dd");
                 FillGrid();
             }
         }

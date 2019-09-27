@@ -396,10 +396,7 @@ namespace IncogStuffControl.UserControls.Timesheet
                 
             }
 
-            // Filtro = sFilter;
-            //_TipoPagina = TipoPaginaPaginado.PrimeraPagina;
-            //_CurrentPageIndex = 1;
-            filter.DateGridFilter = dateFilter;
+            filter.DateGridFilter = dateFilter.ToString("yyyy-MM-dd");
             List<TimesheetsReportViewModel> lst = await ServiceEmployee.GetTimesheetReport(filter);
             grvTimesheet.ItemsSource = lst;
 
@@ -433,8 +430,8 @@ namespace IncogStuffControl.UserControls.Timesheet
         {
             FilterParametersTimesheet filter = new FilterParametersTimesheet();
             filter.filter = "Export";
-            filter.DateFrom = dateRange.dateInitial;
-            filter.DateTo = dateRange.dateEnd;
+            filter.DateFrom = dateRange.dateInitial.ToString("yyyy-MM-dd");
+            filter.DateTo = dateRange.dateEnd.ToString("yyyy-MM-dd");
 
 
 
@@ -491,7 +488,7 @@ namespace IncogStuffControl.UserControls.Timesheet
             {
                 Filter = new FilterParametersTimesheet();
                 Filter.filter = "All";
-                Filter.DateGridFilter = dateFilter;
+                Filter.DateGridFilter = dateFilter.ToString("yyyy-MM-dd");
                 FillGrid();
                 countDateChanged++;
             }

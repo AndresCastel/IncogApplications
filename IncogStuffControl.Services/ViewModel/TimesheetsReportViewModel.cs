@@ -8,14 +8,14 @@ namespace IncogStuffControl.Services.ViewModel
 {
     public class TimesheetsReportViewModel
     {
-        public DateTime Day { get; set; }
-        public string DateShort
-        {
-            get
-            {
-                return Day.ToShortDateString();
-            }
-        }
+        public string Day { get; set; }
+        //public string DateShort
+        //{
+        //    get
+        //    {
+        //        return Day.ToShortDateString();
+        //    }
+        //}
         public string StartTime { get; set; }
         public string EndTime { get; set; }
         public int Break { get; set; }

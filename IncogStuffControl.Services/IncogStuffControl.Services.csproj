@@ -64,6 +64,7 @@
     <Compile Include="ViewModel\RosterWM.cs" />
     <Compile Include="ViewModel\StuffAssignViewModel.cs" />
     <Compile Include="ViewModel\StuffViewModel.cs" />
+    <Compile Include="ViewModel\TestObjectVM.cs" />
     <Compile Include="ViewModel\TimesheetsReportViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
   </ItemGroup>

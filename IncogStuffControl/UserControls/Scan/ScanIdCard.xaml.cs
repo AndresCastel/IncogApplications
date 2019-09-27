@@ -11,12 +11,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Globalization;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace IncogStuffControl.UserControls.Scan
 {
@@ -57,7 +59,11 @@ namespace IncogStuffControl.UserControls.Scan
         public ScanIdCard()
         {
             InitializeComponent();
-
+            //CultureInfo culture = new CultureInfo("en-AU");
+            //culture.DateTimeFormat.DateSeparator = "-";
+            //culture.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
+            //Thread.CurrentThread.CurrentCulture = culture;
+            //Thread.CurrentThread.CurrentUICulture = culture;
 
         }
        
@@ -75,7 +81,7 @@ namespace IncogStuffControl.UserControls.Scan
                 EmployeeRegisterViewModel employeer = new EmployeeRegisterViewModel();
                 employeer.Employee = new EmployeeViewModel();
                 employeer.Employee.Barcode = txtScan.Text;
-                employeer.Day = DateTime.Now.Date;
+                employeer.Day = DateTime.Now.ToString("yyyy-MM-dd");
                 MessageResponseViewModel<EmployeeVsRosterVM> responseObj = await ServiceEmployee.GetEmployee(employeer);
                 if (responseObj.Succesfull)
                 {
@@ -108,7 +114,7 @@ namespace IncogStuffControl.UserControls.Scan
                             if (responseemploy.Succesfull)
                             {
                                 RosterCViewModel roster = new RosterCViewModel();
-                                roster.Date = DateTime.Now.Date;
+                                roster.Date = DateTime.Now;
                                 roster.EventName = "Shift Added";
                                 roster.Employee = responseemploy.Data.FullName;
                                 roster.Break = 30;

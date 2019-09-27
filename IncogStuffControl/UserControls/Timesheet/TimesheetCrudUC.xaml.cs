@@ -100,6 +100,10 @@ namespace IncogStuffControl.UserControls.Timesheet
                     time.EndTime = txtEndTime.Text;
                     time.Break = (int)cmbBreak.cmbBreaks.SelectedItem;
                     time.Id = _Timesheet.Id;
+                    if(time.EndTime!=null)
+                    {
+                    time.Active = false;
+                    }
 
                     MessageResponseViewModel<bool> result = await ServiceEmployee.EditTimesheets(time).ConfigureAwait(true);
                     if (result.Succesfull)
@@ -127,7 +131,8 @@ namespace IncogStuffControl.UserControls.Timesheet
 
                 cmbEmployee.ItemsSource = ListEmployee;
                 //Fill Values
-                dtpDate.SelectedDate = _Timesheet.Day;
+                DateTime datecast = General.SplitCreateDate(_Timesheet.Day);
+                dtpDate.SelectedDate = General.CastStringtoDateTime(datecast.ToString("yyyy-MM-dd"));
                 txtPrecint.Text = _Timesheet.Precint;
                 txtZone.Text = _Timesheet.Zone;
                 cmbBreak.cmbBreaks.SelectedItem = _Timesheet.Break;
