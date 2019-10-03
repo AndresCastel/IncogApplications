@@ -78,7 +78,7 @@ namespace IncogStuffControl.UserControls.MainBoard
             {
                 SetEnableEquipment(_stuffAsign);
             }
-            SetEmployee(employeepriv);
+            SetEmployee(employeepriv, employeeroster);
             if (chkSignIn.IsChecked.Value)
             {
                 Type_Checked = 1;
@@ -169,9 +169,21 @@ namespace IncogStuffControl.UserControls.MainBoard
 
 
 
-        private void SetEmployee(EmployeeRegisterViewModel employee)
+        private void SetEmployee(EmployeeRegisterViewModel employee, RosterCViewModel roster)
         {
             txtName.Text = employee.Employee.Name + " " + employee.Employee.MiddleName + " " + employee.Employee.LastName;
+            string Prec = "";
+            string Zone = "";
+            if (!string.IsNullOrEmpty(roster.Precint))
+            {
+                Prec = roster.Precint + " - ";
+            }
+            if (!string.IsNullOrEmpty(roster.Zone))
+            {
+                Zone = roster.Zone + " - ";
+            }
+            txtPrecinct.Text = Prec + Zone + roster.Area;
+            txtRoster. Text = "(" + roster.StartTime + " - " + roster.EndTime + ")";
 
             if (employee.lstStuffAssig != null)
             {
@@ -300,7 +312,8 @@ namespace IncogStuffControl.UserControls.MainBoard
                         employeeroster.StartTime = "0" + employeeroster.StartTime;
                     }
                     TimeSpan tsRosterOn = TimeSpan.ParseExact(employeeroster.StartTime, "hhmm", null);
-                    DateTime RosterStartTime = new DateTime(employeeroster.Date.Year, employeeroster.Date.Month, employeeroster.Date.Day, tsRosterOn.Hours, tsRosterOn.Minutes, 0);
+                    DateTime datecast = General.SplitCreateDate(employeeroster.Date);
+                    DateTime RosterStartTime = new DateTime(datecast.Year, datecast.Month, datecast.Day, tsRosterOn.Hours, tsRosterOn.Minutes, 0);
                     if (DateScan < RosterStartTime)
                     {
                         TimeSpan ts = RosterStartTime - DateScan;
@@ -327,7 +340,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                         aproxHour = General.RoundToNearest(tsScan, TimeSpan.FromMinutes(15)); ;
                     }
 
-                    EmployeeRegister.Day = DateTime.Now.ToString("yyyy-MM-dd"); 
+                    EmployeeRegister.Day = DateTime.Now.ToString("yyyy/MM/dd"); 
                     EmployeeRegister.StartTime = aproxHour;
                     EmployeeRegister.Active = true;
                     EmployeeRegister.Type_RegisterId = Type_Checked;
@@ -349,8 +362,9 @@ namespace IncogStuffControl.UserControls.MainBoard
                     }
                     TimeSpan tsRosterOff = TimeSpan.ParseExact(employeeroster.EndTime, "hhmm", null);
                     TimeSpan tsRosterIn = TimeSpan.ParseExact(employeeroster.StartTime, "hhmm", null);
-                    DateTime RosterIn = new DateTime(employeeroster.Date.Year, employeeroster.Date.Month, employeeroster.Date.Day, tsRosterIn.Hours, tsRosterIn.Minutes, 0);
-                    DateTime RosterEndTime = new DateTime(employeeroster.Date.Year, employeeroster.Date.Month, employeeroster.Date.Day, tsRosterOff.Hours, tsRosterOff.Minutes, 0);
+                    DateTime datecast2 = General.SplitCreateDate(employeeroster.Date);
+                    DateTime RosterIn = new DateTime(datecast2.Year, datecast2.Month, datecast2.Day, tsRosterIn.Hours, tsRosterIn.Minutes, 0);
+                    DateTime RosterEndTime = new DateTime(datecast2.Year, datecast2.Month, datecast2.Day, tsRosterOff.Hours, tsRosterOff.Minutes, 0);
                     if (DateScan > RosterEndTime)
                     {
                         
@@ -378,19 +392,24 @@ namespace IncogStuffControl.UserControls.MainBoard
                         }
                         else
                         {
-                            TimeSpan ts2 = DateScan - RosterEndTime;
-                            double mins2 = ts2.TotalMinutes;
-                            if (mins2 > 1000)
+                            RosterEndTime = RosterEndTime.AddDays(1);
+                            
+                            if (DateScan > RosterEndTime)
                             {
-                                mins2 = mins2 - 1440;
-                            }
+                                TimeSpan ts2 = DateScan - RosterEndTime ;
+                                double mins2 = ts2.TotalMinutes;
 
-                            if (mins2 > 20)
-                            {
-                                MessageBoxResult res = MessageBoxModal.Show(General.ResolveOwnerWindow(), "You shift Finished: " + employeeroster.EndTime + ", Do you want to approve that " + employeepriv.Employee.Name + " " + employeepriv.Employee.LastName + " Signs off at: " + HourScan, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                                if (res == MessageBoxResult.Yes)
+                                if (mins2 > 20)
                                 {
-                                    aproxHour = General.RoundToNearest(tsScan, TimeSpan.FromMinutes(15));
+                                    MessageBoxResult res = MessageBoxModal.Show(General.ResolveOwnerWindow(), "You shift Finished: " + employeeroster.EndTime + ", Do you want to approve that " + employeepriv.Employee.Name + " " + employeepriv.Employee.LastName + " Signs off at: " + HourScan, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                                    if (res == MessageBoxResult.Yes)
+                                    {
+                                        aproxHour = General.RoundToNearest(tsScan, TimeSpan.FromMinutes(15));
+                                    }
+                                    else
+                                    {
+                                        aproxHour = employeeroster.EndTime;
+                                    }
                                 }
                                 else
                                 {
@@ -399,7 +418,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                             }
                             else
                             {
-                                aproxHour = employeeroster.EndTime;
+                                aproxHour = General.RoundToNearest(tsScan, TimeSpan.FromMinutes(15));
                             }
                         }
                     }
@@ -420,7 +439,8 @@ namespace IncogStuffControl.UserControls.MainBoard
                     }
                     EmployeeRegister.StartTime = employeepriv.StartTime;
                     EmployeeRegister.EndTime = aproxHour;
-                    EmployeeRegister.Day = employeeroster.Date.ToString("yyyy-MM-dd");
+                    DateTime datecast3 = General.SplitCreateDate(employeeroster.Date);
+                    EmployeeRegister.Day = datecast3.ToString("yyyy/MM/dd");
                     EmployeeRegister.Active = false;
                     EmployeeRegister.Type_RegisterId = Type_Checked;
                     break;
@@ -723,6 +743,11 @@ namespace IncogStuffControl.UserControls.MainBoard
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             save = true;
+        }
+
+        private void UniformsUC_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

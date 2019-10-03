@@ -33,9 +33,9 @@
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
-                <Label Grid.Column="0" Grid.Row="0" Name ="lblPolo" Content="Polo :" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <Label Grid.Column="0" Grid.Row="0"  FontSize="15" Name ="lblPolo" Content="Polo :" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
-                <UpDown:NumericUpDownTextBox Grid.Column="1" Grid.Row="0" x:Name="txtPolo" Height="40" Width="100" Margin="10" 
+                <UpDown:NumericUpDownTextBox Grid.Column="1" Grid.Row="0" x:Name="txtPolo" Height="30" Width="100" Margin="5" 
                FontStyle="Italic" FontSize="20"  BorderBrush="Green" 
                BorderThickness="2" Background="LightGray" Foreground="DarkBlue"
                MinValue="0" MaxValue="100" 
@@ -43,8 +43,8 @@
                ButtonBackground="Green" ButtonBorderBrush="LightGreen" 
                ButtonForeground="Azure" ButtonBorderThickness="1,3,1,3" 
                ButtonMouseOverBackground="Aquamarine" ButtonPressedBackground="Red"  />
-                <Label Grid.Column="0" Grid.Row="1" Name ="lblRainJacket" Content="Rain Jacket :" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                <UpDown:NumericUpDownTextBox x:Name="txtRainJacket" Grid.Column="1" Grid.Row="1" Height="40" Width="100" Margin="10" 
+                <Label Grid.Column="0" Grid.Row="1" Name ="lblRainJacket"  FontSize="15" Content="Rain Jacket :" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <UpDown:NumericUpDownTextBox x:Name="txtRainJacket" Grid.Column="1" Grid.Row="1" Height="30" Width="100" Margin="5" 
                FontStyle="Italic" FontSize="20" BorderBrush="Green" 
                BorderThickness="2" Background="LightGray" Foreground="DarkBlue"
               MinValue="0" MaxValue="100"  
@@ -52,8 +52,8 @@
                ButtonBackground="Green" ButtonBorderBrush="LightGreen" 
                ButtonForeground="Azure" ButtonBorderThickness="1,3,1,3" 
                ButtonMouseOverBackground="Aquamarine" ButtonPressedBackground="Red"  />
-                <Label Grid.Column="0" Grid.Row="2" Name ="lblMandarin" Content="Mandarin :" HorizontalAlignment="Right" VerticalAlignment="Center"/>                
-                <UpDown:NumericUpDownTextBox Grid.Column="1" Grid.Row="2" x:Name="txtMandarine" Height="40" Width="100" Margin="10" 
+                <Label Grid.Column="0" Grid.Row="2"  FontSize="15" Name ="lblMandarin" Content="Mandarin :" HorizontalAlignment="Right" VerticalAlignment="Center"/>                
+                <UpDown:NumericUpDownTextBox Grid.Column="1" Grid.Row="2" x:Name="txtMandarine" Height="30" Width="100" Margin="5" 
                FontStyle="Italic" FontSize="20" BorderBrush="Green" 
                BorderThickness="2" Background="LightGray" Foreground="DarkBlue"
                MinValue="0" MaxValue="100" 
@@ -61,8 +61,8 @@
                ButtonBackground="Green" ButtonBorderBrush="LightGreen" 
                ButtonForeground="Azure" ButtonBorderThickness="1,3,1,3" 
                ButtonMouseOverBackground="Aquamarine" ButtonPressedBackground="Red"  />
-                <Label Grid.Column="0" Grid.Row="3" Name ="lblFleece" Content="Fleece Jacket :" HorizontalAlignment="Right" VerticalAlignment="Center"/>                
-                <UpDown:NumericUpDownTextBox Grid.Column="1" Grid.Row="3" x:Name="txtFleece" Height="40" Width="100" Margin="10" 
+                <Label Grid.Column="0"  FontSize="15" Grid.Row="3" Name ="lblFleece" Content="Fleece Jacket :" HorizontalAlignment="Right" VerticalAlignment="Center"/>                
+                <UpDown:NumericUpDownTextBox Grid.Column="1" Grid.Row="3" x:Name="txtFleece" Height="30" Width="100" Margin="5" 
                FontStyle="Italic" FontSize="20" BorderBrush="Green" 
                BorderThickness="2" Background="LightGray" Foreground="DarkBlue"
                MinValue="0" MaxValue="100" 

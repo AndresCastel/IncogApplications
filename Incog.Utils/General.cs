@@ -61,21 +61,35 @@ namespace Incog.Utils
             
         }
 
-        public static DateTime CastStringtoDateTime(string date)
-        {
-            DateTime oDate = DateTime.ParseExact(date, "yyyy-MM-dd", null);
-            return oDate;
-        }
+        //public static DateTime CastStringtoDateTime(string date)
+        //{
+        //    DateTime oDate = DateTime.ParseExact(date, "yyyy/MM/dd", null);
+        //    return oDate;
+        //}
 
         public static DateTime SplitCreateDate(string date)
         {
             string[] dtae = new string[date.Length];
+            DateTime datetie;
             dtae = date.Split('/');
-            int year = Convert.ToInt16(dtae[2]);
-            int month = Convert.ToInt16(dtae[1]);
-            int day = Convert.ToInt16(dtae[0]);
-            DateTime datetie = new DateTime(year, month, day);
-            DateTime oDate = DateTime.ParseExact(datetie.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null);
+            //Server AWS
+            if (Globals.BaseUrl.Contains("localhost"))
+            {
+                int year = Convert.ToInt16(dtae[2]);
+                int month = Convert.ToInt16(dtae[1]);
+                int day = Convert.ToInt16(dtae[0]);
+                datetie = new DateTime(year, month, day);
+            }
+            else
+            {
+                int year = Convert.ToInt16(dtae[2]);
+                int month = Convert.ToInt16(dtae[0]);
+                int day = Convert.ToInt16(dtae[1]);
+                datetie = new DateTime(year, month, day);
+            }
+           
+            
+            DateTime oDate = DateTime.ParseExact(datetie.ToString("yyyy/MM/dd"), "yyyy/MM/dd", null);
             return oDate;
         }
 
@@ -111,7 +125,7 @@ namespace Incog.Utils
                TypeDescriptor.GetProperties(typeof(T));
             DataTable table = new DataTable();
             foreach (PropertyDescriptor prop in properties)
-                if (prop.Name == "DateShort" || prop.Name == "StartTime" || prop.Name == "EndTime" || prop.Name == "Break" || prop.Name == "Hours"
+                if (prop.Name == "Day" || prop.Name == "StartTime" || prop.Name == "EndTime" || prop.Name == "Break" || prop.Name == "Hours"
                     || prop.Name == "LabourType" || prop.Name == "Employee" || prop.Name == "Payroll" || prop.Name == "Precint"
                     || prop.Name == "Zone" || prop.Name == "Area" || prop.Name == "LookedIn" || prop.Name == "EventName") {
                     table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
@@ -120,7 +134,7 @@ namespace Incog.Utils
             {
                 DataRow row = table.NewRow();
                 foreach (PropertyDescriptor prop in properties)
-                    if (prop.Name == "DateShort" || prop.Name == "StartTime" || prop.Name == "EndTime" || prop.Name == "Break" || prop.Name == "Hours"
+                    if (prop.Name == "Day" || prop.Name == "StartTime" || prop.Name == "EndTime" || prop.Name == "Break" || prop.Name == "Hours"
                    || prop.Name == "LabourType" || prop.Name == "Employee" || prop.Name == "Payroll" || prop.Name == "Precint"
                    || prop.Name == "Zone" || prop.Name == "Area" || prop.Name == "LookedIn" || prop.Name == "EventName")
                     {

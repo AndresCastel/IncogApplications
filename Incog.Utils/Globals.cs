@@ -61,15 +61,15 @@ namespace Incog.Utils
         /// <summary>
         /// Número de registros por páginaPop
         /// </summary>
-        public static string BaseUrl
-        {
-            get { return "https://localhost:44390"; }
-        }
-
         //public static string BaseUrl
         //{
-        //    get { return "http://incognitusbackapi-test.ap-southeast-2.elasticbeanstalk.com/"; }
+        //    get { return "https://localhost:44390"; }
         //}
+
+        public static string BaseUrl
+        {
+            get { return "http://incognitusbackapi-test.ap-southeast-2.elasticbeanstalk.com/"; }
+        }
         public static string BaseUrlReports
         {
             get { return "https://incognitusappscan.s3.us-east-2.amazonaws.com"; }

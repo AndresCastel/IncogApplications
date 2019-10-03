@@ -254,9 +254,10 @@ namespace IncogStuffControl.UserControls.Roster
             MessageResponseViewModel<string> responseObj;
             TestObjectVM test = new TestObjectVM();
             //var usCulture = new System.Globalization.CultureInfo("en-AU");
-           // test.Date = DateTime.Now.ToString("yyyy-MM-dd");
-            test.Datestring = DateTime.Now.ToString("yyyy-MM-dd");
-            DateTime oDate = DateTime.ParseExact(test.Datestring, "yyyy-MM-dd", null);
+            test.Date = DateTime.Now;
+            test.Datestring = DateTime.Now.Date.ToString("yyyy/MM/dd");
+            DateTime oDate = DateTime.UtcNow;
+            test.Date = oDate;
             responseObj = await ServiceRoster.GetDate(test);
             // MessageBoxModal.Show(General.ResolveOwnerWindow, DateTime.Now.Date.ToString(), true);
             MessageBoxModal.Show(General.ResolveOwnerWindow(), DateTime.Now.Date.ToString(), "Information", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -279,8 +280,8 @@ namespace IncogStuffControl.UserControls.Roster
         {
             FilterParametersRoster filter = new FilterParametersRoster();
             filter.filter = "Export";
-            filter.DateFrom = dateRange.dateInitial.ToString("yyyy-MM-dd");
-            filter.DateTo = dateRange.dateEnd.ToString("yyyy-MM-dd");
+            filter.DateFrom = dateRange.dateInitial.ToString("yyyy/MM/dd");
+            filter.DateTo = dateRange.dateEnd.ToString("yyyy/MM/dd");
 
 
 
@@ -433,7 +434,7 @@ namespace IncogStuffControl.UserControls.Roster
                 }
 
             }
-            filter.DateGridFilter = dateFilter.ToString("yyyy-MM-dd");
+            filter.DateGridFilter = dateFilter.ToString("yyyy/MM/dd");
             MessageResponseViewModel<RosterWM> responseObj = await ServiceRoster.GetRoster(filter);
             grvRoster.ItemsSource = responseObj.Data.lstRoster;
             
@@ -581,7 +582,7 @@ namespace IncogStuffControl.UserControls.Roster
             {
                 Filter = new FilterParametersRoster();
                 Filter.filter = "All";
-                Filter.DateGridFilter = dateFilter.Date.ToString("yyyy-MM-dd");
+                Filter.DateGridFilter = dateFilter.Date.ToString("yyyy/MM/dd");
                 FillGrid();
             }
         }

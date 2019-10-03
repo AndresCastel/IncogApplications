@@ -81,7 +81,7 @@ namespace IncogStuffControl.UserControls.Scan
                 EmployeeRegisterViewModel employeer = new EmployeeRegisterViewModel();
                 employeer.Employee = new EmployeeViewModel();
                 employeer.Employee.Barcode = txtScan.Text;
-                employeer.Day = DateTime.Now.ToString("yyyy-MM-dd");
+                employeer.Day = DateTime.Now.ToString("yyyy/MM/dd");
                 MessageResponseViewModel<EmployeeVsRosterVM> responseObj = await ServiceEmployee.GetEmployee(employeer);
                 if (responseObj.Succesfull)
                 {
@@ -114,7 +114,7 @@ namespace IncogStuffControl.UserControls.Scan
                             if (responseemploy.Succesfull)
                             {
                                 RosterCViewModel roster = new RosterCViewModel();
-                                roster.Date = DateTime.Now;
+                                roster.Date = DateTime.Now.ToString("yyyy/MM/dd");
                                 roster.EventName = "Shift Added";
                                 roster.Employee = responseemploy.Data.FullName;
                                 roster.Break = 30;

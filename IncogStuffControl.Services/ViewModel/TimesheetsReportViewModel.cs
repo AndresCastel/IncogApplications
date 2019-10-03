@@ -44,7 +44,7 @@ namespace IncogStuffControl.Services.ViewModel
         {
             TimeSpan SignIn = TimeSpan.ParseExact(StartTime, "hhmm", null);
             TimeSpan diff;
-            if (EndTime != null)
+            if (!string.IsNullOrEmpty(EndTime))
             {
                 TimeSpan SignOff = TimeSpan.ParseExact(EndTime, "hhmm", null);
                 if (SignOff >= SignIn)

@@ -396,7 +396,7 @@ namespace IncogStuffControl.UserControls.Timesheet
                 
             }
 
-            filter.DateGridFilter = dateFilter.ToString("yyyy-MM-dd");
+            filter.DateGridFilter = dateFilter.ToString("yyyy/MM/dd");
             List<TimesheetsReportViewModel> lst = await ServiceEmployee.GetTimesheetReport(filter);
             grvTimesheet.ItemsSource = lst;
 
@@ -430,8 +430,8 @@ namespace IncogStuffControl.UserControls.Timesheet
         {
             FilterParametersTimesheet filter = new FilterParametersTimesheet();
             filter.filter = "Export";
-            filter.DateFrom = dateRange.dateInitial.ToString("yyyy-MM-dd");
-            filter.DateTo = dateRange.dateEnd.ToString("yyyy-MM-dd");
+            filter.DateFrom = dateRange.dateInitial.ToString("yyyy/MM/dd");
+            filter.DateTo = dateRange.dateEnd.ToString("yyyy/MM/dd");
 
 
 
@@ -488,7 +488,7 @@ namespace IncogStuffControl.UserControls.Timesheet
             {
                 Filter = new FilterParametersTimesheet();
                 Filter.filter = "All";
-                Filter.DateGridFilter = dateFilter.ToString("yyyy-MM-dd");
+                Filter.DateGridFilter = dateFilter.ToString("yyyy/MM/dd");
                 FillGrid();
                 countDateChanged++;
             }

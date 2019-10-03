@@ -23,57 +23,57 @@
             <StackPanel Orientation="Horizontal">
             <StackPanel Height="auto" Width="auto" Orientation="Vertical" Margin="20,2,2,1"  >
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox  VerticalAlignment="Center" Name="rbtRadio1" Style="{DynamicResource SliderCheckBox}" FontSize="20" FontWeight="Bold" Content="Radio 1"  Margin="0,10,0,0"/>
+                    <CheckBox  VerticalAlignment="Center" Name="rbtRadio1" Style="{DynamicResource SliderCheckBox}" FontSize="15" FontWeight="Bold" Content="Radio 1"  Margin="0,5,0,0"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                        <CheckBox  VerticalAlignment="Center" Name="rbtRadio2" Style="{DynamicResource SliderCheckBox}" FontSize="20" FontWeight="Bold" Content="Radio 2"  Margin="0,10,0,0"/>
+                        <CheckBox  VerticalAlignment="Center" Name="rbtRadio2" Style="{DynamicResource SliderCheckBox}" FontSize="15" FontWeight="Bold" Content="Radio 2"  Margin="0,5,0,0"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                        <CheckBox  VerticalAlignment="Center" Name="rbtRadio3" Style="{DynamicResource SliderCheckBox}" FontSize="20" FontWeight="Bold" Content="Radio 3"  Margin="0,10,0,0"/>
+                        <CheckBox  VerticalAlignment="Center" Name="rbtRadio3" Style="{DynamicResource SliderCheckBox}" FontSize="15" FontWeight="Bold" Content="Radio 3"  Margin="0,5,0,0"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                        <CheckBox  VerticalAlignment="Center" Name="rbtRadio4" Style="{DynamicResource SliderCheckBox}" FontSize="20" FontWeight="Bold" Content="Radio 4"  Margin="0,10,0,0"/>
+                        <CheckBox  VerticalAlignment="Center" Name="rbtRadio4" Style="{DynamicResource SliderCheckBox}" FontSize="15" FontWeight="Bold" Content="Radio 4"  Margin="0,5,0,0"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                        <CheckBox  VerticalAlignment="Center" Name="rbtRadio5" Style="{DynamicResource SliderCheckBox}" FontSize="20" FontWeight="Bold" Content="Radio 5"  Margin="0,10,0,0"/>
+                        <CheckBox  VerticalAlignment="Center" Name="rbtRadio5" Style="{DynamicResource SliderCheckBox}" FontSize="15" FontWeight="Bold" Content="Radio 5"  Margin="0,5,0,0"/>
                 </StackPanel>
                 
             </StackPanel>
              <StackPanel Height="auto" Width="auto" Orientation="Vertical" Margin="20,2,2,1"  >
                     <StackPanel Height="auto" Width="auto" Orientation="Vertical" Margin="20,2,2,1"  >
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio6" Style="{DynamicResource SliderCheckBox}" FontSize="20" FontWeight="Bold" Content="Radio 6"  Margin="0,10,0,0"/>
+                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio6" Style="{DynamicResource SliderCheckBox}" FontSize="15" FontWeight="Bold" Content="Radio 6"  Margin="0,5,0,0"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio7" Style="{DynamicResource SliderCheckBox}" FontSize="20" FontWeight="Bold" Content="Radio 7"  Margin="0,10,0,0"/>
+                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio7" Style="{DynamicResource SliderCheckBox}" FontSize="15" FontWeight="Bold" Content="Radio 7"  Margin="0,5,0,0"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio8" Style="{DynamicResource SliderCheckBox}" FontSize="20" FontWeight="Bold" Content="Radio 8"  Margin="0,10,0,0"/>
+                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio8" Style="{DynamicResource SliderCheckBox}" FontSize="15" FontWeight="Bold" Content="Radio 8"  Margin="0,5,0,0"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio9" Style="{DynamicResource SliderCheckBox}" FontSize="20" FontWeight="Bold" Content="Radio 9"  Margin="0,10,0,0"/>
+                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio9" Style="{DynamicResource SliderCheckBox}" FontSize="15" FontWeight="Bold" Content="Radio 9"  Margin="0,5,0,0"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio10" Style="{DynamicResource SliderCheckBox}" FontSize="20" FontWeight="Bold" Content="Radio 10"  Margin="0,10,0,0"/>
+                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio10" Style="{DynamicResource SliderCheckBox}" FontSize="15" FontWeight="Bold" Content="Radio 10"  Margin="0,5,0,0"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Height="auto" Width="auto" Orientation="Vertical" Margin="20,2,2,1"  >
                     <StackPanel Height="auto" Width="auto" Orientation="Vertical" Margin="20,2,2,1"  >
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio11" Style="{DynamicResource SliderCheckBox}" FontSize="20" FontWeight="Bold" Content="Radio 11"  Margin="0,10,0,0"/>
+                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio11" Style="{DynamicResource SliderCheckBox}" FontSize="15" FontWeight="Bold" Content="Radio 11"  Margin="0,5,0,0"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio12" Style="{DynamicResource SliderCheckBox}" FontSize="20" FontWeight="Bold" Content="Radio 12"  Margin="0,10,0,0"/>
+                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio12" Style="{DynamicResource SliderCheckBox}" FontSize="15" FontWeight="Bold" Content="Radio 12"  Margin="0,5,0,0"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio13" Style="{DynamicResource SliderCheckBox}" FontSize="20" FontWeight="Bold" Content="Radio 13"  Margin="0,10,0,0"/>
+                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio13" Style="{DynamicResource SliderCheckBox}" FontSize="15" FontWeight="Bold" Content="Radio 13"  Margin="0,5,0,0"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio14" Style="{DynamicResource SliderCheckBox}" FontSize="20" FontWeight="Bold" Content="Radio 14"  Margin="0,10,0,0"/>
+                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio14" Style="{DynamicResource SliderCheckBox}" FontSize="15" FontWeight="Bold" Content="Radio 14"  Margin="0,5,0,0"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio15" Style="{DynamicResource SliderCheckBox}" FontSize="20" FontWeight="Bold" Content="Radio 15"  Margin="0,10,0,0"/>
+                            <CheckBox  VerticalAlignment="Center" Name="rbtRadio15" Style="{DynamicResource SliderCheckBox}" FontSize="15" FontWeight="Bold" Content="Radio 15"  Margin="0,5,0,0"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

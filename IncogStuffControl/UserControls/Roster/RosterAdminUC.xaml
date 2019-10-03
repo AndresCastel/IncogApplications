@@ -75,7 +75,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <grid:GridPersonalizada    Binding="{Binding Day}" Width="30"/>
-                <grid:GridPersonalizada    Binding="{Binding DateShort}" Width="*"/>
+                <grid:GridPersonalizada    Binding="{Binding Date}" Width="*"/>
                 <grid:GridPersonalizada    Binding="{Binding StartTime}" Width="80"/>
                 <grid:GridPersonalizada    Binding="{Binding EndTime}" Width="80"/>
                 <grid:GridPersonalizada    Binding="{Binding Break}" Width="50"/>

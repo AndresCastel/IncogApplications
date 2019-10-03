@@ -64,7 +64,7 @@ namespace IncogStuffControl.UserControls.Charges
             ViewWindow_Modal.CloseModal();
         }
 
-        private async void BtnSave_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(lblPath.Text))
             {
@@ -75,19 +75,16 @@ namespace IncogStuffControl.UserControls.Charges
             {
                 lstRoster = new List<RosterCViewModel>();
                 lstRoster = ReadFile(lblPath.Text);
-            }
-            MessageResponseViewModel<RosterWM> responseObj;
-            if (lstRoster != null)
-            {
-                responseObj = await ServiceCharges.ChageRoster(lstRoster);
-                
-            }
-            else
-            {
-                return;
-            }
+                ChargeData();
+            }            
 
-            if(responseObj.Succesfull==true)
+        }
+
+        private async void ChargeData()
+        {
+            MessageResponseViewModel<RosterWM> responseObj;
+            responseObj = await ServiceCharges.ChageRoster(lstRoster);
+            if (responseObj.Succesfull == true)
             {
                 MessageBoxModal.Show(General.ResolveOwnerWindow(), "The process got Successful", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -95,7 +92,6 @@ namespace IncogStuffControl.UserControls.Charges
             {
                 MessageBoxModal.Show(General.ResolveOwnerWindow(), responseObj.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
 
         private List<RosterCViewModel> ReadFile(string Path)
@@ -197,7 +193,8 @@ namespace IncogStuffControl.UserControls.Charges
                         Roster.Day = Convert.ToInt32((xlWorksheet.Cells[i, Day] as Excel.Range).Value);
                         Roster.Area = (xlWorksheet.Cells[i, Area] as Excel.Range).Value;
                         Roster.Break = Convert.ToInt32((xlWorksheet.Cells[i, Break] as Excel.Range).Value);
-                        Roster.Date = Convert.ToDateTime((xlWorksheet.Cells[i, Date] as Excel.Range).Value);
+                        DateTime date = Convert.ToDateTime((xlWorksheet.Cells[i, Date] as Excel.Range).Value);
+                        Roster.Date = date.ToString("yyyy/MM/dd");
                         Roster.Employee = (xlWorksheet.Cells[i, Employee] as Excel.Range).Value;
                         Roster.EndTime = Convert.ToString((xlWorksheet.Cells[i, EndTime] as Excel.Range).Value);
                         Roster.LabourType = (xlWorksheet.Cells[i, Labour] as Excel.Range).Value;
@@ -214,10 +211,11 @@ namespace IncogStuffControl.UserControls.Charges
                 }
 
                 xlapp.Workbooks.Close();
-                xlWoork.Close();
+               // xlWoork.Close();
             }
             catch (Exception ex)
             {
+
                 MessageBoxModal.Show(General.ResolveOwnerWindow(), ex.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             GC.Collect();
