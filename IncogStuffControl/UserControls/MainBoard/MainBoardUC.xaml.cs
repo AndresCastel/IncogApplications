@@ -59,6 +59,7 @@ namespace IncogStuffControl.UserControls.MainBoard
         }
 
         public EmployeeRegisterViewModel employeepriv;
+        public EmployeeViewModel employee;
         public RosterCViewModel employeeroster;
         public MainBoardUC()
         {
@@ -68,6 +69,7 @@ namespace IncogStuffControl.UserControls.MainBoard
         public MainBoardUC(EmployeeVsRosterVM employeeVsRoster, List<StuffAssignViewModel> _stuffAsign)
         {
             InitializeComponent();
+            employee = employeeVsRoster.employ;
             employeepriv = employeeVsRoster.employregister;
             employeeroster = employeeVsRoster.employRoster;
             if (employeeroster == null)
@@ -78,7 +80,7 @@ namespace IncogStuffControl.UserControls.MainBoard
             {
                 SetEnableEquipment(_stuffAsign);
             }
-            SetEmployee(employeepriv, employeeroster);
+            SetEmployee(employee, employeepriv, employeeroster);
             if (chkSignIn.IsChecked.Value)
             {
                 Type_Checked = 1;
@@ -169,25 +171,29 @@ namespace IncogStuffControl.UserControls.MainBoard
 
 
 
-        private void SetEmployee(EmployeeRegisterViewModel employee, RosterCViewModel roster)
+        private void SetEmployee(EmployeeViewModel employ, EmployeeRegisterViewModel employee, RosterCViewModel roster)
         {
-            txtName.Text = employee.Employee.Name + " " + employee.Employee.MiddleName + " " + employee.Employee.LastName;
+            txtName.Text = employ.Name + " " + employ.MiddleName + " " + employ.LastName;
             string Prec = "";
             string Zone = "";
-            if (!string.IsNullOrEmpty(roster.Precint))
+            if (roster != null)
             {
-                Prec = roster.Precint + " - ";
+                if (!string.IsNullOrEmpty(roster.Precint))
+                {
+                    Prec = roster.Precint + " - ";
+                }
+                if (!string.IsNullOrEmpty(roster.Zone))
+                {
+                    Zone = roster.Zone + " - ";
+                }
+                txtPrecinct.Text = Prec + Zone + roster.Area;
+                txtRoster.Text = "(" + roster.StartTime + " - " + roster.EndTime + ")";
             }
-            if (!string.IsNullOrEmpty(roster.Zone))
-            {
-                Zone = roster.Zone + " - ";
-            }
-            txtPrecinct.Text = Prec + Zone + roster.Area;
-            txtRoster. Text = "(" + roster.StartTime + " - " + roster.EndTime + ")";
+            
 
-            if (employee.lstStuffAssig != null)
+            if (employ.lstStuffAssig != null)
             {
-                foreach (var item in employee.lstStuffAssig)
+                foreach (var item in employ.lstStuffAssig)
                 {
                     SetStuff(item);
                 }
@@ -452,12 +458,12 @@ namespace IncogStuffControl.UserControls.MainBoard
             }
 
             EmployeeRegister.Id = employeepriv.Id;
-            EmployeeRegister.EmployeeId = employeepriv.Employee.Id;
-            EmployeeRegister.Payroll = employeepriv.Employee.Payroll;
+            EmployeeRegister.EmployeeId = employee.Id;
+            EmployeeRegister.Payroll = employee.Payroll;
             EmployeeRegister.RosterId = employeeroster.Id;
-            
 
-            EmployeeRegister.lstStuffAssig = SetStuff();
+            EmployeeRegister.Employee = employee;
+            EmployeeRegister.Employee.lstStuffAssig = SetStuff();
 
 
             MessageResponseViewModel<EmployeeRegisterViewModel> responseObj = await ServiceEmployee.RegisterEmployeeStuff(EmployeeRegister);

@@ -94,7 +94,7 @@ namespace IncogStuffControl.UserControls.Timesheet
         {
             if (_TipoOperacion == OperacionCRUD.Modificar)
             {
-               
+                
                     TimesheetsReportViewModel time = new TimesheetsReportViewModel();
                     time.StartTime = txtStartTime.Text;
                     time.EndTime = txtEndTime.Text;

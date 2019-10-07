@@ -126,7 +126,7 @@ namespace Incog.Utils
             DataTable table = new DataTable();
             foreach (PropertyDescriptor prop in properties)
                 if (prop.Name == "Day" || prop.Name == "StartTime" || prop.Name == "EndTime" || prop.Name == "Break" || prop.Name == "Hours"
-                    || prop.Name == "LabourType" || prop.Name == "Employee" || prop.Name == "Payroll" || prop.Name == "Precint"
+                    || prop.Name == "LabourType" || prop.Name == "FullName" || prop.Name == "Payroll" || prop.Name == "Precint"
                     || prop.Name == "Zone" || prop.Name == "Area" || prop.Name == "LookedIn" || prop.Name == "EventName") {
                     table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
                 }
@@ -135,7 +135,7 @@ namespace Incog.Utils
                 DataRow row = table.NewRow();
                 foreach (PropertyDescriptor prop in properties)
                     if (prop.Name == "Day" || prop.Name == "StartTime" || prop.Name == "EndTime" || prop.Name == "Break" || prop.Name == "Hours"
-                   || prop.Name == "LabourType" || prop.Name == "Employee" || prop.Name == "Payroll" || prop.Name == "Precint"
+                   || prop.Name == "LabourType" || prop.Name == "FullName" || prop.Name == "Payroll" || prop.Name == "Precint"
                    || prop.Name == "Zone" || prop.Name == "Area" || prop.Name == "LookedIn" || prop.Name == "EventName")
                     {
                             row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;

@@ -10,5 +10,6 @@ namespace IncogStuffControl.Services.ViewModel
     {
         public EmployeeRegisterViewModel employregister { get; set; }
         public RosterCViewModel employRoster { get; set; }
+        public EmployeeViewModel employ { get; set; }
     }
 }

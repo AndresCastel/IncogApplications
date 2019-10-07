@@ -81,7 +81,7 @@
                 <grid:GridPersonalizada    Binding="{Binding Break}" Width="100"/>
                 <grid:GridPersonalizada    Binding="{Binding Hours}" Width="100"/>
                 <grid:GridPersonalizada    Binding="{Binding LabourType}" Width="*"/>
-                <grid:GridPersonalizada    Binding="{Binding Employee}" Width="*"/>
+                <grid:GridPersonalizada    Binding="{Binding FullName}" Width="*"/>
                 <grid:GridPersonalizada    Binding="{Binding Payroll}" Width="*"/>
                 <grid:GridPersonalizada    Binding="{Binding Zone}" Width="*"/>
             </DataGrid.Columns>

@@ -428,39 +428,47 @@ namespace IncogStuffControl.UserControls.Timesheet
 
         private async void DateRange_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            FilterParametersTimesheet filter = new FilterParametersTimesheet();
-            filter.filter = "Export";
-            filter.DateFrom = dateRange.dateInitial.ToString("yyyy/MM/dd");
-            filter.DateTo = dateRange.dateEnd.ToString("yyyy/MM/dd");
-
-
-
-            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-
-            // Set filter for file extension and default file extension 
-            dlg.DefaultExt = ".xlsx";
-            dlg.Filter = "Excel Files (*.xlsx)|*.xlsx|Excel Files (*.xls)|*.xls";
-
-            Nullable<bool> result = dlg.ShowDialog();
-
-
-            // Get the selected file name and display in a TextBox 
-            if (result == true)
+            try
             {
-                // Open document 
-                string filename = dlg.FileName;
+                FilterParametersTimesheet filter = new FilterParametersTimesheet();
+                filter.filter = "Export";
+                filter.DateFrom = dateRange.dateInitial.ToString("yyyy/MM/dd");
+                filter.DateTo = dateRange.dateEnd.ToString("yyyy/MM/dd");
+
+
+
+                Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+
+                // Set filter for file extension and default file extension 
+                dlg.DefaultExt = ".xlsx";
+                dlg.Filter = "Excel Files (*.xlsx)|*.xlsx|Excel Files (*.xls)|*.xls";
+
+                Nullable<bool> result = dlg.ShowDialog();
+
+
+                // Get the selected file name and display in a TextBox 
+                if (result == true)
+                {
+                    // Open document 
+                    string filename = dlg.FileName;
+                }
+
+
+
+                ExcelUtlity obj = new ExcelUtlity();
+                DataTable dt = General.ConvertToDataTableTimesheets(await ServiceEmployee.GetTimesheetReport(filter));
+                obj.WriteDataTableToExcel(dt, "Timesheet", dlg.FileName, "Details");
+
+
+                //obj.WriteDataTableToExcel(dt, "Person Details", "D:\\testPersonExceldata.xlsx", "Details");
+                MessageBoxModal.Show(General.ResolveOwnerWindow(), "Data Exported: " + dlg.FileName, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+
             }
+            catch (Exception ex)
+            {
 
-
-
-            ExcelUtlity obj = new ExcelUtlity();
-            DataTable dt = General.ConvertToDataTableTimesheets(await ServiceEmployee.GetTimesheetReport(filter));
-            obj.WriteDataTableToExcel(dt, "Timesheet", dlg.FileName, "Details");
-
-
-            //obj.WriteDataTableToExcel(dt, "Person Details", "D:\\testPersonExceldata.xlsx", "Details");
-            MessageBoxModal.Show(General.ResolveOwnerWindow(), "Data Exported: " + dlg.FileName, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-
+                MessageBoxModal.Show(General.ResolveOwnerWindow(), ex.Message + ex.InnerException, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void btnAyuda_Click(object sender, RoutedEventArgs e)
