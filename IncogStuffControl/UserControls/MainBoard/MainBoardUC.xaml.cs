@@ -105,62 +105,77 @@ namespace IncogStuffControl.UserControls.MainBoard
                     case 5:
                         RadioUC.rbtRadio1.IsChecked = true;
                         RadioUC.rbtRadio1.IsEnabled = false;
+                        RadioUC.rbtRadio1.Foreground = Brushes.LightGray;
                         break;
                     case 6:
                         RadioUC.rbtRadio2.IsChecked = true;
                         RadioUC.rbtRadio2.IsEnabled = false;
+                        RadioUC.rbtRadio2.Foreground = Brushes.LightGray;
                         break;
                     case 7:
                         RadioUC.rbtRadio3.IsChecked = true;
                         RadioUC.rbtRadio3.IsEnabled = false;
+                        RadioUC.rbtRadio3.Foreground = Brushes.LightGray;
                         break;
                     case 11:
                         RadioUC.rbtRadio4.IsChecked = true;
                         RadioUC.rbtRadio4.IsEnabled = false;
+                        RadioUC.rbtRadio4.Foreground = Brushes.LightGray;
                         break;
                     case 12:
                         RadioUC.rbtRadio5.IsChecked = true;
                         RadioUC.rbtRadio5.IsEnabled = false;
+                        RadioUC.rbtRadio5.Foreground = Brushes.LightGray;
                         break;
                     case 13:
                         RadioUC.rbtRadio6.IsChecked = true;
                         RadioUC.rbtRadio6.IsEnabled = false;
+                        RadioUC.rbtRadio6.Foreground = Brushes.LightGray;
                         break;
                     case 14:
                         RadioUC.rbtRadio7.IsChecked = true;
                         RadioUC.rbtRadio7.IsEnabled = false;
+                        RadioUC.rbtRadio7.Foreground = Brushes.LightGray;
                         break;
                     case 15:
                         RadioUC.rbtRadio8.IsChecked = true;
                         RadioUC.rbtRadio8.IsEnabled = false;
+                        RadioUC.rbtRadio8.Foreground = Brushes.LightGray;
                         break;
                     case 16:
                         RadioUC.rbtRadio9.IsChecked = true;
                         RadioUC.rbtRadio9.IsEnabled = false;
+                        RadioUC.rbtRadio9.Foreground = Brushes.LightGray;
                         break;
                     case 17:
                         RadioUC.rbtRadio10.IsChecked = true;
                         RadioUC.rbtRadio10.IsEnabled = false;
+                        RadioUC.rbtRadio10.Foreground = Brushes.LightGray;
                         break;
                     case 18:
                         RadioUC.rbtRadio11.IsChecked = true;
                         RadioUC.rbtRadio11.IsEnabled = false;
+                        RadioUC.rbtRadio11.Foreground = Brushes.LightGray;
                         break;
                     case 19:
                         RadioUC.rbtRadio12.IsChecked = true;
                         RadioUC.rbtRadio12.IsEnabled = false;
+                        RadioUC.rbtRadio12.Foreground = Brushes.LightGray;
                         break;
                     case 20:
                         RadioUC.rbtRadio13.IsChecked = true;
                         RadioUC.rbtRadio13.IsEnabled = false;
+                        RadioUC.rbtRadio13.Foreground = Brushes.LightGray;
                         break;
                     case 21:
                         RadioUC.rbtRadio14.IsChecked = true;
                         RadioUC.rbtRadio14.IsEnabled = false;
+                        RadioUC.rbtRadio14.Foreground = Brushes.LightGray;
                         break;
                     case 22:
                         RadioUC.rbtRadio15.IsChecked = true;
                         RadioUC.rbtRadio15.IsEnabled = false;
+                        RadioUC.rbtRadio15.Foreground = Brushes.LightGray;
                         break;
 
                     default:
@@ -230,62 +245,77 @@ namespace IncogStuffControl.UserControls.MainBoard
                 case 5:
                     RadioUC.rbtRadio1.IsChecked = true;
                     RadioUC.rbtRadio1.IsEnabled = true;
+                    RadioUC.rbtRadio1.Foreground = Brushes.Red;
                     break;
                 case 6:
                     RadioUC.rbtRadio2.IsChecked = true;
                     RadioUC.rbtRadio2.IsEnabled = true;
+                    RadioUC.rbtRadio2.Foreground = Brushes.Red;
                     break;
                 case 7:
                     RadioUC.rbtRadio3.IsChecked = true;
                     RadioUC.rbtRadio3.IsEnabled = true;
+                    RadioUC.rbtRadio3.Foreground = Brushes.Red;
                     break;
                 case 11:
                     RadioUC.rbtRadio4.IsChecked = true;
                     RadioUC.rbtRadio4.IsEnabled = true;
+                    RadioUC.rbtRadio4.Foreground = Brushes.Red;
                     break;
                 case 12:
                     RadioUC.rbtRadio5.IsChecked = true;
                     RadioUC.rbtRadio5.IsEnabled = true;
+                    RadioUC.rbtRadio5.Foreground = Brushes.Red;
                     break;
                 case 13:
                     RadioUC.rbtRadio6.IsChecked = true;
                     RadioUC.rbtRadio6.IsEnabled = true;
+                    RadioUC.rbtRadio6.Foreground = Brushes.Red;
                     break;
                 case 14:
                     RadioUC.rbtRadio7.IsChecked = true;
                     RadioUC.rbtRadio7.IsEnabled = true;
+                    RadioUC.rbtRadio7.Foreground = Brushes.Red;
                     break;
                 case 15:
                     RadioUC.rbtRadio8.IsChecked = true;
                     RadioUC.rbtRadio8.IsEnabled = true;
+                    RadioUC.rbtRadio8.Foreground = Brushes.Red;
                     break;
                 case 16:
                     RadioUC.rbtRadio9.IsChecked = true;
                     RadioUC.rbtRadio9.IsEnabled = true;
+                    RadioUC.rbtRadio9.Foreground = Brushes.Red;
                     break;
                 case 17:
                     RadioUC.rbtRadio10.IsChecked = true;
                     RadioUC.rbtRadio10.IsEnabled = true;
+                    RadioUC.rbtRadio10.Foreground = Brushes.Red;
                     break;
                 case 18:
                     RadioUC.rbtRadio11.IsChecked = true;
                     RadioUC.rbtRadio11.IsEnabled = true;
+                    RadioUC.rbtRadio11.Foreground = Brushes.Red;
                     break;
                 case 19:
                     RadioUC.rbtRadio12.IsChecked = true;
                     RadioUC.rbtRadio12.IsEnabled = true;
+                    RadioUC.rbtRadio12.Foreground = Brushes.Red;
                     break;
                 case 20:
                     RadioUC.rbtRadio13.IsChecked = true;
                     RadioUC.rbtRadio13.IsEnabled = true;
+                    RadioUC.rbtRadio13.Foreground = Brushes.Red;
                     break;
                 case 21:
                     RadioUC.rbtRadio14.IsChecked = true;
                     RadioUC.rbtRadio14.IsEnabled = true;
+                    RadioUC.rbtRadio14.Foreground = Brushes.Red;
                     break;
                 case 22:
                     RadioUC.rbtRadio15.IsChecked = true;
                     RadioUC.rbtRadio15.IsEnabled = true;
+                    RadioUC.rbtRadio15.Foreground = Brushes.Red;
                     break;
 
                 default:
@@ -326,7 +356,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                         double mins = ts.TotalMinutes;
                         if (mins > 20)
                         {
-                            MessageBoxResult res = MessageBoxModal.Show(General.ResolveOwnerWindow(), "You shift will start: " + employeeroster.StartTime + ", Do you want to approve that " + employeepriv.Employee.Name + " " + employeepriv.Employee.LastName + " starts at: " + HourScan, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                            MessageBoxResult res = MessageBoxModal.Show(General.ResolveOwnerWindow(), "You shift will start: " + employeeroster.StartTime + ", Do you want to approve that " + employee.Name + " " + employee.LastName + " starts at: " + HourScan, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                             if (res == MessageBoxResult.Yes)
                             {
                                 aproxHour = General.RoundToNearest(tsScan, TimeSpan.FromMinutes(15));
@@ -742,6 +772,7 @@ namespace IncogStuffControl.UserControls.MainBoard
                         Type_Checked = 3;
                     }
                 }
+                
             }
 
         }
@@ -753,6 +784,33 @@ namespace IncogStuffControl.UserControls.MainBoard
 
         private void UniformsUC_Loaded(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        private void Check_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (sender is CheckBox)
+            {
+                if (!chkEquipment.IsChecked.Value && !chkSignIn.IsChecked.Value && !chkSignOff.IsChecked.Value)
+                {
+                    if (((CheckBox)sender).Name == "chkSignIn")
+                    {
+                        chkSignIn.IsChecked = true;
+                        Type_Checked = 1;
+                    }
+                    if (((CheckBox)sender).Name == "chkSignOff")
+                    {
+                        chkSignOff.IsChecked = true;
+                        Type_Checked = 2;
+                    }
+                    if (((CheckBox)sender).Name == "chkEquipment")
+                    {
+                        chkEquipment.IsChecked = true;
+                        Type_Checked = 3;
+                    }
+                }
+
+            }
 
         }
     }

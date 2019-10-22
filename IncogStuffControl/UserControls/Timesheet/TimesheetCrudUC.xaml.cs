@@ -96,7 +96,17 @@ namespace IncogStuffControl.UserControls.Timesheet
             {
                 
                     TimesheetsReportViewModel time = new TimesheetsReportViewModel();
-                    time.StartTime = txtStartTime.Text;
+                if(string.IsNullOrEmpty(txtStartTime.Text) && !string.IsNullOrEmpty(txtEndTime.Text))
+                {
+                    MessageBoxModal.Show(General.ResolveOwnerWindow(), "You can not remove the start time if the end time is still set it", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Cancel, true);
+                    return;
+                }
+                if (string.IsNullOrEmpty(txtStartTime.Text) && string.IsNullOrEmpty(txtEndTime.Text))
+                {
+                    MessageBoxModal.Show(General.ResolveOwnerWindow(), "Delete the register from the grid", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Cancel, true);
+                    return;
+                }
+                time.StartTime = txtStartTime.Text;
                     time.EndTime = txtEndTime.Text;
                     time.Break = (int)cmbBreak.cmbBreaks.SelectedItem;
                     time.Id = _Timesheet.Id;
@@ -107,6 +117,7 @@ namespace IncogStuffControl.UserControls.Timesheet
                     else
                     {
                     time.Active = true;
+                    time.Break = 0;
                 }
 
                     MessageResponseViewModel<bool> result = await ServiceEmployee.EditTimesheets(time).ConfigureAwait(true);
